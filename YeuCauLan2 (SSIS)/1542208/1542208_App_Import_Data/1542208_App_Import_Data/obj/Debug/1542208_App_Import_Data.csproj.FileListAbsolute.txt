@@ -1,0 +1,9 @@
+C:\Users\Administrator.PC\Desktop\1542208_App_Import_Data\1542208_App_Import_Data\bin\Debug\1542208_App_Import_Data.exe.config
+C:\Users\Administrator.PC\Desktop\1542208_App_Import_Data\1542208_App_Import_Data\bin\Debug\1542208_App_Import_Data.exe
+C:\Users\Administrator.PC\Desktop\1542208_App_Import_Data\1542208_App_Import_Data\bin\Debug\1542208_App_Import_Data.pdb
+C:\Users\Administrator.PC\Desktop\1542208_App_Import_Data\1542208_App_Import_Data\obj\Debug\1542208_App_Import_Data.csprojResolveAssemblyReference.cache
+C:\Users\Administrator.PC\Desktop\1542208_App_Import_Data\1542208_App_Import_Data\obj\Debug\_1542208_App_Import_Data.Form1.resources
+C:\Users\Administrator.PC\Desktop\1542208_App_Import_Data\1542208_App_Import_Data\obj\Debug\_1542208_App_Import_Data.Properties.Resources.resources
+C:\Users\Administrator.PC\Desktop\1542208_App_Import_Data\1542208_App_Import_Data\obj\Debug\1542208_App_Import_Data.csproj.GenerateResource.Cache
+C:\Users\Administrator.PC\Desktop\1542208_App_Import_Data\1542208_App_Import_Data\obj\Debug\1542208_App_Import_Data.exe
+C:\Users\Administrator.PC\Desktop\1542208_App_Import_Data\1542208_App_Import_Data\obj\Debug\1542208_App_Import_Data.pdb
