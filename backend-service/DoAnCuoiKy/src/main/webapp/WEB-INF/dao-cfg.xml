@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+ xsi:schemaLocation="http://www.springframework.org/schema/beans
+ http://www.springframework.org/schema/beans/spring-beans-4.1.xsd">
+ 
+ 
+ 
+<!--  <bean id="UserDTO" class="dao.UserDAOImpl"> -->
+<!--      <property name="sessionFactory" ref="mySessionFactory" /> -->
+<!--  </bean> -->
+<!--   <bean id="BillDAO" class="dao.BillDAOImpl"> -->
+<!--      <property name="sessionFactory" ref="mySessionFactory" /> -->
+<!--  </bean> -->
+ 
+<!--  	<bean id="NhaSanXuatDAO" class="dao.NhaSanXuatDAOImpl">
+     <property name="sessionFactory" ref="mySessionFactory" />
+ 	</bean>
+ 	<bean id="PhanQuyenDAO" class="dao.PhanQuyenDAOImpl">
+     <property name="sessionFactory" ref="mySessionFactory" />
+ 	</bean>
+ 	<bean id="SanPhamDAO" class="dao.SanPhamDAOImpl">
+     <property name="sessionFactory" ref="mySessionFactory" />
+ 	</bean>
+ 	<bean id="LoaiSPDAO" class="dao.LoaiSPDAOImpl">
+     <property name="sessionFactory" ref="mySessionFactory" />
+ 	</bean>
+ 	<bean id="NguoiDungDAO" class="dao.NguoiDungDaoImpl">
+     <property name="sessionFactory" ref="mySessionFactory" />
+ 	</bean> -->
+</beans>
