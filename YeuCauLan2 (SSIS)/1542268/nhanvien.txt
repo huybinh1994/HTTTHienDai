@@ -1,0 +1,2 @@
+mnv,hoten,diachi,email,luong
+011121,thai,hcm,xuanthai@yahoo.com,10000000
