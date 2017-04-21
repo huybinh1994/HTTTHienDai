@@ -23,14 +23,14 @@ module.exports = {
                     cacheDirectory: path.join(__dirname, 'dist', 'babel_cache'),
                 }
             },
-            // {
-            //     test: /\.(sass|scss|css)$/,
-            //     use: [
-            //         'style-loader',
-            //         'css-loader',
-            //         'sass-loader',
-            //     ]
-            // }
+            {
+                test: /\.(sass|scss|css)$/,
+                use: [
+                    'style-loader',
+                    'css-loader',
+                    'sass-loader',
+                ]
+            }
         ]
     },
     plugins: []

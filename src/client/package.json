@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build": "node_modules/.bin/webpack -p",
+    "build-sass": "node_modules/node-sass/bin/node-sass src/stylesheets/custom.scss -wo dist/assets/css",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "binh.vo",
@@ -22,6 +23,10 @@
     "babel-core": "^6.24.1",
     "babel-loader": "^6.4.1",
     "babel-preset-react": "^6.24.1",
+    "css-loader": "^0.28.0",
+    "node-sass": "^4.5.2",
+    "sass-loader": "^6.0.3",
+    "style-loader": "^0.16.1",
     "webpack": "^2.4.1"
   }
 }
