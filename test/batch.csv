@@ -1,0 +1,2 @@
+transaction_id,record_type,acctid,amount,card_number,card_exp_year,card_exp_month,product_id,product_quality,product_price,merchant_id
+1,1,TEST01,500000,123456789012345,2020,12,1,10,50000,1
