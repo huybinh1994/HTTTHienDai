@@ -6,26 +6,8 @@
  
  
  
-<!--  <bean id="UserDTO" class="dao.UserDAOImpl"> -->
-<!--      <property name="sessionFactory" ref="mySessionFactory" /> -->
-<!--  </bean> -->
-<!--   <bean id="BillDAO" class="dao.BillDAOImpl"> -->
-<!--      <property name="sessionFactory" ref="mySessionFactory" /> -->
-<!--  </bean> -->
- 
-<!--  	<bean id="NhaSanXuatDAO" class="dao.NhaSanXuatDAOImpl">
+ <bean id="MasterDAO.java" class="dao.MasterDAOImpl">
      <property name="sessionFactory" ref="mySessionFactory" />
- 	</bean>
- 	<bean id="PhanQuyenDAO" class="dao.PhanQuyenDAOImpl">
-     <property name="sessionFactory" ref="mySessionFactory" />
- 	</bean>
- 	<bean id="SanPhamDAO" class="dao.SanPhamDAOImpl">
-     <property name="sessionFactory" ref="mySessionFactory" />
- 	</bean>
- 	<bean id="LoaiSPDAO" class="dao.LoaiSPDAOImpl">
-     <property name="sessionFactory" ref="mySessionFactory" />
- 	</bean>
- 	<bean id="NguoiDungDAO" class="dao.NguoiDungDaoImpl">
-     <property name="sessionFactory" ref="mySessionFactory" />
- 	</bean> -->
+ </bean> 
+
 </beans>
