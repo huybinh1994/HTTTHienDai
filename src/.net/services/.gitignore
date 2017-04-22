@@ -6,3 +6,6 @@ DataAccessLayer/bin/
 DataAccessLayer/obj/
 DomainModel/bin/
 DomainModel/obj/
+.vs/
+WebApi/bin/
+WebApi/obj/
