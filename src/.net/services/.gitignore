@@ -1,0 +1,8 @@
+BusinessLayer/bin/
+BusinessLayer/obj/
+CardProcessing/bin/
+CardProcessing/obj/
+DataAccessLayer/bin/
+DataAccessLayer/obj/
+DomainModel/bin/
+DomainModel/obj/
