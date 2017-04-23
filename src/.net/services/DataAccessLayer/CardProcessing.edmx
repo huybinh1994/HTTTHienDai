@@ -1,0 +1,354 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="CardProcessingModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="device_status">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="date" Type="datetime" />
+          <Property Name="status" Type="int" />
+          <Property Name="merchant_id" Type="int" />
+          <Property Name="device_id" Type="int" />
+        </EntityType>
+        <EntityType Name="devices">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="device_type" Type="int" Nullable="false" />
+          <Property Name="device_name" Type="nvarchar" MaxLength="50" />
+          <Property Name="device_no" Type="char" MaxLength="10" />
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
+        <EntityType Name="masters">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="master_name" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="merchants">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="merchant_name" Type="int" />
+          <Property Name="merchant_phone_call" Type="int" />
+          <Property Name="tax_code" Type="int" />
+          <Property Name="agent_id" Type="int" />
+          <Property Name="sub_agent_id" Type="int" />
+          <Property Name="address_1" Type="nvarchar" MaxLength="100" />
+          <Property Name="address_2" Type="nvarchar" MaxLength="100" />
+          <Property Name="address_3" Type="nvarchar" MaxLength="100" />
+          <Property Name="city" Type="int" />
+          <Property Name="province" Type="int" />
+          <Property Name="zip_code" Type="int" />
+          <Property Name="country" Type="int" />
+          <Property Name="first_active_date" Type="datetime" />
+          <Property Name="last_active_date" Type="datetime" />
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="master_id" Type="int" />
+        </EntityType>
+        <EntityType Name="parameters">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="param_name" Type="varchar" MaxLength="50" />
+          <Property Name="param_value" Type="text" />
+          <Property Name="param_type" Type="varchar" MaxLength="255" />
+          <Property Name="param_status" Type="int" />
+        </EntityType>
+        <EntityType Name="transaction">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="transaction_date" Type="datetime" />
+          <Property Name="file_info" Type="varchar" MaxLength="255" />
+          <Property Name="card_type" Type="int" />
+          <Property Name="amount" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="card_number" Type="varchar" MaxLength="16" />
+          <Property Name="expiration_month" Type="varbinary" MaxLength="2" />
+          <Property Name="expiration_year" Type="varbinary" MaxLength="5" />
+          <Property Name="csv" Type="varchar" MaxLength="5" />
+          <Property Name="status" Type="int" />
+          <Property Name="merchant_id" Type="int" />
+        </EntityType>
+        <EntityContainer Name="CardProcessingModelStoreContainer">
+          <EntitySet Name="device_status" EntityType="Self.device_status" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="devices" EntityType="Self.devices" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="masters" EntityType="Self.masters" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="merchants" EntityType="Self.merchants" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="parameters" EntityType="Self.parameters" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="transaction" EntityType="Self.transaction" Schema="dbo" store:Type="Tables" />
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="CardProcessingModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="device_status">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="date" Type="DateTime" Precision="3" />
+          <Property Name="status" Type="Int32" />
+          <Property Name="merchant_id" Type="Int32" />
+          <Property Name="device_id" Type="Int32" />
+          <NavigationProperty Name="device" Relationship="CardProcessingModel.devicedevice_status" FromRole="device_status" ToRole="device" />
+          <NavigationProperty Name="merchant" Relationship="CardProcessingModel.merchantdevice_status" FromRole="device_status" ToRole="merchant" />
+        </EntityType>
+        <EntityType Name="device">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="device_type" Type="Int32" Nullable="false" />
+          <Property Name="device_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="device_no" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="device_status" Relationship="CardProcessingModel.devicedevice_status" FromRole="device" ToRole="device_status" />
+        </EntityType>
+        <EntityType Name="master">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="master_name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="merchants" Relationship="CardProcessingModel.mastermerchant" FromRole="master" ToRole="merchant" />
+        </EntityType>
+        <EntityType Name="merchant">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="merchant_name" Type="Int32" />
+          <Property Name="merchant_phone_call" Type="Int32" />
+          <Property Name="tax_code" Type="Int32" />
+          <Property Name="agent_id" Type="Int32" />
+          <Property Name="sub_agent_id" Type="Int32" />
+          <Property Name="address_1" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="address_2" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="address_3" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="city" Type="Int32" />
+          <Property Name="province" Type="Int32" />
+          <Property Name="zip_code" Type="Int32" />
+          <Property Name="country" Type="Int32" />
+          <Property Name="first_active_date" Type="DateTime" Precision="3" />
+          <Property Name="last_active_date" Type="DateTime" Precision="3" />
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="master_id" Type="Int32" />
+          <NavigationProperty Name="master" Relationship="CardProcessingModel.mastermerchant" FromRole="merchant" ToRole="master" />
+          <NavigationProperty Name="transactions" Relationship="CardProcessingModel.merchanttransaction" FromRole="merchant" ToRole="transaction" />
+          <NavigationProperty Name="device_status" Relationship="CardProcessingModel.merchantdevice_status" FromRole="merchant" ToRole="device_status" />
+        </EntityType>
+        <EntityType Name="parameter">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="param_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="param_value" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="param_type" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="param_status" Type="Int32" />
+        </EntityType>
+        <EntityType Name="transaction">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="transaction_date" Type="DateTime" Precision="3" />
+          <Property Name="file_info" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="card_type" Type="Int32" />
+          <Property Name="amount" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="card_number" Type="String" MaxLength="16" FixedLength="false" Unicode="false" />
+          <Property Name="expiration_month" Type="Binary" MaxLength="2" FixedLength="false" />
+          <Property Name="expiration_year" Type="Binary" MaxLength="5" FixedLength="false" />
+          <Property Name="csv" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="status" Type="Int32" />
+          <Property Name="merchant_id" Type="Int32" />
+          <NavigationProperty Name="merchant" Relationship="CardProcessingModel.merchanttransaction" FromRole="transaction" ToRole="merchant" />
+        </EntityType>
+        <EntityContainer Name="card_processingEntities2" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="device_status" EntityType="Self.device_status" />
+          <EntitySet Name="devices" EntityType="Self.device" />
+          <EntitySet Name="masters" EntityType="Self.master" />
+          <EntitySet Name="merchants" EntityType="Self.merchant" />
+          <EntitySet Name="parameters" EntityType="Self.parameter" />
+          <EntitySet Name="transactions" EntityType="Self.transaction" />
+          <AssociationSet Name="devicedevice_status" Association="CardProcessingModel.devicedevice_status">
+            <End Role="device" EntitySet="devices" />
+            <End Role="device_status" EntitySet="device_status" />
+          </AssociationSet>
+          <AssociationSet Name="mastermerchant" Association="CardProcessingModel.mastermerchant">
+            <End Role="master" EntitySet="masters" />
+            <End Role="merchant" EntitySet="merchants" />
+          </AssociationSet>
+          <AssociationSet Name="merchanttransaction" Association="CardProcessingModel.merchanttransaction">
+            <End Role="merchant" EntitySet="merchants" />
+            <End Role="transaction" EntitySet="transactions" />
+          </AssociationSet>
+          <AssociationSet Name="merchantdevice_status" Association="CardProcessingModel.merchantdevice_status">
+            <End Role="merchant" EntitySet="merchants" />
+            <End Role="device_status" EntitySet="device_status" />
+          </AssociationSet>
+        </EntityContainer>
+        <Association Name="devicedevice_status">
+          <End Type="CardProcessingModel.device" Role="device" Multiplicity="0..1" />
+          <End Type="CardProcessingModel.device_status" Role="device_status" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="device">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="device_status">
+              <PropertyRef Name="device_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="mastermerchant">
+          <End Type="CardProcessingModel.master" Role="master" Multiplicity="0..1" />
+          <End Type="CardProcessingModel.merchant" Role="merchant" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="master">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="merchant">
+              <PropertyRef Name="master_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="merchanttransaction">
+          <End Type="CardProcessingModel.merchant" Role="merchant" Multiplicity="0..1" />
+          <End Type="CardProcessingModel.transaction" Role="transaction" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="merchant">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="transaction">
+              <PropertyRef Name="merchant_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="merchantdevice_status">
+          <End Type="CardProcessingModel.merchant" Role="merchant" Multiplicity="0..1" />
+          <End Type="CardProcessingModel.device_status" Role="device_status" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="merchant">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="device_status">
+              <PropertyRef Name="merchant_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="CardProcessingModelStoreContainer" CdmEntityContainer="card_processingEntities2">
+          <EntitySetMapping Name="device_status">
+            <EntityTypeMapping TypeName="CardProcessingModel.device_status">
+              <MappingFragment StoreEntitySet="device_status">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="date" ColumnName="date" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="merchant_id" ColumnName="merchant_id" />
+                <ScalarProperty Name="device_id" ColumnName="device_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="devices">
+            <EntityTypeMapping TypeName="CardProcessingModel.device">
+              <MappingFragment StoreEntitySet="devices">
+                <ScalarProperty Name="device_type" ColumnName="device_type" />
+                <ScalarProperty Name="device_name" ColumnName="device_name" />
+                <ScalarProperty Name="device_no" ColumnName="device_no" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="masters">
+            <EntityTypeMapping TypeName="CardProcessingModel.master">
+              <MappingFragment StoreEntitySet="masters">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="master_name" ColumnName="master_name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="merchants">
+            <EntityTypeMapping TypeName="CardProcessingModel.merchant">
+              <MappingFragment StoreEntitySet="merchants">
+                <ScalarProperty Name="merchant_name" ColumnName="merchant_name" />
+                <ScalarProperty Name="merchant_phone_call" ColumnName="merchant_phone_call" />
+                <ScalarProperty Name="tax_code" ColumnName="tax_code" />
+                <ScalarProperty Name="agent_id" ColumnName="agent_id" />
+                <ScalarProperty Name="sub_agent_id" ColumnName="sub_agent_id" />
+                <ScalarProperty Name="address_1" ColumnName="address_1" />
+                <ScalarProperty Name="address_2" ColumnName="address_2" />
+                <ScalarProperty Name="address_3" ColumnName="address_3" />
+                <ScalarProperty Name="city" ColumnName="city" />
+                <ScalarProperty Name="province" ColumnName="province" />
+                <ScalarProperty Name="zip_code" ColumnName="zip_code" />
+                <ScalarProperty Name="country" ColumnName="country" />
+                <ScalarProperty Name="first_active_date" ColumnName="first_active_date" />
+                <ScalarProperty Name="last_active_date" ColumnName="last_active_date" />
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="master_id" ColumnName="master_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="parameters">
+            <EntityTypeMapping TypeName="CardProcessingModel.parameter">
+              <MappingFragment StoreEntitySet="parameters">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="param_name" ColumnName="param_name" />
+                <ScalarProperty Name="param_value" ColumnName="param_value" />
+                <ScalarProperty Name="param_type" ColumnName="param_type" />
+                <ScalarProperty Name="param_status" ColumnName="param_status" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="transactions">
+            <EntityTypeMapping TypeName="CardProcessingModel.transaction">
+              <MappingFragment StoreEntitySet="transaction">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="transaction_date" ColumnName="transaction_date" />
+                <ScalarProperty Name="file_info" ColumnName="file_info" />
+                <ScalarProperty Name="card_type" ColumnName="card_type" />
+                <ScalarProperty Name="amount" ColumnName="amount" />
+                <ScalarProperty Name="card_number" ColumnName="card_number" />
+                <ScalarProperty Name="expiration_month" ColumnName="expiration_month" />
+                <ScalarProperty Name="expiration_year" ColumnName="expiration_year" />
+                <ScalarProperty Name="csv" ColumnName="csv" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="merchant_id" ColumnName="merchant_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="true" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
