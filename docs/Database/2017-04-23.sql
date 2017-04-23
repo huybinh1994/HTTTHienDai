@@ -11,12 +11,9 @@ Target Server Type    : SQL Server
 Target Server Version : 110000
 File Encoding         : 65001
 
-Date: 2017-04-23 07:09:13
+Date: 2017-04-23 20:15:21
 */
-create database card_processing
-GO
-use card_processing
-GO
+
 
 -- ----------------------------
 -- Table structure for device_status
@@ -35,6 +32,14 @@ CREATE TABLE [dbo].[device_status] (
 GO
 
 -- ----------------------------
+-- Records of device_status
+-- ----------------------------
+SET IDENTITY_INSERT [dbo].[device_status] ON
+GO
+SET IDENTITY_INSERT [dbo].[device_status] OFF
+GO
+
+-- ----------------------------
 -- Table structure for devices
 -- ----------------------------
 DROP TABLE [dbo].[devices]
@@ -50,6 +55,14 @@ CREATE TABLE [dbo].[devices] (
 GO
 
 -- ----------------------------
+-- Records of devices
+-- ----------------------------
+SET IDENTITY_INSERT [dbo].[devices] ON
+GO
+SET IDENTITY_INSERT [dbo].[devices] OFF
+GO
+
+-- ----------------------------
 -- Table structure for masters
 -- ----------------------------
 DROP TABLE [dbo].[masters]
@@ -60,6 +73,14 @@ CREATE TABLE [dbo].[masters] (
 )
 
 
+GO
+
+-- ----------------------------
+-- Records of masters
+-- ----------------------------
+SET IDENTITY_INSERT [dbo].[masters] ON
+GO
+SET IDENTITY_INSERT [dbo].[masters] OFF
 GO
 
 -- ----------------------------
@@ -85,10 +106,18 @@ CREATE TABLE [dbo].[merchants] (
 [country] int NULL ,
 [first_active_date] datetime NULL ,
 [last_active_date] datetime NULL ,
-[status] int NULL
+[status] int NULL 
 )
 
 
+GO
+
+-- ----------------------------
+-- Records of merchants
+-- ----------------------------
+SET IDENTITY_INSERT [dbo].[merchants] ON
+GO
+SET IDENTITY_INSERT [dbo].[merchants] OFF
 GO
 
 -- ----------------------------
@@ -108,6 +137,14 @@ CREATE TABLE [dbo].[parameters] (
 GO
 
 -- ----------------------------
+-- Records of parameters
+-- ----------------------------
+SET IDENTITY_INSERT [dbo].[parameters] ON
+GO
+SET IDENTITY_INSERT [dbo].[parameters] OFF
+GO
+
+-- ----------------------------
 -- Table structure for transaction
 -- ----------------------------
 DROP TABLE [dbo].[transaction]
@@ -124,16 +161,27 @@ CREATE TABLE [dbo].[transaction] (
 [csv] varchar(5) NULL ,
 [card_exp_month] nvarchar(2) NULL ,
 [card_exp_year] nvarchar(5) NULL ,
-[merchant_id] int NULL ,
+[merchant_code] char(20) NULL ,
 [product_id] int NULL ,
 [product_quality] int NULL ,
 [product_price] decimal(18) NULL ,
 [file_source] varchar(255) NULL ,
 [batch_number] varchar(255) NULL ,
-[status] int NULL
+[status] int NULL 
 )
 
 
+GO
+
+-- ----------------------------
+-- Records of transaction
+-- ----------------------------
+SET IDENTITY_INSERT [dbo].[transaction] ON
+GO
+INSERT INTO [dbo].[transaction] ([id], [transaction_id], [transaction_date], [record_type], [acctid], [amount], [card_type], [card_number], [csv], [card_exp_month], [card_exp_year], [merchant_code], [product_id], [product_quality], [product_price], [file_source], [batch_number], [status]) VALUES (N'1', N'1', N'2017-04-23 23:05:11.000', N'TEST001', null, N'50000', N'1', N'012345678912345', N'999', N'12', N'2020', N'00010001000100000001', N'1', N'10', N'40000', null, null, N'1')
+GO
+GO
+SET IDENTITY_INSERT [dbo].[transaction] OFF
 GO
 
 -- ----------------------------
@@ -174,6 +222,12 @@ GO
 -- Primary Key structure for table merchants
 -- ----------------------------
 ALTER TABLE [dbo].[merchants] ADD PRIMARY KEY ([id])
+GO
+
+-- ----------------------------
+-- Uniques structure for table merchants
+-- ----------------------------
+ALTER TABLE [dbo].[merchants] ADD UNIQUE ([merchant_code] ASC)
 GO
 
 -- ----------------------------
