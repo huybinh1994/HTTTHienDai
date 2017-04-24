@@ -1,3 +1,5 @@
+Use card_processing
+GO
 /*
 Navicat SQL Server Data Transfer
 
@@ -163,7 +165,7 @@ CREATE TABLE [dbo].[transaction] (
 [card_exp_year] nvarchar(5) NULL ,
 [merchant_code] char(20) NULL ,
 [product_id] int NULL ,
-[product_quality] int NULL ,
+[product_quantity] int NULL ,
 [product_price] decimal(18) NULL ,
 [file_source] varchar(255) NULL ,
 [batch_number] varchar(255) NULL ,
@@ -178,7 +180,7 @@ GO
 -- ----------------------------
 SET IDENTITY_INSERT [dbo].[transaction] ON
 GO
-INSERT INTO [dbo].[transaction] ([id], [transaction_id], [transaction_date], [record_type], [acctid], [amount], [card_type], [card_number], [csv], [card_exp_month], [card_exp_year], [merchant_code], [product_id], [product_quality], [product_price], [file_source], [batch_number], [status]) VALUES (N'1', N'1', N'2017-04-23 23:05:11.000', N'TEST001', null, N'50000', N'1', N'012345678912345', N'999', N'12', N'2020', N'00010001000100000001', N'1', N'10', N'40000', null, null, N'1')
+INSERT INTO [dbo].[transaction] ([id], [transaction_id], [transaction_date], [record_type], [acctid], [amount], [card_type], [card_number], [csv], [card_exp_month], [card_exp_year], [merchant_code], [product_id], [product_quantity], [product_price], [file_source], [batch_number], [status]) VALUES (N'1', N'1', N'2017-04-23 23:05:11.000', N'TEST001', null, N'50000', N'1', N'012345678912345', N'999', N'12', N'2020', N'00010001000100000001', N'1', N'10', N'40000', null, null, N'1')
 GO
 GO
 SET IDENTITY_INSERT [dbo].[transaction] OFF
