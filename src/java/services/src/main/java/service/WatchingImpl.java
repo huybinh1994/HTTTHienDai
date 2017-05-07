@@ -12,14 +12,25 @@ import java.nio.file.WatchKey;
 import java.nio.file.WatchService;
 import java.util.Scanner;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 @Service
 public class WatchingImpl implements WatchingService {
 
+	ReadCsvService read;
+	
+	public ReadCsvService getRead() {
+		return read;
+	}
+	@Autowired
+	public void setRead(ReadCsvService read) {
+		this.read = read;
+	}
+
 	@Override
 	public void watching() {
 		try {
-			System.out.println("Vui long nhap duong dan thu muc goc(1542268) de xem su thay doi cua nhanvien.txt: ");
+			System.out.println("Vui long nhap toi thu muc can theo doi: ");
 			Scanner sc = new Scanner(System.in);
 			
 
@@ -46,8 +57,8 @@ public class WatchingImpl implements WatchingService {
 					Path fileName = ev.context();
 					
 					System.out.println(kind.name() + ": " + fileName);
-					if (kind == ENTRY_MODIFY ) {
-						System.out.println("Vui long nhap duong dan den file import.dtsx trong thu muc DBImport ");
+					if (kind == ENTRY_CREATE ) {
+						read.readCsv(dir +"/"+fileName);
 					}
 				}
 				

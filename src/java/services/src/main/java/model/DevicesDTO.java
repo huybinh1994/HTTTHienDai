@@ -2,9 +2,12 @@ package model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
+import javax.persistence.PrimaryKeyJoinColumn;
 
 @Entity(name = "devices")
 public class DevicesDTO {
@@ -19,6 +22,17 @@ public class DevicesDTO {
 	private int device_type;
 	@Column(name = "device_no")
 	private String device_no;
+//	@OneToOne(fetch = FetchType.LAZY)
+//	@PrimaryKeyJoinColumn
+//	private DevicesStatusDTO devicesStatusDTO;
+	
+//	public DevicesStatusDTO getDevicesStatusDTO() {
+//		return devicesStatusDTO;
+//	}
+//
+//	public void setDevicesStatusDTO(DevicesStatusDTO devicesStatusDTO) {
+//		this.devicesStatusDTO = devicesStatusDTO;
+//	}
 	public Integer getId() {
 		return id;
 	}

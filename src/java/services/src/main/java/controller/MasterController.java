@@ -1,8 +1,14 @@
 package controller;
 
 import java.nio.file.WatchService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
+
+import javax.annotation.PostConstruct;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.SystemEnvironmentPropertySource;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,18 +25,6 @@ import service.WatchingService;
 @Transactional
 @EnableTransactionManagement
 public class MasterController {
-	@Autowired
-	WatchingService watchService;
-
-	public WatchingService getWatchService() {
-		return watchService;
-	}
-
-	
-	public void setWatchService(WatchingService watchService) {
-		this.watchService = watchService;
-	}
-
 	MasterService masterService;
 
 	public MasterService getMasterService() {
@@ -48,8 +42,6 @@ public class MasterController {
 		return json;
 	}
 
-	@RequestMapping(value = "/theodoi", method = RequestMethod.GET)
-	public  void theodoi() {
-		watchService.watching();
-	}
+	
+
 }

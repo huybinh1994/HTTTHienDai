@@ -2,11 +2,14 @@ package model;
 
 import java.sql.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 
 @Entity(name = "device_status")
 public class DevicesStatusDTO {
@@ -22,6 +25,16 @@ public class DevicesStatusDTO {
 	private int merchant_id;
 	@Column(name = "device_id")
 	private int device_id;
+	@OneToOne( cascade = CascadeType.ALL)
+	private DevicesDTO devicesDTO;
+	
+	
+	public DevicesDTO getDevicesDTO() {
+		return devicesDTO;
+	}
+	public void setDevicesDTO(DevicesDTO devicesDTO) {
+		this.devicesDTO = devicesDTO;
+	}
 	public Integer getId() {
 		return id;
 	}

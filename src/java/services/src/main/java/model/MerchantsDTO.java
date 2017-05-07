@@ -4,9 +4,14 @@ import java.sql.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity(name = "merchants")
 public class MerchantsDTO {
@@ -14,12 +19,18 @@ public class MerchantsDTO {
 	@Id
 	@Column(name = "id")
 	private Integer id;
+	@Column(name = "merchant_code")
+	private int merchant_code;
 	@Column(name = "merchant_name")
 	private int merchant_name;
 	@Column(name = "merchant_phone_call")
 	private int merchant_phone_call;
 	@Column(name = "tax_code")
 	private int tax_code;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "master_id", nullable = false)
+	@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
+	private MasterDTO master_id;
 	@Column(name = "agent_id")
 	private int agent_id;
 	@Column(name = "sub_agent_id")
@@ -131,6 +142,18 @@ public class MerchantsDTO {
 	}
 	public void setLast_active_Date(Date last_active_Date) {
 		this.last_active_Date = last_active_Date;
+	}
+	public int getMerchant_code() {
+		return merchant_code;
+	}
+	public void setMerchant_code(int merchant_code) {
+		this.merchant_code = merchant_code;
+	}
+	public MasterDTO getMaster_id() {
+		return master_id;
+	}
+	public void setMaster_id(MasterDTO master_id) {
+		this.master_id = master_id;
 	}
 	
 	

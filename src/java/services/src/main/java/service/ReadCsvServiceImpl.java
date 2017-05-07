@@ -12,6 +12,7 @@ import com.opencsv.CSVReader;
 
 import antlr.ParserSharedInputState;
 import dao.TransactionDAO;
+import model.MerchantsDTO;
 import model.TransactionDTO;
 
 @Service
@@ -37,20 +38,21 @@ public class ReadCsvServiceImpl implements ReadCsvService {
 				
 				// nextLine[] is an array of values from the line
 				TransactionDTO dto = new TransactionDTO();
-				
-//				dto.setCard_type(card_type);
-//				dto.setCard_number(card_number);
+				dto.setTransaction_id(nextLine[0]);
+				dto.setRecord_type(nextLine[1]);
+				dto.setAcctid(nextLine[2]);
 				dto.setAmount(Integer.parseInt(nextLine[3]));
-//				dto.setCsv(csv);
-//				dto.setExpiration_month(Integer.parseInt(nextLine[6]));
-//				dto.setExpiration_year(Integer.parseInt(nextLine[5]));
-//				dto.setFile_info(file_info);
-//				dto.setMerchant_id(Integer.parseInt(nextLine[10]));
-//				dto.setStatus(status);
-//				dto.setTransaction_date(transaction_date);
-//				
+				dto.setCard_number(nextLine[4]);
+				dto.setCard_exp_year(nextLine[5]);
+				dto.setCard_exp_month(nextLine[6]);
+				dto.setProduct_id(Integer.parseInt(nextLine[7]));
+				dto.setProduct_quantity(Integer.parseInt(nextLine[8]));
+				dto.setProduct_price(Double.parseDouble(nextLine[9]));
+				MerchantsDTO merchantsDTO = new MerchantsDTO();
+				merchantsDTO.setMerchant_code(Integer.parseInt(nextLine[10]));
+				merchantsDTO.setId(2);
+				dto.setMerchant_code(merchantsDTO );			
 				dao.SaveTran(dto);
-//				System.out.println(nextLine[0] + nextLine[1] + "etc...");
 			}
 		
 		} catch (FileNotFoundException e) {
