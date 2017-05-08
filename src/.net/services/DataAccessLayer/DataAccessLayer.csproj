@@ -57,7 +57,10 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>CardProcessing.edmx</DependentUpon>
     </Compile>
+    <Compile Include="CardProcessingReponsitory.cs" />
     <Compile Include="Class1.cs" />
+    <Compile Include="GenericDataRepository.cs" />
+    <Compile Include="IGenericDataRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

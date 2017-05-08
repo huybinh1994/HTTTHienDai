@@ -17,7 +17,7 @@ namespace DataAccessLayer
     public partial class card_processingEntities2 : DbContext
     {
         public card_processingEntities2()
-            : base("name=card_processingEntities2")
+            : base("name=CardProcessing")
         {
         }
     
