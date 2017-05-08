@@ -7,6 +7,7 @@ import MenuLeft from './layouts/MenuLeft.js';
 
 //Components
 import Overview from './component/Overview.js';
+import MerchantList from './component/MerchantList.js';
 
 const App = (props) => (
     <div className="app-container">
@@ -16,7 +17,10 @@ const App = (props) => (
                 <div className="row">
                     <MenuLeft />
                     <main className="col-sm-9 offset-sm-3 col-md-10 offset-md-2 pt-3">
-                        <Overview />
+                        <div className="content-wrap">
+                            {props.children}
+                            {/*<div className="loading"></div>*/}
+                        </div>
                     </main>
                 </div>
             </div>
@@ -26,7 +30,9 @@ const App = (props) => (
 
 const routes =
     <Route path="/" component={App}>
-        <Route path="/merchant" component={}></Route>
+        <IndexRoute component={Overview} />
+        <Route path="overview" component={Overview} />
+        <Route path="merchant" component={MerchantList} />
     </Route>
 
 render((

@@ -6,8 +6,10 @@
  
  
  
- <bean id="MasterDAO.java" class="dao.MasterDAOImpl">
+ <bean id="MasterDAO" class="dao.MasterDAOImpl">
      <property name="sessionFactory" ref="mySessionFactory" />
  </bean> 
-
+ <bean id="TransactionDAO" class="dao.TransactionDAOImpl">
+     <property name="sessionFactory" ref="mySessionFactory" />
+ </bean> 
 </beans>
