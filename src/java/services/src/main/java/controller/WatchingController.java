@@ -35,16 +35,11 @@ public class WatchingController {
 	
 	@PostConstruct
 	public void theodoi(){
-		watchService.watching();
-
-//		schedule.scheduleWithFixedDelay(new Runnable() {
-//			
-//			@Override
-//			public void run() {
-//				watchService.watching();
-//				
-//			}
-//		}, 0, initialSendMailDelay, TimeUnit.MILLISECONDS);
-	};
-
+	Thread t = new Thread(new Runnable() {
+	    public void run() {
+	    	watchService.watching();
+	    }
+	});
+	t.start();
+	}
 }
