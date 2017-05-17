@@ -17,20 +17,9 @@
 	<bean id="mySessionFactory"
 		class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
 		<property name="dataSource" ref="myDataSource" />
-
-		<property name="annotatedClasses">
-			<list>
-				<value>model.MasterDTO</value>
-				<value>model.DevicesStatusDTO</value>
-				<value>model.DevicesDTO</value>
-				<value>model.MerchantsDTO</value>
-				<value>model.ParametersDTO</value>
-				<value>model.TransactionDTO</value>
+		<property name="packagesToScan" value="model" />
 
 
-
-			</list>
-		</property>
 
 		<property name="hibernateProperties">
 			<props>

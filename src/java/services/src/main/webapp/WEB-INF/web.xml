@@ -25,7 +25,6 @@
        <param-value>
        	  /WEB-INF/spring-mvc-servlet.xml,
           /WEB-INF/data-source-hiber-cfg.xml,
-          /WEB-INF/dao-cfg.xml,
           /WEB-INF/transaction-cfg.xml
         </param-value>        
    </context-param>
