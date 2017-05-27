@@ -4,17 +4,19 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="6b503ec052d841bca534d42bdda2af5e" Name="Diagram1">
-        <EntityTypeShape EntityType="CardProcessingModel.device_status" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="CardProcessingModel.device" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="CardProcessingModel.master" Width="1.5" PointX="0.75" PointY="3.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="CardProcessingModel.merchant" Width="1.5" PointX="2.75" PointY="3.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="CardProcessingModel.parameter" Width="1.5" PointX="4.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="CardProcessingModel.transaction" Width="1.5" PointX="4.75" PointY="3.75" IsExpanded="true" />
-        <AssociationConnector Association="CardProcessingModel.devicedevice_status" />
-        <AssociationConnector Association="CardProcessingModel.mastermerchant" />
-        <AssociationConnector Association="CardProcessingModel.merchanttransaction" />
-        <AssociationConnector Association="CardProcessingModel.merchantdevice_status" />
+      <Diagram DiagramId="297a9328c62343edbd8f13b04bb87943" Name="Diagram1">
+        <EntityTypeShape EntityType="card_processingModel.device_status" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="card_processingModel.device" Width="1.5" PointX="0.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="card_processingModel.master" Width="1.5" PointX="2.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="card_processingModel.merchant" Width="1.5" PointX="4.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="card_processingModel.parameter" Width="1.5" PointX="6.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="card_processingModel.token" Width="1.5" PointX="9.875" PointY="3.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="card_processingModel.transaction" Width="1.5" PointX="7.5" PointY="3.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="card_processingModel.user" Width="1.5" PointX="8.75" PointY="0.75" IsExpanded="true" />
+        <AssociationConnector Association="card_processingModel.merchantdevice_status" />
+        <AssociationConnector Association="card_processingModel.devicedevice_status" />
+        <AssociationConnector Association="card_processingModel.mastermerchant" />
+        <AssociationConnector Association="card_processingModel.usertoken" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

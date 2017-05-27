@@ -14,17 +14,11 @@ namespace DomainModel
     
     public partial class merchant
     {
-        public merchant()
-        {
-            this.transactions = new HashSet<transaction>();
-            this.device_status = new HashSet<device_status>();
-        }
-
         public int id { get; set; }
         public string merchant_code { get; set; }
-        public Nullable<int> merchant_name { get; set; }
-        public Nullable<int> merchant_phone_call { get; set; }
-        public Nullable<int> tax_code { get; set; }
+        public string merchant_name { get; set; }
+        public string merchant_phone_call { get; set; }
+        public string tax_code { get; set; }
         public Nullable<int> master_id { get; set; }
         public Nullable<int> agent_id { get; set; }
         public Nullable<int> sub_agent_id { get; set; }
@@ -38,9 +32,5 @@ namespace DomainModel
         public Nullable<System.DateTime> first_active_date { get; set; }
         public Nullable<System.DateTime> last_active_date { get; set; }
         public Nullable<int> status { get; set; }
-
-        public virtual master master { get; set; }
-        public virtual ICollection<transaction> transactions { get; set; }
-        public virtual ICollection<device_status> device_status { get; set; }
     }
 }

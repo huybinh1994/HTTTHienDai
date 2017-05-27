@@ -12,9 +12,11 @@ namespace DomainModel
     using System;
     using System.Collections.Generic;
     
-    public partial class master
+    public partial class token
     {
         public int id { get; set; }
-        public string master_name { get; set; }
+        public Nullable<int> auther_id { get; set; }
+        public string token1 { get; set; }
+        public Nullable<System.DateTime> expire { get; set; }
     }
 }

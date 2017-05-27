@@ -14,16 +14,9 @@ namespace DomainModel
     
     public partial class device
     {
-        public device()
-        {
-            this.device_status = new HashSet<device_status>();
-        }
-    
         public int device_type { get; set; }
         public string device_name { get; set; }
         public string device_no { get; set; }
         public int id { get; set; }
-    
-        public virtual ICollection<device_status> device_status { get; set; }
     }
 }
