@@ -11,7 +11,7 @@ Target Server Type    : SQL Server
 Target Server Version : 110000
 File Encoding         : 65001
 
-Date: 2017-05-27 07:18:37
+Date: 2017-05-27 07:57:29
 */
 
 
@@ -90,10 +90,10 @@ DROP TABLE [dbo].[merchants]
 GO
 CREATE TABLE [dbo].[merchants] (
 [id] int NOT NULL IDENTITY(1,1) ,
-[merchant_code] char(20) NULL ,
+[merchant_code] char(30) NULL ,
 [merchant_name] nvarchar(100) SPARSE NULL ,
-[merchant_phone_call] nchar(15) NULL ,
-[tax_code] int NULL ,
+[merchant_phone_call] varchar(15) NULL ,
+[tax_code] varchar(15) NULL ,
 [master_id] int NULL ,
 [agent_id] int NULL ,
 [sub_agent_id] int NULL ,
@@ -111,13 +111,22 @@ CREATE TABLE [dbo].[merchants] (
 
 
 GO
-DBCC CHECKIDENT(N'[dbo].[merchants]', RESEED, 2)
+DBCC CHECKIDENT(N'[dbo].[merchants]', RESEED, 5)
 GO
 
 -- ----------------------------
 -- Records of merchants
 -- ----------------------------
 SET IDENTITY_INSERT [dbo].[merchants] ON
+GO
+INSERT INTO [dbo].[merchants] ([id], [merchant_code], [merchant_name], [merchant_phone_call], [tax_code], [master_id], [agent_id], [sub_agent_id], [address_1], [address_2], [address_3], [city], [province], [zip_code], [country], [first_active_date], [last_active_date], [status]) VALUES (N'3', N'M0001A000001S000001M0000000001', N'B''mark', N'0812345678', N'1000412345810', N'1', N'1', N'1', N'227, Nguyễn Văn Cừ', N'', null, null, null, null, null, null, null, N'1')
+GO
+GO
+INSERT INTO [dbo].[merchants] ([id], [merchant_code], [merchant_name], [merchant_phone_call], [tax_code], [master_id], [agent_id], [sub_agent_id], [address_1], [address_2], [address_3], [city], [province], [zip_code], [country], [first_active_date], [last_active_date], [status]) VALUES (N'4', N'M0001A000001S000001M0000000002', N'CritcleK', N'0812345679', N'1000412345812', N'1', N'1', N'1', N'228, Nguyễn Văn Cừ', N'', null, null, null, null, null, null, null, N'1')
+GO
+GO
+INSERT INTO [dbo].[merchants] ([id], [merchant_code], [merchant_name], [merchant_phone_call], [tax_code], [master_id], [agent_id], [sub_agent_id], [address_1], [address_2], [address_3], [city], [province], [zip_code], [country], [first_active_date], [last_active_date], [status]) VALUES (N'5', N'M0001A000001S000002M0000000001', N'Family Mark', N'0812454512', N'1021212112121', N'1', N'1', N'2', N'229, Nguyễn Văn Cừ', null, null, null, null, null, null, null, null, N'1')
+GO
 GO
 SET IDENTITY_INSERT [dbo].[merchants] OFF
 GO
@@ -188,7 +197,7 @@ CREATE TABLE [dbo].[transaction] (
 [csv] varchar(5) NULL ,
 [card_exp_month] nvarchar(2) NULL ,
 [card_exp_year] nvarchar(5) NULL ,
-[merchant_code] char(20) NULL ,
+[merchant_code] char(30) NULL ,
 [product_id] int NULL ,
 [product_quantity] int NULL ,
 [product_price] decimal(18) NULL ,
