@@ -24,8 +24,8 @@ CREATE TABLE [dbo].[device_status] (
 [id] int NOT NULL IDENTITY(1,1) ,
 [date] datetime NULL ,
 [status] int NULL ,
-[merchant_id] int NULL ,
-[device_id] int NULL 
+[merchant_id] int NOT NULL ,
+[device_id] int NOT NULL 
 )
 
 
@@ -37,7 +37,7 @@ GO
 DROP TABLE [dbo].[devices]
 GO
 CREATE TABLE [dbo].[devices] (
-[device_type] int NOT NULL ,
+[device_type] int NULL ,
 [device_name] nvarchar(50) NULL ,
 [device_no] char(10) NULL ,
 [id] int NOT NULL IDENTITY(1,1) 
@@ -66,11 +66,11 @@ DROP TABLE [dbo].[merchants]
 GO
 CREATE TABLE [dbo].[merchants] (
 [id] int NOT NULL IDENTITY(1,1) ,
-[merchant_code] char(30) NULL ,
+[merchant_code] varchar(30) NULL ,
 [merchant_name] nvarchar(100) SPARSE NULL ,
 [merchant_phone_call] varchar(15) NULL ,
 [tax_code] varchar(15) NULL ,
-[master_id] int NULL ,
+[master_id] int NOT NULL ,
 [agent_id] int NULL ,
 [sub_agent_id] int NULL ,
 [address_1] nvarchar(100) NULL ,
@@ -113,7 +113,7 @@ DROP TABLE [dbo].[tokens]
 GO
 CREATE TABLE [dbo].[tokens] (
 [id] int NOT NULL IDENTITY(1,1) ,
-[auther_id] int NULL ,
+[auther_id] int NOT NULL ,
 [token] char(64) NULL ,
 [expire] datetime NULL 
 )
@@ -140,7 +140,7 @@ CREATE TABLE [dbo].[transaction] (
 [csv] varchar(5) NULL ,
 [card_exp_month] nvarchar(2) NULL ,
 [card_exp_year] nvarchar(5) NULL ,
-[merchant_code] char(30) NULL ,
+[merchant_code] varchar(30) NULL ,
 [product_id] int NULL ,
 [product_quantity] int NULL ,
 [product_price] decimal(18) NULL ,
@@ -213,8 +213,6 @@ GO
 -- ----------------------------
 -- Uniques structure for table merchants
 -- ----------------------------
-ALTER TABLE [dbo].[merchants] ADD UNIQUE ([merchant_code] ASC)
-GO
 
 -- ----------------------------
 -- Indexes structure for table parameters
