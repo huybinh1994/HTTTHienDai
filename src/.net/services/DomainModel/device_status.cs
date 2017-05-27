@@ -17,7 +17,10 @@ namespace DomainModel
         public int id { get; set; }
         public Nullable<System.DateTime> date { get; set; }
         public Nullable<int> status { get; set; }
-        public Nullable<int> merchant_id { get; set; }
-        public Nullable<int> device_id { get; set; }
+        public int merchant_id { get; set; }
+        public int device_id { get; set; }
+    
+        public virtual device device { get; set; }
+        public virtual merchant merchant { get; set; }
     }
 }

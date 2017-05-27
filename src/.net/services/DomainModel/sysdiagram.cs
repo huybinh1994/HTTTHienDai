@@ -12,18 +12,12 @@ namespace DomainModel
     using System;
     using System.Collections.Generic;
     
-    public partial class device
+    public partial class sysdiagram
     {
-        public device()
-        {
-            this.device_status = new HashSet<device_status>();
-        }
-    
-        public Nullable<int> device_type { get; set; }
-        public string device_name { get; set; }
-        public string device_no { get; set; }
-        public int id { get; set; }
-    
-        public virtual ICollection<device_status> device_status { get; set; }
+        public string name { get; set; }
+        public int principal_id { get; set; }
+        public int diagram_id { get; set; }
+        public Nullable<int> version { get; set; }
+        public byte[] definition { get; set; }
     }
 }

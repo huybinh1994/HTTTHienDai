@@ -14,7 +14,14 @@ namespace DomainModel
     
     public partial class master
     {
+        public master()
+        {
+            this.merchants = new HashSet<merchant>();
+        }
+    
         public int id { get; set; }
         public string master_name { get; set; }
+    
+        public virtual ICollection<merchant> merchants { get; set; }
     }
 }

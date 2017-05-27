@@ -15,7 +15,7 @@ namespace DomainModel
     public partial class token
     {
         public int id { get; set; }
-        public Nullable<int> auther_id { get; set; }
+        public int auther_id { get; set; }
         public string token1 { get; set; }
         public Nullable<System.DateTime> expire { get; set; }
     }

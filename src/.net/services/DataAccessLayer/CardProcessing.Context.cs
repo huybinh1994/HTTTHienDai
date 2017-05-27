@@ -12,11 +12,12 @@ namespace DataAccessLayer
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
+    using DomainModel;
     
-    public partial class card_processingEntities : DbContext
+    public partial class card_processingEntities2 : DbContext
     {
-        public card_processingEntities()
-            : base("name=card_processingEntities")
+        public card_processingEntities2()
+            : base("name=card_processingEntities2")
         {
         }
     
@@ -30,6 +31,7 @@ namespace DataAccessLayer
         public DbSet<master> masters { get; set; }
         public DbSet<merchant> merchants { get; set; }
         public DbSet<parameter> parameters { get; set; }
+        public DbSet<sysdiagram> sysdiagrams { get; set; }
         public DbSet<token> tokens { get; set; }
         public DbSet<transaction> transactions { get; set; }
         public DbSet<user> users { get; set; }
