@@ -29,7 +29,7 @@ namespace WebApi.Controllers
             
             
             }
-            catch
+            catch (Exception ex)
             {
                 obj = new { StatusCode = 500, data = g_BusinessLayer.GetAllmerchant() };
             }

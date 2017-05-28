@@ -32,7 +32,5 @@ namespace DomainModel
         public string file_source { get; set; }
         public string batch_number { get; set; }
         public Nullable<int> status { get; set; }
-
-        public virtual merchant merchant { get; set; }
     }
 }

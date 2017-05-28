@@ -12,18 +12,11 @@ namespace DomainModel
     using System;
     using System.Collections.Generic;
     
-    public partial class device
+    public partial class token
     {
-        public device()
-        {
-            this.device_status = new HashSet<device_status>();
-        }
-    
-        public Nullable<int> device_type { get; set; }
-        public string device_name { get; set; }
-        public string device_no { get; set; }
         public int id { get; set; }
-    
-        public virtual ICollection<device_status> device_status { get; set; }
+        public int auther_id { get; set; }
+        public string token1 { get; set; }
+        public Nullable<System.DateTime> expire { get; set; }
     }
 }
