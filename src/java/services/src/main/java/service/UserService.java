@@ -1,5 +1,7 @@
 package service;
 
+import model.TokensDTO;
+
 public interface UserService {
-	public String login(String user);
+	public TokensDTO login(String user, String pass);
 }
