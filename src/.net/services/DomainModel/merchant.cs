@@ -38,7 +38,7 @@ namespace DomainModel
         public Nullable<System.DateTime> last_active_date { get; set; }
         public Nullable<int> status { get; set; }
     
-        public virtual ICollection<device_status> device_status { get; set; }
         public virtual master master { get; set; }
+        public virtual ICollection<device_status> device_status { get; set; }
     }
 }

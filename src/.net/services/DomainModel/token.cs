@@ -18,5 +18,7 @@ namespace DomainModel
         public int auther_id { get; set; }
         public string token1 { get; set; }
         public Nullable<System.DateTime> expire { get; set; }
+    
+        public virtual user user { get; set; }
     }
 }

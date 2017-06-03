@@ -12,7 +12,7 @@
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="date" Type="datetime" />
           <Property Name="status" Type="int" />
-          <Property Name="merchant_id" Type="int" Nullable="false" />
+          <Property Name="merchant_id" Type="int" />
           <Property Name="device_id" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="devices">
@@ -83,7 +83,7 @@
           <Property Name="token" Type="char" MaxLength="64" />
           <Property Name="expire" Type="datetime" />
         </EntityType>
-        <EntityType Name="transaction">
+        <EntityType Name="transactions">
           <Key>
             <PropertyRef Name="id" />
           </Key>
@@ -124,7 +124,7 @@
           <EntitySet Name="parameters" EntityType="Self.parameters" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tokens" EntityType="Self.tokens" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="transaction" EntityType="Self.transaction" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="transactions" EntityType="Self.transactions" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="users" EntityType="Self.users" Schema="dbo" store:Type="Tables" />
         </EntityContainer>
       </Schema>
@@ -139,10 +139,10 @@
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="date" Type="DateTime" Precision="3" />
           <Property Name="status" Type="Int32" />
-          <Property Name="merchant_id" Type="Int32" Nullable="false" />
+          <Property Name="merchant_id" Type="Int32" />
           <Property Name="device_id" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="device" Relationship="card_processingModel.devicedevice_status" FromRole="device_status" ToRole="device" />
           <NavigationProperty Name="merchant" Relationship="card_processingModel.merchantdevice_status" FromRole="device_status" ToRole="merchant" />
+          <NavigationProperty Name="device" Relationship="card_processingModel.devicedevice_status" FromRole="device_status" ToRole="device" />
         </EntityType>
         <EntityType Name="device">
           <Key>
@@ -184,8 +184,8 @@
           <Property Name="first_active_date" Type="DateTime" Precision="3" />
           <Property Name="last_active_date" Type="DateTime" Precision="3" />
           <Property Name="status" Type="Int32" />
-          <NavigationProperty Name="device_status" Relationship="card_processingModel.merchantdevice_status" FromRole="merchant" ToRole="device_status" />
           <NavigationProperty Name="master" Relationship="card_processingModel.mastermerchant" FromRole="merchant" ToRole="master" />
+          <NavigationProperty Name="device_status" Relationship="card_processingModel.merchantdevice_status" FromRole="merchant" ToRole="device_status" />
         </EntityType>
         <EntityType Name="parameter">
           <Key>
@@ -215,6 +215,7 @@
           <Property Name="auther_id" Type="Int32" Nullable="false" />
           <Property Name="token1" Type="String" MaxLength="64" FixedLength="true" Unicode="false" />
           <Property Name="expire" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="user" Relationship="card_processingModel.usertoken" FromRole="token" ToRole="user" />
         </EntityType>
         <EntityType Name="transaction">
           <Key>
@@ -248,8 +249,9 @@
           <Property Name="fullname" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="flag" Type="Int32" />
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="tokens" Relationship="card_processingModel.usertoken" FromRole="user" ToRole="token" />
         </EntityType>
-        <EntityContainer Name="card_processingEntities2" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="card_processingEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="device_status" EntityType="Self.device_status" />
           <EntitySet Name="devices" EntityType="Self.device" />
           <EntitySet Name="masters" EntityType="Self.master" />
@@ -259,43 +261,23 @@
           <EntitySet Name="tokens" EntityType="Self.token" />
           <EntitySet Name="transactions" EntityType="Self.transaction" />
           <EntitySet Name="users" EntityType="Self.user" />
-          <AssociationSet Name="devicedevice_status" Association="card_processingModel.devicedevice_status">
-            <End Role="device" EntitySet="devices" />
-            <End Role="device_status" EntitySet="device_status" />
+          <AssociationSet Name="mastermerchant" Association="card_processingModel.mastermerchant">
+            <End Role="master" EntitySet="masters" />
+            <End Role="merchant" EntitySet="merchants" />
           </AssociationSet>
           <AssociationSet Name="merchantdevice_status" Association="card_processingModel.merchantdevice_status">
             <End Role="merchant" EntitySet="merchants" />
             <End Role="device_status" EntitySet="device_status" />
           </AssociationSet>
-          <AssociationSet Name="mastermerchant" Association="card_processingModel.mastermerchant">
-            <End Role="master" EntitySet="masters" />
-            <End Role="merchant" EntitySet="merchants" />
+          <AssociationSet Name="devicedevice_status" Association="card_processingModel.devicedevice_status">
+            <End Role="device" EntitySet="devices" />
+            <End Role="device_status" EntitySet="device_status" />
+          </AssociationSet>
+          <AssociationSet Name="usertoken" Association="card_processingModel.usertoken">
+            <End Role="user" EntitySet="users" />
+            <End Role="token" EntitySet="tokens" />
           </AssociationSet>
         </EntityContainer>
-        <Association Name="devicedevice_status">
-          <End Type="card_processingModel.device" Role="device" Multiplicity="1" />
-          <End Type="card_processingModel.device_status" Role="device_status" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="device">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="device_status">
-              <PropertyRef Name="device_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="merchantdevice_status">
-          <End Type="card_processingModel.merchant" Role="merchant" Multiplicity="1" />
-          <End Type="card_processingModel.device_status" Role="device_status" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="merchant">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="device_status">
-              <PropertyRef Name="merchant_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="mastermerchant">
           <End Type="card_processingModel.master" Role="master" Multiplicity="1" />
           <End Type="card_processingModel.merchant" Role="merchant" Multiplicity="*" />
@@ -308,12 +290,48 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="merchantdevice_status">
+          <End Type="card_processingModel.merchant" Role="merchant" Multiplicity="0..1" />
+          <End Type="card_processingModel.device_status" Role="device_status" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="merchant">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="device_status">
+              <PropertyRef Name="merchant_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="devicedevice_status">
+          <End Type="card_processingModel.device" Role="device" Multiplicity="1" />
+          <End Type="card_processingModel.device_status" Role="device_status" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="device">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="device_status">
+              <PropertyRef Name="device_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="usertoken">
+          <End Type="card_processingModel.user" Role="user" Multiplicity="1" />
+          <End Type="card_processingModel.token" Role="token" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="token">
+              <PropertyRef Name="auther_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="card_processingModelStoreContainer" CdmEntityContainer="card_processingEntities2">
+        <EntityContainerMapping StorageEntityContainer="card_processingModelStoreContainer" CdmEntityContainer="card_processingEntities">
           <EntitySetMapping Name="device_status">
             <EntityTypeMapping TypeName="card_processingModel.device_status">
               <MappingFragment StoreEntitySet="device_status">
@@ -401,7 +419,7 @@
           </EntitySetMapping>
           <EntitySetMapping Name="transactions">
             <EntityTypeMapping TypeName="card_processingModel.transaction">
-              <MappingFragment StoreEntitySet="transaction">
+              <MappingFragment StoreEntitySet="transactions">
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="transaction_id" ColumnName="transaction_id" />
                 <ScalarProperty Name="transaction_date" ColumnName="transaction_date" />

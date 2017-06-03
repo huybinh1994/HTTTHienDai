@@ -14,11 +14,13 @@ namespace DataAccessLayer
     using System.Data.Entity.Infrastructure;
     using DomainModel;
     
-    public partial class card_processingEntities2 : DbContext
+    public partial class card_processingEntities : DbContext
     {
-        public card_processingEntities2()
-            : base("name=card_processingEntities2")
+        public card_processingEntities()
+            : base("name=card_processingEntities")
         {
+            Configuration.LazyLoadingEnabled = false;
+            Configuration.ProxyCreationEnabled = false;
         }
     
         protected override void OnModelCreating(DbModelBuilder modelBuilder)

@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="85806a7da28343f99ff14c57054100dd" Name="Diagram1">
+      <Diagram DiagramId="6ba5555d44e443fba592ff673db0d9c7" Name="Diagram1">
         <EntityTypeShape EntityType="card_processingModel.device_status" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="card_processingModel.device" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="card_processingModel.master" Width="1.5" PointX="0.75" PointY="3.75" IsExpanded="true" />
@@ -14,9 +14,10 @@
         <EntityTypeShape EntityType="card_processingModel.token" Width="1.5" PointX="6.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="card_processingModel.transaction" Width="1.5" PointX="6.75" PointY="3.75" IsExpanded="true" />
         <EntityTypeShape EntityType="card_processingModel.user" Width="1.5" PointX="8.75" PointY="0.75" IsExpanded="true" />
-        <AssociationConnector Association="card_processingModel.devicedevice_status" />
-        <AssociationConnector Association="card_processingModel.merchantdevice_status" />
         <AssociationConnector Association="card_processingModel.mastermerchant" />
+        <AssociationConnector Association="card_processingModel.merchantdevice_status" />
+        <AssociationConnector Association="card_processingModel.devicedevice_status" />
+        <AssociationConnector Association="card_processingModel.usertoken" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

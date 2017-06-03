@@ -28,7 +28,7 @@ namespace BusinessLayer
             _tranRespository = new TransactionRepository();
         }
         //Device
-        public IList<device> GetAllDevice()
+        public IList<DomainModel.device> GetAllDevice()
         {
             return _devRepository.GetAll();
         }
@@ -49,7 +49,7 @@ namespace BusinessLayer
             _devRepository.remove(devices);
         }
         //Device_Status
-        public IList<device_status> GetAllDevice_status()
+        public IList<DomainModel.device_status> GetAllDevice_status()
         {
             return _dev_statusRepository.GetAll();
         }
@@ -69,7 +69,7 @@ namespace BusinessLayer
             _dev_statusRepository.remove(devies_status);
         }
         //Master
-        public IList<master> GetAllmaster()
+        public IList<DomainModel.master> GetAllmaster()
         {
            
             return _masRepository.GetAll();
@@ -91,7 +91,7 @@ namespace BusinessLayer
         }
         //Merchant
         
-        public IList<merchant> GetAllmerchant()
+        public IList<DomainModel.merchant> GetAllmerchant()
         {
             
             return _mesRespository.GetAll();
@@ -113,7 +113,7 @@ namespace BusinessLayer
         }
         //parameter
         
-        public IList<parameter> GetAllparameter()
+        public IList<DomainModel.parameter> GetAllparameter()
         {
 
             return _paraRespository.GetAll();
@@ -134,7 +134,7 @@ namespace BusinessLayer
             _paraRespository.remove(parameters);
         }
         //transaction
-        public IList< transaction> GetAlltransaction()
+        public IList<DomainModel.transaction> GetAlltransaction()
         {
            
             
