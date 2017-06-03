@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="card_processingModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="card_processingModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="device_status">
           <Key>
             <PropertyRef Name="id" />
@@ -43,15 +43,15 @@
           <Property Name="master_id" Type="int" Nullable="false" />
           <Property Name="agent_id" Type="int" />
           <Property Name="sub_agent_id" Type="int" />
-          <Property Name="address_1" Type="nvarchar" MaxLength="100" />
-          <Property Name="address_2" Type="nvarchar" MaxLength="100" />
-          <Property Name="address_3" Type="nvarchar" MaxLength="100" />
-          <Property Name="city" Type="int" />
+          <Property Name="address" Type="nvarchar" MaxLength="200" />
+          <Property Name="district" Type="int" />
           <Property Name="province" Type="int" />
+          <Property Name="ward" Type="int" />
           <Property Name="zip_code" Type="int" />
-          <Property Name="country" Type="int" />
           <Property Name="first_active_date" Type="datetime" />
           <Property Name="last_active_date" Type="datetime" />
+          <Property Name="auther_id" Type="int" />
+          <Property Name="invite_id" Type="int" />
           <Property Name="status" Type="int" />
         </EntityType>
         <EntityType Name="parameters">
@@ -116,6 +116,7 @@
           <Property Name="flag" Type="int" />
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
         </EntityType>
+        <Function Name="fn_diagramobjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int" />
         <EntityContainer Name="card_processingModelStoreContainer">
           <EntitySet Name="device_status" EntityType="Self.device_status" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="devices" EntityType="Self.devices" Schema="dbo" store:Type="Tables" />
@@ -127,8 +128,7 @@
           <EntitySet Name="transactions" EntityType="Self.transactions" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="users" EntityType="Self.users" Schema="dbo" store:Type="Tables" />
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="card_processingModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -174,19 +174,20 @@
           <Property Name="master_id" Type="Int32" Nullable="false" />
           <Property Name="agent_id" Type="Int32" />
           <Property Name="sub_agent_id" Type="Int32" />
-          <Property Name="address_1" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="address_2" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="address_3" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="city" Type="Int32" />
           <Property Name="province" Type="Int32" />
           <Property Name="zip_code" Type="Int32" />
-          <Property Name="country" Type="Int32" />
           <Property Name="first_active_date" Type="DateTime" Precision="3" />
           <Property Name="last_active_date" Type="DateTime" Precision="3" />
           <Property Name="status" Type="Int32" />
           <NavigationProperty Name="master" Relationship="card_processingModel.mastermerchant" FromRole="merchant" ToRole="master" />
           <NavigationProperty Name="device_status" Relationship="card_processingModel.merchantdevice_status" FromRole="merchant" ToRole="device_status" />
-        </EntityType>
+          <Property Name="address" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="district" Type="Int32" />
+          <Property Name="ward" Type="Int32" />
+          <Property Name="auther_id" Type="Int32" />
+          <Property Name="invite_id" Type="Int32" />
+          <NavigationProperty Name="user" Relationship="card_processingModel.usermerchant" FromRole="merchant" ToRole="user" />
+          </EntityType>
         <EntityType Name="parameter">
           <Key>
             <PropertyRef Name="id" />
@@ -250,6 +251,7 @@
           <Property Name="flag" Type="Int32" />
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <NavigationProperty Name="tokens" Relationship="card_processingModel.usertoken" FromRole="user" ToRole="token" />
+          <NavigationProperty Name="merchants" Relationship="card_processingModel.usermerchant" FromRole="user" ToRole="merchant" />
         </EntityType>
         <EntityContainer Name="card_processingEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="device_status" EntityType="Self.device_status" />
@@ -276,6 +278,10 @@
           <AssociationSet Name="usertoken" Association="card_processingModel.usertoken">
             <End Role="user" EntitySet="users" />
             <End Role="token" EntitySet="tokens" />
+          </AssociationSet>
+          <AssociationSet Name="usermerchant" Association="card_processingModel.usermerchant">
+            <End Role="user" EntitySet="users" />
+            <End Role="merchant" EntitySet="merchants" />
           </AssociationSet>
         </EntityContainer>
         <Association Name="mastermerchant">
@@ -326,6 +332,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="usermerchant">
+          <End Type="card_processingModel.user" Role="user" Multiplicity="0..1" />
+          <End Type="card_processingModel.merchant" Role="merchant" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="merchant">
+              <PropertyRef Name="auther_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -364,6 +382,11 @@
           <EntitySetMapping Name="merchants">
             <EntityTypeMapping TypeName="card_processingModel.merchant">
               <MappingFragment StoreEntitySet="merchants">
+                <ScalarProperty Name="invite_id" ColumnName="invite_id" />
+                <ScalarProperty Name="auther_id" ColumnName="auther_id" />
+                <ScalarProperty Name="ward" ColumnName="ward" />
+                <ScalarProperty Name="district" ColumnName="district" />
+                <ScalarProperty Name="address" ColumnName="address" />
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="merchant_code" ColumnName="merchant_code" />
                 <ScalarProperty Name="merchant_name" ColumnName="merchant_name" />
@@ -372,13 +395,8 @@
                 <ScalarProperty Name="master_id" ColumnName="master_id" />
                 <ScalarProperty Name="agent_id" ColumnName="agent_id" />
                 <ScalarProperty Name="sub_agent_id" ColumnName="sub_agent_id" />
-                <ScalarProperty Name="address_1" ColumnName="address_1" />
-                <ScalarProperty Name="address_2" ColumnName="address_2" />
-                <ScalarProperty Name="address_3" ColumnName="address_3" />
-                <ScalarProperty Name="city" ColumnName="city" />
                 <ScalarProperty Name="province" ColumnName="province" />
                 <ScalarProperty Name="zip_code" ColumnName="zip_code" />
-                <ScalarProperty Name="country" ColumnName="country" />
                 <ScalarProperty Name="first_active_date" ColumnName="first_active_date" />
                 <ScalarProperty Name="last_active_date" ColumnName="last_active_date" />
                 <ScalarProperty Name="status" ColumnName="status" />

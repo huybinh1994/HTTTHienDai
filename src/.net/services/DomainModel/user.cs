@@ -17,6 +17,7 @@ namespace DomainModel
         public user()
         {
             this.tokens = new HashSet<token>();
+            this.merchants = new HashSet<merchant>();
         }
     
         public string username { get; set; }
@@ -26,5 +27,6 @@ namespace DomainModel
         public int id { get; set; }
     
         public virtual ICollection<token> tokens { get; set; }
+        public virtual ICollection<merchant> merchants { get; set; }
     }
 }
