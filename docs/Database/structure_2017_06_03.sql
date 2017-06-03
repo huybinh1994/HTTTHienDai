@@ -73,15 +73,15 @@ CREATE TABLE [dbo].[merchants] (
 [master_id] int NOT NULL ,
 [agent_id] int NULL ,
 [sub_agent_id] int NULL ,
-[address_1] nvarchar(100) NULL ,
-[address_2] nvarchar(100) NULL ,
-[address_3] nvarchar(100) NULL ,
-[city] int NULL ,
+[address] nvarchar(200) NULL ,
+[district] int NULL ,
 [province] int NULL ,
+[ward] int NULL ,
 [zip_code] int NULL ,
-[country] int NULL ,
 [first_active_date] datetime NULL ,
 [last_active_date] datetime NULL ,
+[auther_id] int NULL ,
+[invite_id] int NULL ,
 [status] int NULL 
 )
 
