@@ -24,7 +24,7 @@ CREATE TABLE [dbo].[device_status] (
 [id] int NOT NULL IDENTITY(1,1) ,
 [date] datetime NULL ,
 [status] int NULL ,
-[merchant_id] int NOT NULL ,
+[merchant_id] int NULL ,
 [device_id] int NOT NULL 
 )
 
@@ -86,9 +86,6 @@ CREATE TABLE [dbo].[merchants] (
 )
 
 
-GO
-DBCC CHECKIDENT(N'[dbo].[merchants]', RESEED, 5)
-GO
 
 -- ----------------------------
 -- Table structure for parameters
@@ -119,16 +116,12 @@ CREATE TABLE [dbo].[tokens] (
 )
 
 
-GO
-DBCC CHECKIDENT(N'[dbo].[tokens]', RESEED, 5)
-GO
-
 -- ----------------------------
--- Table structure for transaction
+-- Table structure for transactions
 -- ----------------------------
-DROP TABLE [dbo].[transaction]
+DROP TABLE [dbo].[transactions]
 GO
-CREATE TABLE [dbo].[transaction] (
+CREATE TABLE [dbo].[transactions] (
 [id] int NOT NULL IDENTITY(1,1) ,
 [transaction_id] nvarchar(20) NULL ,
 [transaction_date] datetime NULL ,
@@ -150,9 +143,6 @@ CREATE TABLE [dbo].[transaction] (
 )
 
 
-GO
-DBCC CHECKIDENT(N'[dbo].[transaction]', RESEED, 25)
-GO
 
 -- ----------------------------
 -- Table structure for users
@@ -235,13 +225,13 @@ ALTER TABLE [dbo].[tokens] ADD PRIMARY KEY ([id])
 GO
 
 -- ----------------------------
--- Indexes structure for table transaction
+-- Indexes structure for table transactions
 -- ----------------------------
 
 -- ----------------------------
--- Primary Key structure for table transaction
+-- Primary Key structure for table transactions
 -- ----------------------------
-ALTER TABLE [dbo].[transaction] ADD PRIMARY KEY ([id])
+ALTER TABLE [dbo].[transactions] ADD PRIMARY KEY ([id])
 GO
 
 -- ----------------------------
