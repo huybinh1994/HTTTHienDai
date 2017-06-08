@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Owin;
 using Owin;
+using CardProcessing_Api.Middleware;
 
 [assembly: OwinStartup(typeof(CardProcessing_Api.Startup))]
 
@@ -13,6 +14,7 @@ namespace CardProcessing_Api
         public void Configuration(IAppBuilder app)
         {
             ConfigureAuth(app);
+            app.Use<TokenMiddleware>();
         }
     }
 }

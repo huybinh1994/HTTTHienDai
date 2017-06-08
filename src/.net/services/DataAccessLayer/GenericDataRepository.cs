@@ -17,15 +17,15 @@ namespace DataAccessLayer
         {
             
             List<T> list = null;
-            using (var context = new card_processingEntities2())
+            using (var context = new card_processingEntities())
             {
                 IQueryable<T> dbquery = context.Set<T>();
-                // eager loading
-                foreach (Expression<Func<T, object>> navigationProperty in navigationproperties)
-                {
-                    dbquery = dbquery.Include<T, object>(navigationProperty);
-                }
-                list = dbquery.AsNoTracking().ToList<T>();
+                //// eager loading
+                //foreach (Expression<Func<T, object>> navigationProperty in navigationproperties)
+                //{
+                //    dbquery = dbquery.Include<T, object>(navigationProperty);
+                //}
+                list = dbquery.ToList<T>();
             }
             return list;
         }
@@ -33,7 +33,7 @@ namespace DataAccessLayer
         public IList<T> GetList(Func<T, bool> where, params System.Linq.Expressions.Expression<Func<T, object>>[] navigationproperties)
         {
             List<T> list = null;
-            using (var context = new card_processingEntities2())
+            using (var context = new card_processingEntities())
             {
                 IQueryable<T> dbquery = context.Set<T>();
                 // eager loading
@@ -49,7 +49,7 @@ namespace DataAccessLayer
         public T GetSingle(Func<T, bool> where, params System.Linq.Expressions.Expression<Func<T, object>>[] navigationproperties)
         {
             T item = null;
-            using (var context = new card_processingEntities2())
+            using (var context = new card_processingEntities())
             {
                 IQueryable<T> dbquery = context.Set<T>();
                 // eager loading
@@ -64,7 +64,7 @@ namespace DataAccessLayer
 
         public void add(params T[] items)
         {
-            using (var context = new card_processingEntities2())
+            using (var context = new card_processingEntities())
             {
                 foreach (T item in items)
                 {
@@ -76,7 +76,7 @@ namespace DataAccessLayer
 
         public void update(params T[] items)
         {
-            using (var context = new card_processingEntities2())
+            using (var context = new card_processingEntities())
             {
                 foreach (T item in items)
                 {
@@ -89,7 +89,7 @@ namespace DataAccessLayer
 
         public void remove(params T[] items)
         {
-            using (var context = new card_processingEntities2())
+            using (var context = new card_processingEntities())
             {
                 foreach (T item in items)
                 {

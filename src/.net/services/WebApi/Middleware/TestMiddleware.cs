@@ -12,7 +12,7 @@ using System.Web;
         {
         }
 
-        public async override Task Invoke(IOwinContext context)
+        public async override Task Invoke(IOwinContext context)// chỗ này ko truyền context mà truyền cái rule vào thoi
         {
             var a = context.Request.Headers.ContainsKey("Authorization");
             if(a)
@@ -20,16 +20,11 @@ using System.Web;
                 var b = context.Request.Headers.GetValues("Authorization");
                 context.Response.StatusCode = 403;
                 await context.Response.WriteAsync("abc");
-
             }
             else
             {
                 await Next.Invoke(context);
             }
-          
-          
-
-         
         }
     }
 }

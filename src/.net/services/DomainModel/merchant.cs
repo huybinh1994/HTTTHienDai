@@ -27,17 +27,19 @@ namespace DomainModel
         public int master_id { get; set; }
         public Nullable<int> agent_id { get; set; }
         public Nullable<int> sub_agent_id { get; set; }
-        public string address_1 { get; set; }
-        public string address_2 { get; set; }
-        public string address_3 { get; set; }
-        public Nullable<int> city { get; set; }
         public Nullable<int> province { get; set; }
         public Nullable<int> zip_code { get; set; }
-        public Nullable<int> country { get; set; }
         public Nullable<System.DateTime> first_active_date { get; set; }
         public Nullable<System.DateTime> last_active_date { get; set; }
         public Nullable<int> status { get; set; }
-    
-        
+        public string address { get; set; }
+        public Nullable<int> district { get; set; }
+        public Nullable<int> ward { get; set; }
+        public Nullable<int> auther_id { get; set; }
+        public Nullable<int> invite_id { get; set; }
+
+        //public virtual master master { get; set; }
+        //public virtual ICollection<device_status> device_status { get; set; }
+        //public virtual user user { get; set; }
     }
 }

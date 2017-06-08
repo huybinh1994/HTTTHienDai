@@ -14,10 +14,18 @@ namespace DomainModel
     
     public partial class user
     {
+        public user()
+        {
+            
+        }
+    
         public string username { get; set; }
         public string password { get; set; }
         public string fullname { get; set; }
         public Nullable<int> flag { get; set; }
         public int id { get; set; }
+    
+        //public virtual ICollection<token> tokens { get; set; }
+        //public virtual ICollection<merchant> merchants { get; set; }
     }
 }

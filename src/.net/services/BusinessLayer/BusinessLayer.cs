@@ -8,7 +8,7 @@ using DomainModel;
 
 namespace BusinessLayer
 {
-     public  class BusinessLayer
+    public class BusinessLayer
     {
         private readonly IDeviceRepository _devRepository;
         private readonly IDevice_StatusRepository _dev_statusRepository;
@@ -16,6 +16,8 @@ namespace BusinessLayer
         private readonly IMerchantRepository _mesRespository;
         private readonly IParameterRepository _paraRespository;
         private readonly ITransactionRepository _tranRespository;
+        private readonly ITokenRepository _tokenRepository;
+        private readonly IUserRepository _userRepository;
 
 
         public BusinessLayer()
@@ -26,9 +28,11 @@ namespace BusinessLayer
             _mesRespository = new MerchantRepository();
             _paraRespository = new ParameterRepository();
             _tranRespository = new TransactionRepository();
+            _tokenRepository = new TokenRepository();
+            _userRepository = new UserRepository();
         }
-        //Device
-        public IList<device> GetAllDevice()
+        #region Device
+        public IList<DomainModel.device> GetAllDevice()
         {
             return _devRepository.GetAll();
         }
@@ -48,8 +52,9 @@ namespace BusinessLayer
         {
             _devRepository.remove(devices);
         }
-        //Device_Status
-        public IList<device_status> GetAllDevice_status()
+        #endregion
+        #region device_status
+        public IList<DomainModel.device_status> GetAllDevice_status()
         {
             return _dev_statusRepository.GetAll();
         }
@@ -68,10 +73,11 @@ namespace BusinessLayer
         {
             _dev_statusRepository.remove(devies_status);
         }
-        //Master
-        public IList<master> GetAllmaster()
+        #endregion
+        #region Master
+        public IList<DomainModel.master> GetAllmaster()
         {
-           
+
             return _masRepository.GetAll();
         }
 
@@ -89,11 +95,12 @@ namespace BusinessLayer
         {
             _masRepository.remove(masters);
         }
-        //Merchant
-        
-        public IList<merchant> GetAllmerchant()
+        #endregion
+        #region Merchant
+
+        public IList<DomainModel.merchant> GetAllmerchant()
         {
-            
+
             return _mesRespository.GetAll();
         }
 
@@ -111,9 +118,10 @@ namespace BusinessLayer
         {
             _mesRespository.remove(merchants);
         }
-        //parameter
-        
-        public IList<parameter> GetAllparameter()
+        #endregion
+        #region Parameter
+
+        public IList<DomainModel.parameter> GetAllparameter()
         {
 
             return _paraRespository.GetAll();
@@ -133,29 +141,81 @@ namespace BusinessLayer
         {
             _paraRespository.remove(parameters);
         }
-        //transaction
-        public IList< transaction> GetAlltransaction()
+        #endregion
+        #region Transaction
+        public IList<DomainModel.transaction> GetAlltransaction()
         {
-           
-            
+
+
             return _tranRespository.GetAll();
         }
 
-        public void Addtransaction(params  transaction[]  transactions)
+        public void Addtransaction(params transaction[] transactions)
         {
-            _tranRespository.add( transactions);
+            _tranRespository.add(transactions);
         }
 
-        public void Updatetransaction(params  transaction[]  transactions)
+        public void Updatetransaction(params transaction[] transactions)
         {
-            _tranRespository.update( transactions);
+            _tranRespository.update(transactions);
         }
 
-        public void Removetransaction(params  transaction[] parameters)
+        public void Removetransaction(params transaction[] parameters)
         {
             _tranRespository.remove(parameters);
         }
+        #endregion
+        #region Token
+        public IList<DomainModel.token> GetAlltoken()
+        {
+            return _tokenRepository.GetAll();
+        }
 
+        public void Addtoken(params token[] tokens)
+        {
+            _tokenRepository.add(tokens);
+
+        }
+
+        public void Updatetoken(params token[] tokens)
+        {
+            _tokenRepository.update(tokens);
+        }
+
+        public void Removetoken(params token[] tokens)
+        {
+            _tokenRepository.remove(tokens);
+        }
+     
+        #endregion
+        #region User
+        public IList<DomainModel.user> GetAlluser()
+        {
+            return _userRepository.GetAll();
+        }
+
+        public void Adduser(params user[] users)
+        {
+            _userRepository.add(users);
+
+        }
+
+        public void Updateuser(params user[] users)
+        {
+            _userRepository.update(users);
+        }
+
+        public void Removeuser(params user[] users)
+        {
+            _userRepository.remove(users);
+            
+        }
+        public user getUserByKey(int p_iKey)
+        {
+
+            return _userRepository.getUserByKey(p_iKey);
+        }
+        #endregion
 
     }
 }

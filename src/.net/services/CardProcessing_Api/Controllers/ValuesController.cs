@@ -18,6 +18,7 @@ namespace CardProcessing_Api.Controllers
         }
         [HttpGet]
         public HttpResponseMessage GetAllMerchant()
+
         {
             object obj;
             try
