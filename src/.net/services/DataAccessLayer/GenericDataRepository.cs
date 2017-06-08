@@ -5,6 +5,9 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
+using System.Data;
+
+
 
 namespace DataAccessLayer
 {
@@ -65,7 +68,7 @@ namespace DataAccessLayer
             {
                 foreach (T item in items)
                 {
-                    context.Entry(item).State = System.Data.EntityState.Added;
+                    context.Entry(item).State =EntityState.Added;
                 }
                 context.SaveChanges();
             }
@@ -77,7 +80,7 @@ namespace DataAccessLayer
             {
                 foreach (T item in items)
                 {
-                    context.Entry(item).State = System.Data.EntityState.Modified;
+                    context.Entry(item).State = EntityState.Modified;
                 }
                 context.SaveChanges();
             }
@@ -90,7 +93,7 @@ namespace DataAccessLayer
             {
                 foreach (T item in items)
                 {
-                    context.Entry(item).State = System.Data.EntityState.Deleted;
+                    context.Entry(item).State = EntityState.Deleted;
                 }
                 context.SaveChanges();
             }

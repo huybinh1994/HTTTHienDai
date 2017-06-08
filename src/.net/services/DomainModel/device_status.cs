@@ -20,7 +20,6 @@ namespace DomainModel
         public int merchant_id { get; set; }
         public int device_id { get; set; }
     
-        public virtual device device { get; set; }
-        public virtual merchant merchant { get; set; }
+     
     }
 }

@@ -141,8 +141,6 @@
           <Property Name="status" Type="Int32" />
           <Property Name="merchant_id" Type="Int32" Nullable="false" />
           <Property Name="device_id" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="device" Relationship="card_processingModel.devicedevice_status" FromRole="device_status" ToRole="device" />
-          <NavigationProperty Name="merchant" Relationship="card_processingModel.merchantdevice_status" FromRole="device_status" ToRole="merchant" />
         </EntityType>
         <EntityType Name="device">
           <Key>
@@ -152,7 +150,6 @@
           <Property Name="device_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="device_no" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <NavigationProperty Name="device_status" Relationship="card_processingModel.devicedevice_status" FromRole="device" ToRole="device_status" />
         </EntityType>
         <EntityType Name="master">
           <Key>
@@ -160,7 +157,6 @@
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="master_name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="merchants" Relationship="card_processingModel.mastermerchant" FromRole="master" ToRole="merchant" />
         </EntityType>
         <EntityType Name="merchant">
           <Key>
@@ -184,8 +180,6 @@
           <Property Name="first_active_date" Type="DateTime" Precision="3" />
           <Property Name="last_active_date" Type="DateTime" Precision="3" />
           <Property Name="status" Type="Int32" />
-          <NavigationProperty Name="device_status" Relationship="card_processingModel.merchantdevice_status" FromRole="merchant" ToRole="device_status" />
-          <NavigationProperty Name="master" Relationship="card_processingModel.mastermerchant" FromRole="merchant" ToRole="master" />
         </EntityType>
         <EntityType Name="parameter">
           <Key>
@@ -259,55 +253,7 @@
           <EntitySet Name="tokens" EntityType="Self.token" />
           <EntitySet Name="transactions" EntityType="Self.transaction" />
           <EntitySet Name="users" EntityType="Self.user" />
-          <AssociationSet Name="devicedevice_status" Association="card_processingModel.devicedevice_status">
-            <End Role="device" EntitySet="devices" />
-            <End Role="device_status" EntitySet="device_status" />
-          </AssociationSet>
-          <AssociationSet Name="merchantdevice_status" Association="card_processingModel.merchantdevice_status">
-            <End Role="merchant" EntitySet="merchants" />
-            <End Role="device_status" EntitySet="device_status" />
-          </AssociationSet>
-          <AssociationSet Name="mastermerchant" Association="card_processingModel.mastermerchant">
-            <End Role="master" EntitySet="masters" />
-            <End Role="merchant" EntitySet="merchants" />
-          </AssociationSet>
         </EntityContainer>
-        <Association Name="devicedevice_status">
-          <End Type="card_processingModel.device" Role="device" Multiplicity="1" />
-          <End Type="card_processingModel.device_status" Role="device_status" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="device">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="device_status">
-              <PropertyRef Name="device_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="merchantdevice_status">
-          <End Type="card_processingModel.merchant" Role="merchant" Multiplicity="1" />
-          <End Type="card_processingModel.device_status" Role="device_status" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="merchant">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="device_status">
-              <PropertyRef Name="merchant_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="mastermerchant">
-          <End Type="card_processingModel.master" Role="master" Multiplicity="1" />
-          <End Type="card_processingModel.merchant" Role="merchant" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="master">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="merchant">
-              <PropertyRef Name="master_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
