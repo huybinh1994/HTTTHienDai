@@ -14,7 +14,7 @@ namespace CardProcessing_Api
         public void Configuration(IAppBuilder app)
         {
             ConfigureAuth(app);
-            app.Use<TokenMiddleware>();
+            //app.Use<TokenMiddleware>();
         }
     }
 }

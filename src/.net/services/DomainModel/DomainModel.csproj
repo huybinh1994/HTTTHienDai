@@ -40,49 +40,21 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CardProcessing.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>CardProcessing.tt</DependentUpon>
-    </Compile>
     <Compile Include="Class1.cs" />
-    <Compile Include="device.cs">
-      <DependentUpon>CardProcessing.tt</DependentUpon>
-    </Compile>
-    <Compile Include="device_status.cs">
-      <DependentUpon>CardProcessing.tt</DependentUpon>
-    </Compile>
-    <Compile Include="master.cs">
-      <DependentUpon>CardProcessing.tt</DependentUpon>
-    </Compile>
-    <Compile Include="merchant.cs">
-      <DependentUpon>CardProcessing.tt</DependentUpon>
-    </Compile>
-    <Compile Include="parameter.cs">
-      <DependentUpon>CardProcessing.tt</DependentUpon>
-    </Compile>
+    <Compile Include="device.cs" />
+    <Compile Include="device_status.cs" />
+    <Compile Include="master.cs" />
+    <Compile Include="merchants.cs" />
+    <Compile Include="merchant_type.cs" />
+    <Compile Include="parameter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="sysdiagram.cs">
-      <DependentUpon>CardProcessing.tt</DependentUpon>
-    </Compile>
-    <Compile Include="token.cs">
-      <DependentUpon>CardProcessing.tt</DependentUpon>
-    </Compile>
-    <Compile Include="transaction.cs">
-      <DependentUpon>CardProcessing.tt</DependentUpon>
-    </Compile>
-    <Compile Include="user.cs">
-      <DependentUpon>CardProcessing.tt</DependentUpon>
-    </Compile>
+    <Compile Include="thongbao.cs" />
+    <Compile Include="token.cs" />
+    <Compile Include="transaction.cs" />
+    <Compile Include="user.cs" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="CardProcessing.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>CardProcessing.cs</LastGenOutput>
-    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

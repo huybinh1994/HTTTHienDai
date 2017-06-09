@@ -1,0 +1,400 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="card_processingModel1.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="device_status">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="date" Type="datetime" />
+          <Property Name="status" Type="int" />
+          <Property Name="merchant_id" Type="int" />
+          <Property Name="device_id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="devices">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="device_type" Type="int" />
+          <Property Name="device_name" Type="nvarchar" MaxLength="50" />
+          <Property Name="device_no" Type="char" MaxLength="10" />
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
+        <EntityType Name="masters">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="master_name" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="merchant_type">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TenLoai" Type="nvarchar" MaxLength="250" />
+        </EntityType>
+        <EntityType Name="merchants">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="merchant_code" Type="varchar" MaxLength="30" />
+          <Property Name="merchant_name" Type="nvarchar" MaxLength="100" />
+          <Property Name="merchant_phone_call" Type="varchar" MaxLength="15" />
+          <Property Name="tax_code" Type="varchar" MaxLength="15" />
+          <Property Name="master_id" Type="int" Nullable="false" />
+          <Property Name="agent_id" Type="int" />
+          <Property Name="sub_agent_id" Type="int" />
+          <Property Name="address" Type="nvarchar" MaxLength="200" />
+          <Property Name="district" Type="int" />
+          <Property Name="province" Type="int" />
+          <Property Name="ward" Type="int" />
+          <Property Name="zip_code" Type="int" />
+          <Property Name="first_active_date" Type="datetime" />
+          <Property Name="last_active_date" Type="datetime" />
+          <Property Name="auther_id" Type="int" />
+          <Property Name="invite_id" Type="int" />
+          <Property Name="status" Type="int" />
+          <Property Name="type_id" Type="int" />
+        </EntityType>
+        <EntityType Name="parameters">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="param_name" Type="varchar" MaxLength="50" />
+          <Property Name="param_value" Type="text" />
+          <Property Name="param_type" Type="varchar" MaxLength="255" />
+          <Property Name="param_status" Type="int" />
+        </EntityType>
+        <EntityType Name="tokens">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="auther_id" Type="int" Nullable="false" />
+          <Property Name="token" Type="char" MaxLength="64" />
+          <Property Name="expire" Type="datetime" />
+        </EntityType>
+        <EntityType Name="transactions">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="transaction_id" Type="nvarchar" MaxLength="20" />
+          <Property Name="transaction_date" Type="datetime" />
+          <Property Name="record_type" Type="nvarchar" MaxLength="20" />
+          <Property Name="acctid" Type="nvarchar" MaxLength="20" />
+          <Property Name="amount" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="card_type" Type="int" />
+          <Property Name="card_number" Type="varchar" MaxLength="16" />
+          <Property Name="csv" Type="varchar" MaxLength="5" />
+          <Property Name="card_exp_month" Type="nvarchar" MaxLength="2" />
+          <Property Name="card_exp_year" Type="nvarchar" MaxLength="5" />
+          <Property Name="merchant_code" Type="varchar" MaxLength="30" />
+          <Property Name="product_id" Type="int" />
+          <Property Name="product_quantity" Type="int" />
+          <Property Name="product_price" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="file_source" Type="varchar" MaxLength="255" />
+          <Property Name="batch_number" Type="varchar" MaxLength="255" />
+          <Property Name="status" Type="int" />
+        </EntityType>
+        <EntityType Name="users">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="username" Type="varchar" MaxLength="50" />
+          <Property Name="password" Type="varchar" MaxLength="50" />
+          <Property Name="fullname" Type="varchar" MaxLength="50" />
+          <Property Name="flag" Type="int" />
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
+        <EntityContainer Name="card_processingModel1StoreContainer">
+          <EntitySet Name="device_status" EntityType="Self.device_status" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="devices" EntityType="Self.devices" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="masters" EntityType="Self.masters" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="merchant_type" EntityType="Self.merchant_type" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="merchants" EntityType="Self.merchants" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="parameters" EntityType="Self.parameters" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tokens" EntityType="Self.tokens" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="transactions" EntityType="Self.transactions" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="users" EntityType="Self.users" Schema="dbo" store:Type="Tables" />
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="card_processingModel1" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="device_status">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="date" Type="DateTime" Precision="3" />
+          <Property Name="status" Type="Int32" />
+          <Property Name="merchant_id" Type="Int32" />
+          <Property Name="device_id" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="device">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="device_type" Type="Int32" />
+          <Property Name="device_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="device_no" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+        </EntityType>
+        <EntityType Name="master">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="master_name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="merchant_type">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TenLoai" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="merchant">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="merchant_code" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="merchant_name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="merchant_phone_call" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="tax_code" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="master_id" Type="Int32" Nullable="false" />
+          <Property Name="agent_id" Type="Int32" />
+          <Property Name="sub_agent_id" Type="Int32" />
+          <Property Name="address" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="district" Type="Int32" />
+          <Property Name="province" Type="Int32" />
+          <Property Name="ward" Type="Int32" />
+          <Property Name="zip_code" Type="Int32" />
+          <Property Name="first_active_date" Type="DateTime" Precision="3" />
+          <Property Name="last_active_date" Type="DateTime" Precision="3" />
+          <Property Name="auther_id" Type="Int32" />
+          <Property Name="invite_id" Type="Int32" />
+          <Property Name="status" Type="Int32" />
+          <Property Name="type_id" Type="Int32" />
+        </EntityType>
+        <EntityType Name="parameter">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="param_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="param_value" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="param_type" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="param_status" Type="Int32" />
+        </EntityType>
+        <EntityType Name="token">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="auther_id" Type="Int32" Nullable="false" />
+          <Property Name="token1" Type="String" MaxLength="64" FixedLength="true" Unicode="false" />
+          <Property Name="expire" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="transaction">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="transaction_id" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="transaction_date" Type="DateTime" Precision="3" />
+          <Property Name="record_type" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="acctid" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="amount" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="card_type" Type="Int32" />
+          <Property Name="card_number" Type="String" MaxLength="16" FixedLength="false" Unicode="false" />
+          <Property Name="csv" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="card_exp_month" Type="String" MaxLength="2" FixedLength="false" Unicode="true" />
+          <Property Name="card_exp_year" Type="String" MaxLength="5" FixedLength="false" Unicode="true" />
+          <Property Name="merchant_code" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="product_id" Type="Int32" />
+          <Property Name="product_quantity" Type="Int32" />
+          <Property Name="product_price" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="file_source" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="batch_number" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="status" Type="Int32" />
+        </EntityType>
+        <EntityType Name="user">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="username" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="fullname" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="flag" Type="Int32" />
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+        </EntityType>
+        <EntityContainer Name="card_processingEntities2" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="device_status" EntityType="Self.device_status" />
+          <EntitySet Name="devices" EntityType="Self.device" />
+          <EntitySet Name="masters" EntityType="Self.master" />
+          <EntitySet Name="merchant_type" EntityType="Self.merchant_type" />
+          <EntitySet Name="merchants" EntityType="Self.merchant" />
+          <EntitySet Name="parameters" EntityType="Self.parameter" />
+          <EntitySet Name="tokens" EntityType="Self.token" />
+          <EntitySet Name="transactions" EntityType="Self.transaction" />
+          <EntitySet Name="users" EntityType="Self.user" />
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="card_processingModel1StoreContainer" CdmEntityContainer="card_processingEntities2">
+          <EntitySetMapping Name="device_status">
+            <EntityTypeMapping TypeName="card_processingModel1.device_status">
+              <MappingFragment StoreEntitySet="device_status">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="date" ColumnName="date" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="merchant_id" ColumnName="merchant_id" />
+                <ScalarProperty Name="device_id" ColumnName="device_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="devices">
+            <EntityTypeMapping TypeName="card_processingModel1.device">
+              <MappingFragment StoreEntitySet="devices">
+                <ScalarProperty Name="device_type" ColumnName="device_type" />
+                <ScalarProperty Name="device_name" ColumnName="device_name" />
+                <ScalarProperty Name="device_no" ColumnName="device_no" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="masters">
+            <EntityTypeMapping TypeName="card_processingModel1.master">
+              <MappingFragment StoreEntitySet="masters">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="master_name" ColumnName="master_name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="merchant_type">
+            <EntityTypeMapping TypeName="card_processingModel1.merchant_type">
+              <MappingFragment StoreEntitySet="merchant_type">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="TenLoai" ColumnName="TenLoai" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="merchants">
+            <EntityTypeMapping TypeName="card_processingModel1.merchant">
+              <MappingFragment StoreEntitySet="merchants">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="merchant_code" ColumnName="merchant_code" />
+                <ScalarProperty Name="merchant_name" ColumnName="merchant_name" />
+                <ScalarProperty Name="merchant_phone_call" ColumnName="merchant_phone_call" />
+                <ScalarProperty Name="tax_code" ColumnName="tax_code" />
+                <ScalarProperty Name="master_id" ColumnName="master_id" />
+                <ScalarProperty Name="agent_id" ColumnName="agent_id" />
+                <ScalarProperty Name="sub_agent_id" ColumnName="sub_agent_id" />
+                <ScalarProperty Name="address" ColumnName="address" />
+                <ScalarProperty Name="district" ColumnName="district" />
+                <ScalarProperty Name="province" ColumnName="province" />
+                <ScalarProperty Name="ward" ColumnName="ward" />
+                <ScalarProperty Name="zip_code" ColumnName="zip_code" />
+                <ScalarProperty Name="first_active_date" ColumnName="first_active_date" />
+                <ScalarProperty Name="last_active_date" ColumnName="last_active_date" />
+                <ScalarProperty Name="auther_id" ColumnName="auther_id" />
+                <ScalarProperty Name="invite_id" ColumnName="invite_id" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="type_id" ColumnName="type_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="parameters">
+            <EntityTypeMapping TypeName="card_processingModel1.parameter">
+              <MappingFragment StoreEntitySet="parameters">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="param_name" ColumnName="param_name" />
+                <ScalarProperty Name="param_value" ColumnName="param_value" />
+                <ScalarProperty Name="param_type" ColumnName="param_type" />
+                <ScalarProperty Name="param_status" ColumnName="param_status" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tokens">
+            <EntityTypeMapping TypeName="card_processingModel1.token">
+              <MappingFragment StoreEntitySet="tokens">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="auther_id" ColumnName="auther_id" />
+                <ScalarProperty Name="token1" ColumnName="token" />
+                <ScalarProperty Name="expire" ColumnName="expire" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="transactions">
+            <EntityTypeMapping TypeName="card_processingModel1.transaction">
+              <MappingFragment StoreEntitySet="transactions">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="transaction_id" ColumnName="transaction_id" />
+                <ScalarProperty Name="transaction_date" ColumnName="transaction_date" />
+                <ScalarProperty Name="record_type" ColumnName="record_type" />
+                <ScalarProperty Name="acctid" ColumnName="acctid" />
+                <ScalarProperty Name="amount" ColumnName="amount" />
+                <ScalarProperty Name="card_type" ColumnName="card_type" />
+                <ScalarProperty Name="card_number" ColumnName="card_number" />
+                <ScalarProperty Name="csv" ColumnName="csv" />
+                <ScalarProperty Name="card_exp_month" ColumnName="card_exp_month" />
+                <ScalarProperty Name="card_exp_year" ColumnName="card_exp_year" />
+                <ScalarProperty Name="merchant_code" ColumnName="merchant_code" />
+                <ScalarProperty Name="product_id" ColumnName="product_id" />
+                <ScalarProperty Name="product_quantity" ColumnName="product_quantity" />
+                <ScalarProperty Name="product_price" ColumnName="product_price" />
+                <ScalarProperty Name="file_source" ColumnName="file_source" />
+                <ScalarProperty Name="batch_number" ColumnName="batch_number" />
+                <ScalarProperty Name="status" ColumnName="status" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="users">
+            <EntityTypeMapping TypeName="card_processingModel1.user">
+              <MappingFragment StoreEntitySet="users">
+                <ScalarProperty Name="username" ColumnName="username" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="fullname" ColumnName="fullname" />
+                <ScalarProperty Name="flag" ColumnName="flag" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

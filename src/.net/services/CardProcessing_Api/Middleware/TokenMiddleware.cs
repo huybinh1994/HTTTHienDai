@@ -20,52 +20,54 @@ namespace CardProcessing_Api.Middleware
 
         public async override Task Invoke(IOwinContext context)
         {
-            string v_strPath = context.Request.Path.ToString();
-            string v_strMethod = context.Request.Method;
-            var token = context.Request.Headers.ContainsKey("Authorization");
-            string  v_value = context.Request.Headers["Authorization"];
-            if(!v_strPath.Contains("api"))// lan dau tien
-            {
-                await Next.Invoke(context);
-            }
-            else
-            {
-                using (var context1 = new card_processingEntities())
-                
+            await Next.Invoke(context);
 
-                    if(true)
-                    {
-                        await Next.Invoke(context);//ok vay di, sang mai tui nghien cuu tiep
-                    }
-                    else
-                    {
-                        context.Response.StatusCode = 403;
-                        await context.Response.WriteAsync("abc");
-                    }
-                    //khi gởi request sẽ vào đây
-                    //sau đó check quyền
-                    //
-                    //    // vi du kiem tra quyen thanh cong
-                    //if(true)
-                    //{
-                    //    await Next.Invoke(context);
+            //string v_strPath = context.Request.Path.ToString();
+            //string v_strMethod = context.Request.Method;
+            //var token = context.Request.Headers.ContainsKey("Authorization");
+            //string  v_value = context.Request.Headers["Authorization"];
+            //if(!v_strPath.Contains("api"))// lan dau tien
+            //{
+            //    await Next.Invoke(context);
+            //}
+            //else
+            //{
+            //    using (var context1 = new card_processingEntities())
 
-                    //}
-                    //else
-                    //{ 
 
-                    //    context.Response.StatusCode = 403;
-                    //    await context.Response.WriteAsync("abc");
-                    //}
-                    //neu ko có quyền thì mình
-                    
-                    //List<merchant> v_objToken = context1.merchants.ToList();
+            //        if(true)
+            //        {
+            //            await Next.Invoke(context);//ok vay di, sang mai tui nghien cuu tiep
+            //        }
+            //        else
+            //        {
+            //            context.Response.StatusCode = 403;
+            //            await context.Response.WriteAsync("abc");
+            //        }
+            //        //khi gởi request sẽ vào đây
+            //        //sau đó check quyền
+            //        //
+            //        //    // vi du kiem tra quyen thanh cong
+            //        //if(true)
+            //        //{
+            //        //    await Next.Invoke(context);
 
-                }
-                
-            
+            //        //}
+            //        //else
+            //        //{ 
 
-            }
+            //        //    context.Response.StatusCode = 403;
+            //        //    await context.Response.WriteAsync("abc");
+            //        //}
+            //        //neu ko có quyền thì mình
+
+            //        //List<merchant> v_objToken = context1.merchants.ToList();
+
+            //    }
+
+
+
+        }
 
 
         public bool checkPermission(int rule)

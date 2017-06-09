@@ -18,6 +18,8 @@ namespace BusinessLayer
         private readonly ITransactionRepository _tranRespository;
         private readonly ITokenRepository _tokenRepository;
         private readonly IUserRepository _userRepository;
+        private readonly IMerchant_TypeRepository _merchant_typeRepository;
+        private readonly IThongBaoRepository _thongbaoRepository;
 
 
         public BusinessLayer()
@@ -30,6 +32,8 @@ namespace BusinessLayer
             _tranRespository = new TransactionRepository();
             _tokenRepository = new TokenRepository();
             _userRepository = new UserRepository();
+            _merchant_typeRepository = new Merchant_TypeRepository();
+            _thongbaoRepository = new ThongBaoRepository();
         }
         #region Device
         public IList<DomainModel.device> GetAllDevice()
@@ -118,6 +122,14 @@ namespace BusinessLayer
         {
             _mesRespository.remove(merchants);
         }
+        public merchant getMerchantByID(int id)
+        {
+            return _mesRespository.getMerchantByID(id);
+        }
+        public List<merchant> getSearchMerchant(string Name, int Type, int Provice, int District, int Ward)
+        {
+            return _mesRespository.searchMerchant(Name, Type, Provice, District, Ward);
+        }
         #endregion
         #region Parameter
 
@@ -186,7 +198,7 @@ namespace BusinessLayer
         {
             _tokenRepository.remove(tokens);
         }
-     
+
         #endregion
         #region User
         public IList<DomainModel.user> GetAlluser()
@@ -208,12 +220,54 @@ namespace BusinessLayer
         public void Removeuser(params user[] users)
         {
             _userRepository.remove(users);
-            
-        }
-        public user getUserByKey(int p_iKey)
-        {
 
-            return _userRepository.getUserByKey(p_iKey);
+        }
+        //public user getUserByKey(int p_iKey)
+        //{
+
+        //    return _userRepository.getUserByKey(p_iKey);
+        //}
+        #endregion
+        #region Merchant Type
+        public IList<DomainModel.merchant_type> GetAllMerchan_type()
+        {
+            return _merchant_typeRepository.GetAll();
+        }
+
+        public void Addmerchant_type(params merchant_type[] merchant_type)
+        {
+            _merchant_typeRepository.add(merchant_type);
+        }
+
+        public void Updatemerchant_type(params merchant_type[] merchant_type)
+        {
+            _merchant_typeRepository.update(merchant_type);
+        }
+
+        public void Removemerchant_type(params merchant_type[] merchant_type)
+        {
+            _merchant_typeRepository.remove(merchant_type);
+        }
+        #endregion
+        #region Thong Bao
+        public IList<DomainModel.thongbao> GetAllThongBao()
+        {
+            return _thongbaoRepository.GetAll();
+        }
+
+        public void Addthongbao(params thongbao[] thongbao)
+        {
+            _thongbaoRepository.add(thongbao);
+        }
+
+        public void Updatethongbao(params thongbao[] thongbao)
+        {
+            _thongbaoRepository.update(thongbao);
+        }
+
+        public void Removethongbao(params thongbao[] thongbao)
+        {
+            _thongbaoRepository.remove(thongbao);
         }
         #endregion
 
