@@ -13,7 +13,7 @@ import javax.persistence.ManyToOne;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-@Entity(name = "[transaction]")
+@Entity(name = "transactions")
 public class TransactionDTO {
 	@Id
 	@Column(name = "id")

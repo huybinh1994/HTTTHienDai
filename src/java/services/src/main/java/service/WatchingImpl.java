@@ -10,13 +10,26 @@ import java.nio.file.Paths;
 import java.nio.file.WatchEvent;
 import java.nio.file.WatchKey;
 import java.nio.file.WatchService;
+import java.util.List;
 import java.util.Scanner;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import dao.TransactionDAO;
+import model.TransactionDTO;
 @Service
 public class WatchingImpl implements WatchingService {
 
+	TransactionDAO dao;
+	
+	public TransactionDAO getDao() {
+		return dao;
+	}
+	@Autowired
+	public void setDao(TransactionDAO dao) {
+		this.dao = dao;
+	}
 	ReadCsvService read;
 	
 	public ReadCsvService getRead() {
@@ -71,6 +84,11 @@ public class WatchingImpl implements WatchingService {
 		} catch (IOException ex) {
 			System.err.println(ex);
 		}
+	}
+	@Override
+	public List<TransactionDTO> getAll() {
+		
+		return dao.getAll();
 	}
 
 }
