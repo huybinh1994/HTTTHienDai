@@ -12,7 +12,7 @@
 	<mvc:annotation-driven
 		content-negotiation-manager="contentNegotiationManager" />
 	<context:annotation-config />
-	<context:component-scan base-package="controller, dao, model, service" />
+	<context:component-scan base-package="controller, dao, model, service, filter" />
 
 	<bean id="contentNegotiationManager"
 		class="org.springframework.web.accept.ContentNegotiationManagerFactoryBean">
