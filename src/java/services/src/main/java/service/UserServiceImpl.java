@@ -1,10 +1,10 @@
 package service;
 
-import java.sql.Date;
-import java.sql.Timestamp;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
-import org.joda.time.DateTime;
-import org.joda.time.DateTimeZone;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -48,8 +48,17 @@ public class UserServiceImpl implements UserService {
 		if(userDTO != null){
 			String token = Sha256.convertSha256(Sha256.convertSha256(user));
 			tokenDTO.setAuther_id(userDTO);
-			DateTime dt = new DateTime(DateTimeZone.UTC);
-			tokenDTO.setExpire(new Date(System.currentTimeMillis()));
+//			DateTime dt = new DateTime(DateTimeZone.UTC);
+			DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+			Date date = new java.util.Date();
+//			System.out.println(dateFormat.format(date));
+			try {
+				date = dateFormat.parse(dateFormat.format(date));
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			tokenDTO.setExpire(date);
 			tokenDTO.setToken(token);
 			if(tkDAO.insert(tokenDTO)){
 				return  tokenDTO;

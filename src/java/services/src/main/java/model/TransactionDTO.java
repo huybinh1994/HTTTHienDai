@@ -13,7 +13,7 @@ import javax.persistence.ManyToOne;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-@Entity(name = "[transaction]")
+@Entity(name = "transactions")
 public class TransactionDTO {
 	@Id
 	@Column(name = "id")
@@ -40,10 +40,8 @@ public class TransactionDTO {
 	private String card_exp_month;
 	@Column(name = "card_exp_year")
 	private String card_exp_year;
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "merchant_code", nullable = false)
-	@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
-	private MerchantsDTO merchant_code;
+	
+	private String merchant_code;
 	@Column(name = "product_id")
 	private int product_id;
 	@Column(name = "product_quantity")
@@ -151,11 +149,11 @@ public class TransactionDTO {
 		this.csv = csv;
 	}
 
-	public MerchantsDTO getMerchant_code() {
+	public String getMerchant_code() {
 		return merchant_code;
 	}
 
-	public void setMerchant_code(MerchantsDTO merchant_code) {
+	public void setMerchant_code(String merchant_code) {
 		this.merchant_code = merchant_code;
 	}
 
