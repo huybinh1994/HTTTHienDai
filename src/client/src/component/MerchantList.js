@@ -18,7 +18,7 @@ class MerchantList extends Component {
     componentWillMount() {
         let regions = [{ value: null, text: "==Vùng Miền==" }];
         let merchant_types = [{ value: null, text: "==Loại Merchant==" }];
-        let report_types = [{value: null, text: "==Loại Thống Kê=="}];
+        let report_types = [{ value: null, text: "==Loại Thống Kê==" }];
         locations.forEach((element) => {
             regions.push({
                 value: element.code,
@@ -160,6 +160,8 @@ class MerchantList extends Component {
                                     <div className="input group-addon">to</div>
                                     <input type="text" className="form-control datepicker to-date" name="to_date" id="to_date" placeholder="Đến Ngày" />
                                 </div>
+                            </div>
+                            <div className="form-group row">
                                 <div className="col-sm-3">
                                     <BootstrapGroup type="text" name="search_string"
                                         options={{
@@ -170,8 +172,6 @@ class MerchantList extends Component {
                                         }}
                                     />
                                 </div>
-                            </div>
-                            <div className="form-group row">
                                 <div className="col-sm-3">
                                     <BootstrapGroup type="select" name="merchant_region"
                                         options={{

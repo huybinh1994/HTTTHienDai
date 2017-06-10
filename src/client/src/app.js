@@ -1,11 +1,13 @@
 import React from 'react';
 import { render } from 'react-dom';
 import { Router, Route, IndexRoute, Link, hashHistory, browserHistory } from 'react-router';
-//Layout.
-import Header from './layouts/Header.js';
 
 //Containers
 import MerchantContainer from './containers/MerchantContainer.js';
+import DashBoardContainer from './containers/DashBoardContainer.js';
+
+//pages
+import Login from './page/login.js';
 
 //Components
 import Overview from './component/Overview.js';
@@ -14,25 +16,22 @@ import MerchantRegistration from './component/MerchantRegistration.js';
 
 const App = (props) => (
     <div className="app-container">
-        <Header />
-        <div id="page-body">
-            <div className="container-fluid">
-                <div className="content-wrap">
-                    {props.children}
-                    {/*<div className="loading"></div>*/}
-                </div>
-            </div>
-        </div>
+        {props.children}
+        {/*<div className="loading"></div>*/}
     </div >
 );
 
 const routes =
     <Route path="/" component={App}>
-        <IndexRoute component={Overview} />
-        <Route path="overview" component={Overview} />
-        <Route path="merchant" component={MerchantContainer}>
-            <Route path="list" component={MerchantList} />
-            <Route path="create" component={MerchantRegistration} />
+        <IndexRoute component={Login} />
+        <Route path="/login" component={Login} />
+        <Route path="/dashboard" component={DashBoardContainer}>
+            <IndexRoute component={Overview} />
+            <Route path="overview" component={Overview} />
+            <Route path="merchant" component={MerchantContainer}>
+                <Route path="list" component={MerchantList} />
+                <Route path="create" component={MerchantRegistration} />
+            </Route>
         </Route>
     </Route>
 

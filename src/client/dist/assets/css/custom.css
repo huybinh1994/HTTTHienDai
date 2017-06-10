@@ -25,9 +25,10 @@ body {
   position: fixed;
   top: 0;
   width: 100%;
-  z-index: 1; }
+  z-index: 1;
+  background: #001C20; }
   #page-header nav {
-    background: #001C20;
+    display: inline-block;
     color: white;
     height: 70px; }
     #page-header nav:hover {
@@ -39,8 +40,8 @@ body {
       font-size: 36px; }
       #page-header nav #page-header-icon:hover {
         color: #10ACC2; }
-        #page-header nav #page-header-icon:hover #page-header-menu {
-          left: 0; }
+      #page-header nav #page-header-icon:hover #page-header-menu {
+        left: 0; }
     #page-header nav #page-header-menu {
       position: fixed;
       top: 70px;
@@ -54,20 +55,30 @@ body {
       font-family: "Roboto-Regular";
       font-size: 14px;
       text-align: left; }
-      #page-header nav #page-header-menu li a {
-        color: #4b4b4b;
-        display: block;
-        padding: 5px 30px; }
-        #page-header nav #page-header-menu li a:hover, #page-header nav #page-header-menu li a:focus {
-          text-decoration: none; }
-        #page-header nav #page-header-menu li a.item:hover, #page-header nav #page-header-menu li a.item.active {
-          background-color: #10ACC2;
-          color: #FFF; }
-        #page-header nav #page-header-menu li a.brand {
-          padding: 0 15px;
-          font-size: 24px; }
-          #page-header nav #page-header-menu li a.brand:hover {
-            color: #4b4b4b; }
+      #page-header nav #page-header-menu li {
+        position: relative; }
+        #page-header nav #page-header-menu li .fa {
+          position: absolute;
+          right: 30px;
+          top: 5px;
+          font-size: 18px; }
+        #page-header nav #page-header-menu li a {
+          color: #4b4b4b;
+          display: block;
+          padding: 5px 30px; }
+          #page-header nav #page-header-menu li a:hover, #page-header nav #page-header-menu li a:focus {
+            text-decoration: none; }
+          #page-header nav #page-header-menu li a.item {
+            line-height: 20px; }
+            #page-header nav #page-header-menu li a.item:hover, #page-header nav #page-header-menu li a.item.active {
+              background-color: #10ACC2;
+              color: #FFF; }
+          #page-header nav #page-header-menu li a.brand {
+            line-height: 40px;
+            padding: 0 15px;
+            font-size: 24px; }
+            #page-header nav #page-header-menu li a.brand:hover {
+              color: #4b4b4b; }
 
 #page-body {
   margin: 85px 0 0 0; }
