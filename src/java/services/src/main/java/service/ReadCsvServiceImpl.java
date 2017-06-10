@@ -49,9 +49,9 @@ public class ReadCsvServiceImpl implements ReadCsvService {
 				dto.setProduct_quantity(Integer.parseInt(nextLine[8]));
 				dto.setProduct_price(Double.parseDouble(nextLine[9]));
 				MerchantsDTO merchantsDTO = new MerchantsDTO();
-				merchantsDTO.setMerchant_code(Integer.parseInt(nextLine[10]));
-				merchantsDTO.setId(2);
-				dto.setMerchant_code(merchantsDTO );			
+//				merchantsDTO.setMerchant_code(Integer.parseInt(nextLine[10]));
+//				merchantsDTO.setId(2);
+//				dto.setMerchant_code(merchantsDTO );			
 				dao.SaveTran(dto);
 			}
 		
