@@ -132,6 +132,7 @@ public class MerchantController {
 		Gson json = new Gson();
 		String js =json.toJson(list);
 		return js;
+		
 	}
 
 }

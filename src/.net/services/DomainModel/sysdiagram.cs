@@ -12,12 +12,12 @@ namespace DomainModel
     using System;
     using System.Collections.Generic;
     
-    public partial class parameter
+    public partial class sysdiagram
     {
-        public int id { get; set; }
-        public string param_name { get; set; }
-        public string param_value { get; set; }
-        public string param_type { get; set; }
-        public Nullable<int> param_status { get; set; }
+        public string name { get; set; }
+        public int principal_id { get; set; }
+        public int diagram_id { get; set; }
+        public Nullable<int> version { get; set; }
+        public byte[] definition { get; set; }
     }
 }

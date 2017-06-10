@@ -13,4 +13,5 @@ public interface MerchantDAO {
 	public Boolean deleteTK(MerchantsDTO m);
 	public List<MerchantsDTO> getMerchantByMasterId(int master_id);
 	public List<MasterAgentSubAgent> getMasTerAngentSubAgent();
+	
 }

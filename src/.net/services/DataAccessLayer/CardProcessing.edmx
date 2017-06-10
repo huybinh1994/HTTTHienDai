@@ -31,13 +31,6 @@
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="master_name" Type="nvarchar(max)" />
         </EntityType>
-        <EntityType Name="merchant_type">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="TenLoai" Type="nvarchar" MaxLength="250" />
-        </EntityType>
         <EntityType Name="merchants">
           <Key>
             <PropertyRef Name="id" />
@@ -60,7 +53,6 @@
           <Property Name="auther_id" Type="int" />
           <Property Name="invite_id" Type="int" />
           <Property Name="status" Type="int" />
-          <Property Name="type_id" Type="int" />
         </EntityType>
         <EntityType Name="parameters">
           <Key>
@@ -72,16 +64,15 @@
           <Property Name="param_type" Type="varchar" MaxLength="255" />
           <Property Name="param_status" Type="int" />
         </EntityType>
-        <EntityType Name="thongbao">
+        <EntityType Name="sysdiagrams">
           <Key>
-            <PropertyRef Name="id" />
+            <PropertyRef Name="diagram_id" />
           </Key>
-          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="tieude" Type="nvarchar" MaxLength="250" />
-          <Property Name="noidung" Type="nvarchar(max)" />
-          <Property Name="ngaytao" Type="datetime" />
-          <Property Name="nguoitao" Type="int" />
-          <Property Name="nguoinhan" Type="int" />
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
         </EntityType>
         <EntityType Name="tokens">
           <Key>
@@ -125,14 +116,14 @@
           <Property Name="flag" Type="int" />
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
         </EntityType>
+        <Function Name="fn_diagramobjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int" />
         <EntityContainer Name="card_processingModelStoreContainer">
           <EntitySet Name="device_status" EntityType="Self.device_status" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="devices" EntityType="Self.devices" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="masters" EntityType="Self.masters" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="merchant_type" EntityType="Self.merchant_type" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="merchants" EntityType="Self.merchants" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="parameters" EntityType="Self.parameters" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="thongbao" EntityType="Self.thongbao" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tokens" EntityType="Self.tokens" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="transactions" EntityType="Self.transactions" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="users" EntityType="Self.users" Schema="dbo" store:Type="Tables" />
@@ -189,7 +180,6 @@
           <Property Name="ward" Type="Int32" />
           <Property Name="auther_id" Type="Int32" />
           <Property Name="invite_id" Type="Int32" />
-          <Property Name="type_id" Type="Int32" />
           </EntityType>
         <EntityType Name="parameter">
           <Key>
@@ -200,6 +190,16 @@
           <Property Name="param_value" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="param_type" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="param_status" Type="Int32" />
+        </EntityType>
+        <EntityType Name="sysdiagram">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
         </EntityType>
         <EntityType Name="token">
           <Key>
@@ -249,30 +249,11 @@
           <EntitySet Name="masters" EntityType="Self.master" />
           <EntitySet Name="merchants" EntityType="Self.merchant" />
           <EntitySet Name="parameters" EntityType="Self.parameter" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
           <EntitySet Name="tokens" EntityType="Self.token" />
           <EntitySet Name="transactions" EntityType="Self.transaction" />
           <EntitySet Name="users" EntityType="Self.user" />
-          <EntitySet Name="merchant_type" EntityType="card_processingModel.merchant_type" />
-          <EntitySet Name="thongbaos" EntityType="card_processingModel.thongbao" />
         </EntityContainer>
-        <EntityType Name="merchant_type">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="TenLoai" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-        </EntityType>
-        <EntityType Name="thongbao">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="tieude" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-          <Property Name="noidung" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="ngaytao" Type="DateTime" Precision="3" />
-          <Property Name="nguoitao" Type="Int32" />
-          <Property Name="nguoinhan" Type="Int32" />
-        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -311,7 +292,6 @@
           <EntitySetMapping Name="merchants">
             <EntityTypeMapping TypeName="card_processingModel.merchant">
               <MappingFragment StoreEntitySet="merchants">
-                <ScalarProperty Name="type_id" ColumnName="type_id" />
                 <ScalarProperty Name="invite_id" ColumnName="invite_id" />
                 <ScalarProperty Name="auther_id" ColumnName="auther_id" />
                 <ScalarProperty Name="ward" ColumnName="ward" />
@@ -341,6 +321,17 @@
                 <ScalarProperty Name="param_value" ColumnName="param_value" />
                 <ScalarProperty Name="param_type" ColumnName="param_type" />
                 <ScalarProperty Name="param_status" ColumnName="param_status" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="card_processingModel.sysdiagram">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -385,26 +376,6 @@
                 <ScalarProperty Name="password" ColumnName="password" />
                 <ScalarProperty Name="fullname" ColumnName="fullname" />
                 <ScalarProperty Name="flag" ColumnName="flag" />
-                <ScalarProperty Name="id" ColumnName="id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="merchant_type">
-            <EntityTypeMapping TypeName="card_processingModel.merchant_type">
-              <MappingFragment StoreEntitySet="merchant_type">
-                <ScalarProperty Name="TenLoai" ColumnName="TenLoai" />
-                <ScalarProperty Name="id" ColumnName="id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="thongbaos">
-            <EntityTypeMapping TypeName="card_processingModel.thongbao">
-              <MappingFragment StoreEntitySet="thongbao">
-                <ScalarProperty Name="nguoinhan" ColumnName="nguoinhan" />
-                <ScalarProperty Name="nguoitao" ColumnName="nguoitao" />
-                <ScalarProperty Name="ngaytao" ColumnName="ngaytao" />
-                <ScalarProperty Name="noidung" ColumnName="noidung" />
-                <ScalarProperty Name="tieude" ColumnName="tieude" />
                 <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>

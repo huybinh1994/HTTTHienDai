@@ -31,10 +31,9 @@ namespace DataAccessLayer
         public DbSet<master> masters { get; set; }
         public DbSet<merchant> merchants { get; set; }
         public DbSet<parameter> parameters { get; set; }
+        public DbSet<sysdiagram> sysdiagrams { get; set; }
         public DbSet<token> tokens { get; set; }
         public DbSet<transaction> transactions { get; set; }
         public DbSet<user> users { get; set; }
-        public DbSet<merchant_type> merchant_type { get; set; }
-        public DbSet<thongbao> thongbaos { get; set; }
     }
 }

@@ -48,12 +48,8 @@ public class ReadCsvServiceImpl implements ReadCsvService {
 				dto.setProduct_id(Integer.parseInt(nextLine[7]));
 				dto.setProduct_quantity(Integer.parseInt(nextLine[8]));
 				dto.setProduct_price(Double.parseDouble(nextLine[9]));
-				MerchantsDTO merchantsDTO = new MerchantsDTO();
-//				merchantsDTO.setMerchant_code(Integer.parseInt(nextLine[10]));
-//				merchantsDTO.setId(2);
-//				dto.setMerchant_code(merchantsDTO );			
-				dao.SaveTran(dto);
-			}
+				dto.setMerchant_code(merchantsDTO );			
+				dao.SaveTran(dto);			}
 		
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
