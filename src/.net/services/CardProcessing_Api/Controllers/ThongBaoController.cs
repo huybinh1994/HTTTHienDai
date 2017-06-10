@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using DomainModel;
 
 namespace CardProcessing_Api.Controllers
 {
@@ -48,17 +49,17 @@ namespace CardProcessing_Api.Controllers
             }
             return Request.CreateResponse(obj);
         }
-        // loai quy dinh merchant hay agent
-        [Route("api/merchant/addmerchant/type")]
+        //// loai quy dinh merchant hay agent
+        [Route("api/merchant/addthongbao")]
         [HttpPost]
-        public HttpResponseMessage AddMerchant([FromBody] merchant entities, [FromUri] int type)
+        public HttpResponseMessage AddThongBao([FromBody] thongbao entities)
         {
             object obj = null;
             try
             {
                 if (ModelState.IsValid)
                 {
-                    g_BusinessLayer.Addmerchant(entities);
+                    g_BusinessLayer.Addthongbao(entities);
                     obj = new { StatusCode = 200, data = entities };
                 }
 
@@ -69,9 +70,9 @@ namespace CardProcessing_Api.Controllers
             }
             return Request.CreateResponse(obj);
         }
-        [Route("api/merchant/updatemerchant")]
+        [Route("api/merchant/updatethongbao")]
         [HttpPut]
-        public HttpResponseMessage UpdateMerchant([FromBody] merchant entites)
+        public HttpResponseMessage UpdateThongBao([FromBody] thongbao entites)
 
         {
             object obj = null;
@@ -79,7 +80,7 @@ namespace CardProcessing_Api.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    g_BusinessLayer.Updatemerchant(entites);
+                    g_BusinessLayer.Updatethongbao(entites);
                     obj = new { StatusCode = 200, data = entites };
                 }
 
@@ -92,16 +93,16 @@ namespace CardProcessing_Api.Controllers
             return Request.CreateResponse(obj);
         }
 
-        [Route("api/merchant/deletemerchant")]
+        [Route("api/merchant/deletethongbao")]
         [HttpDelete]
-        public HttpResponseMessage DeleteMerchant([FromBody] merchant entities)
+        public HttpResponseMessage DeleteThongBao([FromBody] thongbao entities)
         {
             object obj = null;
             try
             {
                 if (ModelState.IsValid)
                 {
-                    g_BusinessLayer.Removemerchant(entities);
+                    g_BusinessLayer.Removethongbao(entities);
                     obj = new { StatusCode = 200, data = entities };
                 }
             }
@@ -111,18 +112,18 @@ namespace CardProcessing_Api.Controllers
             }
             return Request.CreateResponse(obj);
         }
-        [Route("api/merchant/deletemerchant/ids")]
+        [Route("api/thongbao/deletethongbao/ids")]
         [HttpDelete]
-        public HttpResponseMessage DeleteMerchantByID([FromUri] string id)
+        public HttpResponseMessage DeleteThongBaoByID([FromUri] string id)
         {
             object obj = null;
             try
             {
 
-                merchant v_obj = g_BusinessLayer.getMerchantByID(Convert.ToInt32(id));
+                thongbao v_obj = g_BusinessLayer.getThongBaoByID(Convert.ToInt32(id));
                 if (v_obj != null)
                 {
-                    g_BusinessLayer.Removemerchant(v_obj);
+                    g_BusinessLayer.Removethongbao(v_obj);
                     obj = new { StatusCode = 200, data = v_obj };
                 }
             }

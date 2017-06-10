@@ -34,6 +34,23 @@ namespace CardProcessing_Api.Controllers
             }
             return Request.CreateResponse(obj);
         }
+        [Route("api/merchant/getmerchant/ids")]
+        [HttpGet]
+        public HttpResponseMessage GetMerchantByID([FromUri] string id)
+        {
+            object obj;
+            try
+            {
+
+                obj = new { StatusCode = 200, data = g_BusinessLayer.getMerchantByID(Convert.ToInt32(id))};
+
+            }
+            catch (Exception ex)
+            {
+                obj = new { StatusCode = 500, data = g_BusinessLayer.GetAllmerchant() };
+            }
+            return Request.CreateResponse(obj);
+        }
         [Route("api/merchant/search/{Name}/{Type}/{Provice}/{District}/{Ward}")]
         [HttpGet]
         public HttpResponseMessage searchMerchant(string Name,int Type,int Provice,int District,int Ward)
