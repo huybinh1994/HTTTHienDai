@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import dao.MerchantDAO;
+import model.MasterAgentSubAgent;
 import model.MerchantsDTO;
 @Service
 public class MerchantServiceImpl implements MerchantService{
@@ -39,6 +40,11 @@ public class MerchantServiceImpl implements MerchantService{
 	public List<MerchantsDTO> getMerchantByMasterId(int master_id) {
 		// TODO Auto-generated method stub
 		return md.getMerchantByMasterId(master_id);
+	}
+	@Override
+	public List<MasterAgentSubAgent> getMasterAgentSubAgent() {
+		// TODO Auto-generated method stub
+		return md.getMasTerAngentSubAgent();
 	}
 
 }

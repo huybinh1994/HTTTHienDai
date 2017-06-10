@@ -2,6 +2,7 @@ package dao;
 
 import java.util.List;
 
+import model.MasterAgentSubAgent;
 import model.MasterDTO;
 import model.MerchantsDTO;;
 
@@ -11,4 +12,5 @@ public interface MerchantDAO {
 	public Boolean findByMerchant(MerchantsDTO m);
 	public Boolean deleteTK(MerchantsDTO m);
 	public List<MerchantsDTO> getMerchantByMasterId(int master_id);
+	public List<MasterAgentSubAgent> getMasTerAngentSubAgent();
 }

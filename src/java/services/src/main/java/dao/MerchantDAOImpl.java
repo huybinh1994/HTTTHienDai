@@ -6,10 +6,12 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.hibernate.transform.Transformers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import model.MasterAgentSubAgent;
 import model.MerchantsDTO;;
 
 //@Transactional
@@ -76,6 +78,23 @@ public class MerchantDAOImpl implements MerchantDAO {
 
 			session.getTransaction().commit();
 			return li;
+		} catch (Exception e) {
+			e.printStackTrace();
+			session.getTransaction().rollback();
+			return null;
+		}
+	}
+
+	@Override
+	public List<MasterAgentSubAgent> getMasTerAngentSubAgent() {
+		// TODO Auto-generated method stub
+		Session session = sessionFactory.openSession();
+		Transaction tx = session.beginTransaction();
+		try {
+			String str = "exec get_master_agent_sub_agent";
+			Query q = session.createSQLQuery(str).setResultTransformer(Transformers.aliasToBean(MasterAgentSubAgent.class));
+			session.getTransaction().commit();
+			return q.list();
 		} catch (Exception e) {
 			e.printStackTrace();
 			session.getTransaction().rollback();

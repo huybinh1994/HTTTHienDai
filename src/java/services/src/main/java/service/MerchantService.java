@@ -3,6 +3,7 @@ package service;
 import java.util.List;
 
 import dao.MerchantDAO;
+import model.MasterAgentSubAgent;
 import model.MerchantsDTO;;
 
 public interface MerchantService {
@@ -14,4 +15,6 @@ public interface MerchantService {
 	Boolean deleteTK(MerchantsDTO m);
 	
 	public List<MerchantsDTO> getMerchantByMasterId(int master_id);
+	
+	public List<MasterAgentSubAgent> getMasterAgentSubAgent();
 }

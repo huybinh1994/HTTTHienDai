@@ -2,10 +2,22 @@ package controller;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import model.Agent;
+import model.Master;
+import model.MasterAgentSubAgent;
 import model.MerchantsDTO;
+import model.Parent;
+
+
+
+
+import model.SubAgent;
 
 import org.hibernate.annotations.Parameter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,16 +62,6 @@ public class MerchantController {
 		List<MerchantsDTO> list = merchantService.getMerchantByMasterId(master_id);
 		if(!list.isEmpty())
 		{
-			SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
-			for(MerchantsDTO m : list)
-			{
-				Date firstActiveDate = df.parse(m.getLast_active_date().toString());
-				
-				m.setFirst_active_date((java.sql.Date) firstActiveDate);
-				Date lastActiveDate = df.parse(m.getFirst_active_date().toString());
-				m.setFirst_active_date((java.sql.Date) firstActiveDate);
-			}
-			
 			Gson gson = new Gson();
 			String js =gson.toJson(list);
 			String str = "{statusCode: 200, data:" +js+"}";
@@ -71,6 +73,65 @@ public class MerchantController {
 			return "{\"statusCode\": 400,\"errors\": [{\"fieldName\": \"merchant_code\", \"message\": \"Không tồn tại master\"}]}";
 		}
 		
+	}
+	
+	@RequestMapping(value = "/merchant/manager", method = RequestMethod.GET)
+	public @ResponseBody String getManager() {
+		List<MasterAgentSubAgent> list = merchantService.getMasterAgentSubAgent();
+		
+		List<Parent> listParent = new ArrayList<Parent>();
+		
+		Map map = new HashMap();
+		Parent p = new Parent();
+		
+		if(list.size() > 0)
+		{
+			Master m  = new Master();
+			Agent a = new Agent();
+			SubAgent s = new SubAgent();
+			if(!String.valueOf(list.get(0).getSub_agent_id()).equals(""))
+			{
+				s.setSub_agent_id(list.get(0).getSub_agent_id());
+				s.setSub_agent_name(list.get(0).getAgent_name());
+			}
+			
+			if(!String.valueOf(list.get(0).getAgent_id()).equals(""))
+			{
+				a.setAgent_id(list.get(0).getSub_agent_id());
+				a.setAgent_name(list.get(0).getAgent_name());
+			}
+			m.setMaster_id(list.get(0).getMaster_id());
+			m.setMaster_name(list.get(0).getMaster_name());
+			
+			
+			map.put(m.getMaster_id(), m);
+		}
+		for(int i=1; i < list.size(); i++)
+		{
+			if(map.containsKey(list.get(i).getMaster_id()))
+			{
+				Master m  = new Master();
+				Agent a = new Agent();
+				SubAgent s = new SubAgent();
+				if(!String.valueOf(list.get(0).getSub_agent_id()).equals(""))
+				{
+					s.setSub_agent_id(list.get(0).getSub_agent_id());
+					s.setSub_agent_name(list.get(0).getAgent_name());
+				}
+				
+				if(!String.valueOf(list.get(0).getAgent_id()).equals(""))
+				{
+					a.setAgent_id(list.get(0).getSub_agent_id());
+					a.setAgent_name(list.get(0).getAgent_name());
+				}
+				m.setMaster_id(list.get(0).getMaster_id());
+				m.setMaster_name(list.get(0).getMaster_name());
+				
+			}
+		}
+		Gson json = new Gson();
+		String js =json.toJson(list);
+		return js;
 	}
 
 }
