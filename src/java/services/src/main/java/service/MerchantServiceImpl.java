@@ -46,5 +46,10 @@ public class MerchantServiceImpl implements MerchantService{
 		// TODO Auto-generated method stub
 		return md.getAngentSubAgent();
 	}
+	@Override
+	public int getNextIdentity() {
+		// TODO Auto-generated method stub
+		return md.getNextIdentity();
+	}
 
 }

@@ -32,6 +32,7 @@ import com.google.gson.Gson;
 import service.MasterService;
 import service.MerchantService;
 import service.MasterService;
+import util.UtilComponent;
 
 @Controller
 @Transactional
@@ -149,9 +150,17 @@ public class MerchantController {
 		
 		return str;
 		
+	}
+	
+	@RequestMapping(value = "/merchant/generate-code", method = RequestMethod.POST)
+	public @ResponseBody String generateCode() {
+
+		int nextId = merchantService.getNextIdentity();
 		
-		
+		return "";
 		
 	}
+	
+	
 
 }
