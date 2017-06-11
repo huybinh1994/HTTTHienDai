@@ -233,7 +233,6 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MasterController.cs" />
     <Compile Include="Controllers\MerchantController.cs" />
-    <Compile Include="Controllers\Merchant_StatusController.cs" />
     <Compile Include="Controllers\ThongBaoController.cs" />
     <Compile Include="Controllers\TokenController.cs" />
     <Compile Include="Controllers\TransactionController.cs" />
@@ -361,7 +360,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>44128</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:39602/</IISUrl>
+          <IISUrl>http://localhost:4010/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

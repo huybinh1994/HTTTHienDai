@@ -41,7 +41,7 @@ public class UserController {
 	public void setTks(TokenService tks) {
 		this.tks = tks;
 	}
-	@RequestMapping(value = "/login",  method = RequestMethod.POST)
+	@RequestMapping(value = "/login",  method = RequestMethod.POST,produces={"application/json; charset=UTF-8"})
 	public @ResponseBody String login(@RequestBody String user) {
 		UserDTO us = new Gson().fromJson(user, UserDTO.class);
 		String gson = new Gson().toJson(service.login(us.getUsername(),us.getPassword()));
@@ -59,7 +59,7 @@ public class UserController {
 		return null;
 	}
 	@RequestMapping(value = "/service/logout",  method = RequestMethod.GET)
-	public @ResponseBody String logout(@RequestHeader(value="auther") String token) {
+	public @ResponseBody String logout(@RequestHeader(value="Authorization") String token) {
 		TokensDTO tk = new TokensDTO();
 		tk.setToken(token);
 		if(tks.deleteTK(tk)){

@@ -4,14 +4,9 @@ import java.sql.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity(name = "transactions")
 public class TransactionDTO {
@@ -52,7 +47,7 @@ public class TransactionDTO {
 	private String batch_number;
 	@Column(name = "status")
 	private int status;
-	
+
 	public String getBatch_number() {
 		return batch_number;
 	}

@@ -1,3 +1,4 @@
+E:\HCDH\PTUD\DoAn\HTTTHienDai\src\.net\services\CardProcessing_Api\obj\Debug\CardProcessing_Api.csprojResolveAssemblyReference.cache
 E:\HCDH\PTUD\DoAn\HTTTHienDai\src\.net\services\CardProcessing_Api\bin\ApplicationInsights.config
 E:\HCDH\PTUD\DoAn\HTTTHienDai\src\.net\services\CardProcessing_Api\bin\roslyn\csc.exe
 E:\HCDH\PTUD\DoAn\HTTTHienDai\src\.net\services\CardProcessing_Api\bin\roslyn\csc.exe.config
@@ -30,6 +31,7 @@ E:\HCDH\PTUD\DoAn\HTTTHienDai\src\.net\services\CardProcessing_Api\bin\CardProce
 E:\HCDH\PTUD\DoAn\HTTTHienDai\src\.net\services\CardProcessing_Api\bin\CardProcessing_Api.pdb
 E:\HCDH\PTUD\DoAn\HTTTHienDai\src\.net\services\CardProcessing_Api\bin\Antlr3.Runtime.dll
 E:\HCDH\PTUD\DoAn\HTTTHienDai\src\.net\services\CardProcessing_Api\bin\BusinessLayer.dll
+E:\HCDH\PTUD\DoAn\HTTTHienDai\src\.net\services\CardProcessing_Api\bin\DataAccessLayer.dll
 E:\HCDH\PTUD\DoAn\HTTTHienDai\src\.net\services\CardProcessing_Api\bin\DomainModel.dll
 E:\HCDH\PTUD\DoAn\HTTTHienDai\src\.net\services\CardProcessing_Api\bin\EntityFramework.dll
 E:\HCDH\PTUD\DoAn\HTTTHienDai\src\.net\services\CardProcessing_Api\bin\EntityFramework.SqlServer.dll
@@ -68,8 +70,9 @@ E:\HCDH\PTUD\DoAn\HTTTHienDai\src\.net\services\CardProcessing_Api\bin\System.We
 E:\HCDH\PTUD\DoAn\HTTTHienDai\src\.net\services\CardProcessing_Api\bin\System.Web.WebPages.dll
 E:\HCDH\PTUD\DoAn\HTTTHienDai\src\.net\services\CardProcessing_Api\bin\System.Web.WebPages.Razor.dll
 E:\HCDH\PTUD\DoAn\HTTTHienDai\src\.net\services\CardProcessing_Api\bin\WebGrease.dll
-E:\HCDH\PTUD\DoAn\HTTTHienDai\src\.net\services\CardProcessing_Api\bin\DataAccessLayer.dll
 E:\HCDH\PTUD\DoAn\HTTTHienDai\src\.net\services\CardProcessing_Api\bin\BusinessLayer.pdb
+E:\HCDH\PTUD\DoAn\HTTTHienDai\src\.net\services\CardProcessing_Api\bin\DataAccessLayer.pdb
+E:\HCDH\PTUD\DoAn\HTTTHienDai\src\.net\services\CardProcessing_Api\bin\DataAccessLayer.dll.config
 E:\HCDH\PTUD\DoAn\HTTTHienDai\src\.net\services\CardProcessing_Api\bin\DomainModel.pdb
 E:\HCDH\PTUD\DoAn\HTTTHienDai\src\.net\services\CardProcessing_Api\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
 E:\HCDH\PTUD\DoAn\HTTTHienDai\src\.net\services\CardProcessing_Api\bin\Newtonsoft.Json.xml
@@ -104,8 +107,5 @@ E:\HCDH\PTUD\DoAn\HTTTHienDai\src\.net\services\CardProcessing_Api\bin\Microsoft
 E:\HCDH\PTUD\DoAn\HTTTHienDai\src\.net\services\CardProcessing_Api\bin\Microsoft.AI.ServerTelemetryChannel.xml
 E:\HCDH\PTUD\DoAn\HTTTHienDai\src\.net\services\CardProcessing_Api\bin\Microsoft.AI.WindowsServer.xml
 E:\HCDH\PTUD\DoAn\HTTTHienDai\src\.net\services\CardProcessing_Api\bin\Microsoft.AI.Web.xml
-E:\HCDH\PTUD\DoAn\HTTTHienDai\src\.net\services\CardProcessing_Api\bin\DataAccessLayer.pdb
-E:\HCDH\PTUD\DoAn\HTTTHienDai\src\.net\services\CardProcessing_Api\bin\DataAccessLayer.dll.config
-E:\HCDH\PTUD\DoAn\HTTTHienDai\src\.net\services\CardProcessing_Api\obj\Debug\CardProcessing_Api.csprojResolveAssemblyReference.cache
 E:\HCDH\PTUD\DoAn\HTTTHienDai\src\.net\services\CardProcessing_Api\obj\Debug\CardProcessing_Api.dll
 E:\HCDH\PTUD\DoAn\HTTTHienDai\src\.net\services\CardProcessing_Api\obj\Debug\CardProcessing_Api.pdb

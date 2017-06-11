@@ -1,5 +1,6 @@
 package service;
 
+import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -45,8 +46,10 @@ public class UserServiceImpl implements UserService {
 		UserDTO userDTO = new UserDTO();
 		TokensDTO tokenDTO = new TokensDTO();
 		userDTO = usDao.loGin(user, pass);
+		Timestamp time = new Timestamp(System.currentTimeMillis());
 		if(userDTO != null){
-			String token = Sha256.convertSha256(Sha256.convertSha256(user));
+			String hash1 = Sha256.convertSha256(user+"-"+time);
+			String token = Sha256.convertSha256(hash1);
 			tokenDTO.setAuther_id(userDTO);
 //			DateTime dt = new DateTime(DateTimeZone.UTC);
 			DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
@@ -61,6 +64,7 @@ public class UserServiceImpl implements UserService {
 			tokenDTO.setExpire(date);
 			tokenDTO.setToken(token);
 			if(tkDAO.insert(tokenDTO)){
+				tokenDTO.setToken(hash1);
 				return  tokenDTO;
 			}
 		}

@@ -10,10 +10,12 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
+import org.hibernate.transform.Transformers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import model.MasterDTO;
+import model.MasterReportDTO;
 import model.TransactionDTO;
 import model.UserDTO;
 //@Transactional
@@ -129,6 +131,40 @@ public class TransactionDAOImpl implements TransactionDAO {
 		}
 		
 	
+	}
+
+	@Override
+	public List<MasterReportDTO> callMasterReport(Date fromTime, Date toTime) {
+		Session session = sessionFactory.openSession();
+		Transaction tx = session.beginTransaction();
+		try {
+			String qu="exec master_report '','','2017-01-07 07:47:45.220','2017-04-07 07:47:45.220'";	
+			Query query = session.createSQLQuery(qu).setResultTransformer(
+                    Transformers.aliasToBean(MasterReportDTO.class));
+			return query.list();
+		
+		} catch (Exception e) {
+			e.printStackTrace();
+			session.getTransaction().rollback();
+			return null;
+		}	
+	}
+
+	@Override
+	public List<MasterReportDTO> callMastetReportCardtype(Date fromtime, Date totime) {
+		Session session = sessionFactory.openSession();
+		Transaction tx = session.beginTransaction();
+		try {
+			String qu="exec master_report '','','2017-01-07 07:47:45.220','2017-04-07 07:47:45.220'";	
+			Query query = session.createSQLQuery(qu).setResultTransformer(
+                    Transformers.aliasToBean(MasterReportDTO.class));
+			return query.list();
+		
+		} catch (Exception e) {
+			e.printStackTrace();
+			session.getTransaction().rollback();
+			return null;
+		}	
 	}
 
 }

@@ -1,15 +1,19 @@
 package dao;
 
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.List;
 
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.hibernate.transform.Transformers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import model.AgentSubAgent;
 import model.MerchantsDTO;;
 
 //@Transactional
@@ -82,5 +86,43 @@ public class MerchantDAOImpl implements MerchantDAO {
 			return null;
 		}
 	}
+	
+	
+	@Override
+	public List<AgentSubAgent> getAngentSubAgent() {
+		// TODO Auto-generated method stub
+		Session session = sessionFactory.openSession();
+		Transaction tx = session.beginTransaction();
+		try {
+			String str = "exec get_agent_and_sub_agent";
+			Query q = session.createSQLQuery(str).setResultTransformer(Transformers.aliasToBean(AgentSubAgent.class));
+			session.getTransaction().commit();
+			return q.list();
+		} catch (Exception e) {
+			e.printStackTrace();
+			session.getTransaction().rollback();
+			return null;
+		}
+	}
 
+	@Override
+	public int getNextIdentity() {
+		// TODO Auto-generated method stub
+		Session session = sessionFactory.openSession();
+		Transaction tx = session.beginTransaction();
+		try {
+			Query q = session.createSQLQuery("SELECT IDENT_CURRENT('merchants')+1 as id");
+			BigDecimal result =  (BigDecimal) q.list().get(0);
+			
+			session.getTransaction().commit();
+			
+			return Integer.parseInt(result.toString());
+		} catch (Exception e) {
+			e.printStackTrace();
+			session.getTransaction().rollback();
+			return 0;
+		}
+	}
+	
+	
 }
