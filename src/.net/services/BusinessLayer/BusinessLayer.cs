@@ -78,7 +78,6 @@ namespace BusinessLayer
             _dev_statusRepository.remove(devies_status);
         }
         #endregion
-
         #region Master
         public IList<DomainModel.master> GetAllmaster()
         {
@@ -199,10 +198,6 @@ namespace BusinessLayer
         {
             _tokenRepository.remove(tokens);
         }
-        public token getToken(string p_strToken)
-        {
-            return _tokenRepository.getToken(p_strToken);
-        }
 
         #endregion
         #region User
@@ -227,11 +222,11 @@ namespace BusinessLayer
             _userRepository.remove(users);
 
         }
-        public user getUserByKey(int p_iKey)
-        {
+        //public user getUserByKey(int p_iKey)
+        //{
 
-            return _userRepository.getUserByKey(p_iKey);
-        }
+        //    return _userRepository.getUserByKey(p_iKey);
+        //}
         #endregion
         #region Merchant Type
         public IList<DomainModel.merchant_type> GetAllMerchan_type()
@@ -273,10 +268,6 @@ namespace BusinessLayer
         public void Removethongbao(params thongbao[] thongbao)
         {
             _thongbaoRepository.remove(thongbao);
-        }
-        public thongbao getThongBaoByID(int id)
-        {
-           return  _thongbaoRepository.getThongBaoByID(id);
         }
         #endregion
 

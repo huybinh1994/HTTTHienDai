@@ -20,18 +20,15 @@ namespace DataAccessLayer
     public interface ITransactionRepository : IGenericDataRepository<transaction> { }
     public interface ITokenRepository : IGenericDataRepository<token>
     {
-        token getToken(string token);
     }
     public interface IUserRepository : IGenericDataRepository<user>
     {
-        user getUserByKey(int p_iKey);
-     
+        //user getUserByKey(int p_iKey);
+      
+
     }    
     public interface IMerchant_TypeRepository: IGenericDataRepository<merchant_type> { }
-    public interface IThongBaoRepository : IGenericDataRepository<thongbao>
-    {
-        thongbao getThongBaoByID(int id);
-    }
+    public interface IThongBaoRepository : IGenericDataRepository<thongbao> { }
     public class DeviceRepositoryy : GenericDataRepository<device>, IDeviceRepository { }
     public class Device_StatusRepository : GenericDataRepository<device_status>, IDevice_StatusRepository { }
     public class MasterRepository : GenericDataRepository<master>, IMasterRepository { }
@@ -66,31 +63,11 @@ namespace DataAccessLayer
     public class TransactionRepository : GenericDataRepository<transaction>, ITransactionRepository { }
     public class TokenRepository : GenericDataRepository<token>, ITokenRepository
     {
-        public token getToken(string token)
-        {
-            token v_objResult;
-            using (var context = new card_processingEntities())
-            {
-                v_objResult= context.tokens.Where(x => x.token1 == token && DateTime.Now < x.expire).FirstOrDefault();
-              
-            }
-                return v_objResult;
-
-        }
-
+        
 
     }
     public class UserRepository : GenericDataRepository<user>, IUserRepository
     {
-        public user getUserByKey(int id)
-        {
-            user v_objResult;
-            using (var context = new card_processingEntities())
-            {
-                v_objResult = context.users.Where(x => x.id == id).FirstOrDefault();
-            }
-            return v_objResult;
-        }
 
 
     }
@@ -101,15 +78,6 @@ namespace DataAccessLayer
     }
     public class ThongBaoRepository : GenericDataRepository<thongbao>, IThongBaoRepository
     {
-        public thongbao getThongBaoByID(int id)
-        {
-            thongbao v_obj = null;
-            using (var context = new card_processingEntities())
-            {
-                v_obj = context.thongbaos.Where(x => x.id == id).FirstOrDefault();
-            }
-            return v_obj;
-        }
 
 
     }
