@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import dao.MerchantDAO;
 import model.AgentSubAgent;
 import model.MerchantsDTO;
+import model.UserDTO;
 @Service
 public class MerchantServiceImpl implements MerchantService{
 
@@ -50,6 +51,11 @@ public class MerchantServiceImpl implements MerchantService{
 	public int getNextIdentity() {
 		// TODO Auto-generated method stub
 		return md.getNextIdentity();
+	}
+	@Override
+	public MerchantsDTO insertMerchantAndUser(MerchantsDTO m, UserDTO u) {
+		// TODO Auto-generated method stub
+		return md.insertMerchantAndUser(m, u);
 	}
 
 }

@@ -13,8 +13,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import util.UtilComponent;
 import model.AgentSubAgent;
-import model.MerchantsDTO;;
+import model.MerchantsDTO;
+import model.UserDTO;
 
 //@Transactional
 @Repository
@@ -121,6 +123,35 @@ public class MerchantDAOImpl implements MerchantDAO {
 			e.printStackTrace();
 			session.getTransaction().rollback();
 			return 0;
+		}
+	}
+
+	@Override
+	public MerchantsDTO insertMerchantAndUser(MerchantsDTO merchant, UserDTO user) {
+		// TODO Auto-generated method stub
+		Session session = sessionFactory.openSession();
+		Transaction tx = session.beginTransaction();
+		try {
+			session.save(user);
+			Integer auther_id = user.getId();
+			merchant.setAuther_id(auther_id);
+			
+			int nextId = getNextIdentity();
+			
+			int master_id = merchant.getMaster_id();
+			int agent_id = merchant.getAgent_id();
+			int sub_agent_id = merchant.getSub_agent_id();
+			int level = merchant.getLevel_id();
+			String merchant_code = UtilComponent.generateFullCode(master_id, agent_id, sub_agent_id, nextId, level);
+			merchant.setMerchant_code(merchant_code);
+			session.save(merchant);
+			session.getTransaction().commit();
+			return merchant;
+		
+		} catch (Exception e) {
+			e.printStackTrace();
+			session.getTransaction().rollback();
+			return null;
 		}
 	}
 	

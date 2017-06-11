@@ -18,6 +18,7 @@ public class MerchantsDTO {
 
 	@Id
 	@Column(name = "id")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	@Column(name = "merchant_code")
 	private String merchant_code;
@@ -54,6 +55,12 @@ public class MerchantsDTO {
 	private Integer status;
 	@Column(name = "level_id")
 	private Integer level_id;
+	public Integer getLevel_id() {
+		return level_id;
+	}
+	public void setLevel_id(Integer level_id) {
+		this.level_id = level_id;
+	}
 	@Column(name = "first_active_date")
 	private String first_active_date;
 	@Column(name = "last_active_date")

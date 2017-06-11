@@ -40,4 +40,38 @@ public class UserDAOImpl implements UserDAO {
 		}
 	}
 
+	@Override
+	public Boolean insert(UserDTO user) {
+		// TODO Auto-generated method stub
+		Session session = sessionFactory.openSession();
+		Transaction tx = session.beginTransaction();
+		try {
+			session.save(user);
+			session.getTransaction().commit();
+			return true;
+		
+		} catch (Exception e) {
+			e.printStackTrace();
+			session.getTransaction().rollback();
+			return false;
+		}
+	}
+
+	@Override
+	public Integer insertGetId(UserDTO user) {
+		// TODO Auto-generated method stub
+		Session session = sessionFactory.openSession();
+		Transaction tx = session.beginTransaction();
+		try {
+			session.save(user);
+			session.getTransaction().commit();
+			return user.getId();
+		
+		} catch (Exception e) {
+			e.printStackTrace();
+			session.getTransaction().rollback();
+			return 0;
+		}
+	}
+
 }

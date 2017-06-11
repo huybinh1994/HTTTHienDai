@@ -71,6 +71,16 @@ public class UserServiceImpl implements UserService {
 		//check ok
 		return null;
 	}
+	@Override
+	public Boolean insert(UserDTO user) {
+		// TODO Auto-generated method stub
+		return usDao.insert(user);
+	}
+	@Override
+	public Integer insertGetId(UserDTO user) {
+		// TODO Auto-generated method stub
+		return usDao.insertGetId(user);
+	}
 	
 	
 

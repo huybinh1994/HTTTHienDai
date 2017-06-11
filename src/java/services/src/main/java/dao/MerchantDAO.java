@@ -4,7 +4,8 @@ import java.util.List;
 
 import model.AgentSubAgent;
 import model.MasterDTO;
-import model.MerchantsDTO;;
+import model.MerchantsDTO;
+import model.UserDTO;
 
 public interface MerchantDAO {
 	public List<MerchantsDTO> getAll();
@@ -14,4 +15,5 @@ public interface MerchantDAO {
 	public List<MerchantsDTO> getMerchantByMasterId(int master_id);
 	public List<AgentSubAgent> getAngentSubAgent();
 	public int getNextIdentity();
+	public MerchantsDTO insertMerchantAndUser(MerchantsDTO m, UserDTO u);
 }

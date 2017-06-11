@@ -35,6 +35,7 @@ import com.google.gson.Gson;
 import service.MasterService;
 import service.MerchantService;
 import service.MasterService;
+import service.UserService;
 import util.UtilComponent;
 
 @Controller
@@ -49,6 +50,18 @@ public class MerchantController {
 	public void setMasterService(MasterService masterService) {
 		this.masterService = masterService;
 	}
+	
+	
+	UserService userService;
+	public UserService getUserService() {
+		return userService;
+	}
+	@Autowired
+	public void setUserService(UserService userService) {
+		this.userService = userService;
+	}
+
+	
 
 	MerchantService merchantService;
 
@@ -155,14 +168,23 @@ public class MerchantController {
 		
 	}
 	
-	@RequestMapping(value = "/merchant/add", method = RequestMethod.POST)
-	public @ResponseBody String generateCode(@RequestBody String data) {
+	@RequestMapping(value = "/merchant/add", method = RequestMethod.POST, produces={"application/json; charset=UTF-8"})
+	public @ResponseBody String addMerchant(@RequestBody String data) {
 		
 		
 		MerchantInfo info = new Gson().fromJson(data, MerchantInfo.class);
-		int nextId = merchantService.getNextIdentity();
-		nextId = 1;
-		return "";
+		UserDTO user = new UserDTO();
+		MerchantsDTO merchant = new MerchantsDTO();
+		user = UtilComponent.ConvertMerchantInfoToUserDTO(info);
+		merchant = UtilComponent.ConvertMerchantInfoToMerchantDTO(info);
+		
+		MerchantsDTO addedMerchant = merchantService.insertMerchantAndUser(merchant, user);
+		
+		Gson gson = new Gson();
+		String js =gson.toJson(addedMerchant);
+		String str = "{\"statusCode\": 200, \"data\":" +js+"}";
+		
+		return str;
 		
 	}
 	

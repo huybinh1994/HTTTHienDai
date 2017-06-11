@@ -5,6 +5,7 @@ import java.util.List;
 import dao.MerchantDAO;
 import model.AgentSubAgent;
 import model.MerchantsDTO;
+import model.UserDTO;
 
 public interface MerchantService {
 
@@ -18,4 +19,5 @@ public interface MerchantService {
 	
 	public List<AgentSubAgent> getAgentSubAgent();
 	public int getNextIdentity();
+	public MerchantsDTO insertMerchantAndUser(MerchantsDTO m, UserDTO u);
 }

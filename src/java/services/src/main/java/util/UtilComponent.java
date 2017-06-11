@@ -1,5 +1,6 @@
 package util;
 
+import service.Sha256;
 import model.MerchantInfo;
 import model.MerchantsDTO;
 import model.UserDTO;
@@ -34,30 +35,30 @@ public class UtilComponent {
 		//is agent
 		if(level == 2)
 		{
-			masterCode = generateCode("T", master_id, 5);
-			agentCode = generateCode("A", agent_id, 7);
+			masterCode = generateCode("T", master_id, 4);
+			agentCode = generateCode("A", agent_id, 6);
 			subAgentCode = "S000000";
 			merchantCode = "M0000000000";
 		}
 		else if(level == 3)
 		{
-			masterCode = generateCode("T", master_id, 5);
-			agentCode = generateCode("A", agent_id, 7);
-			subAgentCode = generateCode("S", sub_agent_id, 7);
+			masterCode = generateCode("T", master_id, 4);
+			agentCode = generateCode("A", agent_id, 6);
+			subAgentCode = generateCode("S", sub_agent_id, 6);
 			merchantCode = "M0000000000";
 		}
 		else
 		{
-			masterCode = generateCode("T", master_id, 5);
-			agentCode = generateCode("A", agent_id, 7);
-			subAgentCode = generateCode("S", sub_agent_id, 7);
-			merchantCode = generateCode("M", merchant_id, 11);
+			masterCode = generateCode("T", master_id, 4);
+			agentCode = generateCode("A", agent_id, 6);
+			subAgentCode = generateCode("S", sub_agent_id, 6);
+			merchantCode = generateCode("M", merchant_id, 10);
 		}
 		
 		return masterCode + agentCode + subAgentCode + merchantCode;
 	}
 	
-	public MerchantsDTO ConvertMerchantInfoToMerchantDTO(MerchantInfo info)
+	public static MerchantsDTO ConvertMerchantInfoToMerchantDTO(MerchantInfo info)
 	{
 		MerchantsDTO m = new MerchantsDTO();
 		m.setMerchant_name(info.getMerchant_name());
@@ -69,13 +70,17 @@ public class UtilComponent {
 		m.setMaster_id(info.getMaster_id());
 		m.setAgent_id(info.getAgent_id());
 		m.setSub_agent_id(info.getSub_agent_id());
-		
+		m.setLevel_id(info.getLevel_id());
 		return m;
 	}
 	
-	public UserDTO ConvertMerchantInfoToUserDTO(MerchantsDTO info)
+	public static UserDTO ConvertMerchantInfoToUserDTO(MerchantInfo info)
 	{
 		UserDTO u = new UserDTO();
+		u.setActive(info.getActive());
+		u.setUsername(info.getUsername());
+		u.setPassword(Sha256.convertSha256(info.getPassword()));
+		u.setFlag(info.getLevel_id());
 		return u;
 	}
 }
