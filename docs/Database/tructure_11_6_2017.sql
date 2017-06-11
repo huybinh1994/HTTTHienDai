@@ -145,8 +145,9 @@ CREATE TABLE [dbo].[merchants] (
 )
 
 
+
 GO
-DBCC CHECKIDENT(N'[dbo].[merchants]', RESEED, 3)
+DBCC CHECKIDENT(N'[dbo].[merchants]', RESEED, 18)
 GO
 
 -- ----------------------------
@@ -154,11 +155,33 @@ GO
 -- ----------------------------
 SET IDENTITY_INSERT [dbo].[merchants] ON
 GO
-INSERT INTO [dbo].[merchants] ([id], [merchant_code], [merchant_name], [merchant_phone_call], [tax_code], [master_id], [agent_id], [sub_agent_id], [address], [district], [province], [ward], [zip_code], [first_active_date], [last_active_date], [auther_id], [invite_id], [status], [type_id], [level_id]) VALUES (N'1', N'M0001A000001S000001M0000000001', N'Cua hang A', N'123', N'123', N'1', N'1', N'1', N'1', N'1', N'1', N'1', N'1', N'2017-06-08 22:34:18.063', N'2017-06-08 22:34:18.063', N'1', N'1', N'1', N'1', null)
+INSERT INTO [dbo].[merchants] ([id], [merchant_code], [merchant_name], [merchant_phone_call], [tax_code], [master_id], [agent_id], [sub_agent_id], [address], [district], [province], [ward], [zip_code], [first_active_date], [last_active_date], [auther_id], [invite_id], [status], [type_id]) VALUES (N'1', N'123', N'Cua hang A', N'123', N'123', N'1', N'5', N'1', N'1', N'1', N'1', N'1', N'1', N'2017-06-08 22:34:18.630', N'2017-06-08 22:34:18.630', N'1', N'1', N'1', N'4');
 GO
+INSERT INTO [dbo].[merchants] ([id], [merchant_code], [merchant_name], [merchant_phone_call], [tax_code], [master_id], [agent_id], [sub_agent_id], [address], [district], [province], [ward], [zip_code], [first_active_date], [last_active_date], [auther_id], [invite_id], [status], [type_id]) VALUES (N'5', null, N'Agent 1', N'09012345678', null, N'1', null, null, null, null, null, null, null, null, null, null, null, null, N'2');
 GO
-INSERT INTO [dbo].[merchants] ([id], [merchant_code], [merchant_name], [merchant_phone_call], [tax_code], [master_id], [agent_id], [sub_agent_id], [address], [district], [province], [ward], [zip_code], [first_active_date], [last_active_date], [auther_id], [invite_id], [status], [type_id], [level_id]) VALUES (N'3', N'M0001A000001S000001M0000000002', null, N'AAA', N'123', N'1', N'1', N'1', N'1', N'1', N'1', N'1', N'1', N'2017-06-08 22:34:18.063', N'2017-06-08 22:34:18.063', N'1', N'1', N'1', N'1', null)
+INSERT INTO [dbo].[merchants] ([id], [merchant_code], [merchant_name], [merchant_phone_call], [tax_code], [master_id], [agent_id], [sub_agent_id], [address], [district], [province], [ward], [zip_code], [first_active_date], [last_active_date], [auther_id], [invite_id], [status], [type_id]) VALUES (N'6', null, N'Cua hang B', N'456', N'123', N'1', null, null, null, null, null, null, null, null, null, null, null, null, N'4');
 GO
+INSERT INTO [dbo].[merchants] ([id], [merchant_code], [merchant_name], [merchant_phone_call], [tax_code], [master_id], [agent_id], [sub_agent_id], [address], [district], [province], [ward], [zip_code], [first_active_date], [last_active_date], [auther_id], [invite_id], [status], [type_id]) VALUES (N'7', null, N'Sub Agent 1', null, null, N'1', N'5', null, null, null, null, null, null, null, null, null, null, null, N'3');
+GO
+INSERT INTO [dbo].[merchants] ([id], [merchant_code], [merchant_name], [merchant_phone_call], [tax_code], [master_id], [agent_id], [sub_agent_id], [address], [district], [province], [ward], [zip_code], [first_active_date], [last_active_date], [auther_id], [invite_id], [status], [type_id]) VALUES (N'8', null, N'Agent 2', null, null, N'1', null, null, null, null, null, null, null, null, null, null, null, null, N'2');
+GO
+INSERT INTO [dbo].[merchants] ([id], [merchant_code], [merchant_name], [merchant_phone_call], [tax_code], [master_id], [agent_id], [sub_agent_id], [address], [district], [province], [ward], [zip_code], [first_active_date], [last_active_date], [auther_id], [invite_id], [status], [type_id]) VALUES (N'9', null, N'Agent 3', null, null, N'2', null, null, null, null, null, null, null, null, null, null, null, null, N'2');
+GO
+INSERT INTO [dbo].[merchants] ([id], [merchant_code], [merchant_name], [merchant_phone_call], [tax_code], [master_id], [agent_id], [sub_agent_id], [address], [district], [province], [ward], [zip_code], [first_active_date], [last_active_date], [auther_id], [invite_id], [status], [type_id]) VALUES (N'10', null, N'Agent 4', null, null, N'2', null, null, null, null, null, null, null, null, null, null, null, null, N'2');
+GO
+INSERT INTO [dbo].[merchants] ([id], [merchant_code], [merchant_name], [merchant_phone_call], [tax_code], [master_id], [agent_id], [sub_agent_id], [address], [district], [province], [ward], [zip_code], [first_active_date], [last_active_date], [auther_id], [invite_id], [status], [type_id]) VALUES (N'11', null, N'Sub Agent 2', null, null, N'1', N'5', null, null, null, null, null, null, null, null, null, null, null, N'3');
+GO
+INSERT INTO [dbo].[merchants] ([id], [merchant_code], [merchant_name], [merchant_phone_call], [tax_code], [master_id], [agent_id], [sub_agent_id], [address], [district], [province], [ward], [zip_code], [first_active_date], [last_active_date], [auther_id], [invite_id], [status], [type_id]) VALUES (N'13', null, N'Sub Agent 3', null, null, N'1', N'8', null, null, null, null, null, null, null, null, null, null, null, N'3');
+GO
+INSERT INTO [dbo].[merchants] ([id], [merchant_code], [merchant_name], [merchant_phone_call], [tax_code], [master_id], [agent_id], [sub_agent_id], [address], [district], [province], [ward], [zip_code], [first_active_date], [last_active_date], [auther_id], [invite_id], [status], [type_id]) VALUES (N'14', null, N'Sub Agent 4', null, null, N'1', N'8', null, null, null, null, null, null, null, null, null, null, null, N'3');
+GO
+INSERT INTO [dbo].[merchants] ([id], [merchant_code], [merchant_name], [merchant_phone_call], [tax_code], [master_id], [agent_id], [sub_agent_id], [address], [district], [province], [ward], [zip_code], [first_active_date], [last_active_date], [auther_id], [invite_id], [status], [type_id]) VALUES (N'15', null, N'Sub Agent 5', null, null, N'2', N'9', null, null, null, null, null, null, null, null, null, null, null, N'3');
+GO
+INSERT INTO [dbo].[merchants] ([id], [merchant_code], [merchant_name], [merchant_phone_call], [tax_code], [master_id], [agent_id], [sub_agent_id], [address], [district], [province], [ward], [zip_code], [first_active_date], [last_active_date], [auther_id], [invite_id], [status], [type_id]) VALUES (N'16', null, N'Sub Agent 6', null, null, N'2', N'9', null, null, null, null, null, null, null, null, null, null, null, N'3');
+GO
+INSERT INTO [dbo].[merchants] ([id], [merchant_code], [merchant_name], [merchant_phone_call], [tax_code], [master_id], [agent_id], [sub_agent_id], [address], [district], [province], [ward], [zip_code], [first_active_date], [last_active_date], [auther_id], [invite_id], [status], [type_id]) VALUES (N'17', null, N'Sub Agent 7', null, null, N'2', N'10', null, null, null, null, null, null, null, null, null, null, null, N'3');
+GO
+INSERT INTO [dbo].[merchants] ([id], [merchant_code], [merchant_name], [merchant_phone_call], [tax_code], [master_id], [agent_id], [sub_agent_id], [address], [district], [province], [ward], [zip_code], [first_active_date], [last_active_date], [auther_id], [invite_id], [status], [type_id]) VALUES (N'18', null, N'Sub Agent 8', null, null, N'2', N'10', null, null, null, null, null, null, null, null, null, null, null, N'3');
 GO
 SET IDENTITY_INSERT [dbo].[merchants] OFF
 GO
@@ -285,9 +308,10 @@ DROP TABLE [dbo].[users]
 GO
 CREATE TABLE [dbo].[users] (
 [username] varchar(50) NULL ,
-[password] varchar(50) NULL ,
+[password] varchar(64) NULL ,
 [fullname] varchar(50) NULL ,
 [flag] int NULL ,
+[active] int NULL ,
 [id] int NOT NULL IDENTITY(1,1) 
 )
 

@@ -52,6 +52,8 @@ public class MerchantsDTO {
 	private Integer invite_id;
 	@Column(name = "status")
 	private Integer status;
+	@Column(name = "level_id")
+	private Integer level_id;
 	@Column(name = "first_active_date")
 	private String first_active_date;
 	@Column(name = "last_active_date")
