@@ -1,5 +1,9 @@
 package util;
 
+import model.MerchantInfo;
+import model.MerchantsDTO;
+import model.UserDTO;
+
 public class UtilComponent {
 	public static String leftPad(String originalString, int length, char padCharacter) {
 		StringBuilder sb = new StringBuilder();
@@ -51,5 +55,27 @@ public class UtilComponent {
 		}
 		
 		return masterCode + agentCode + subAgentCode + merchantCode;
+	}
+	
+	public MerchantsDTO ConvertMerchantInfoToMerchantDTO(MerchantInfo info)
+	{
+		MerchantsDTO m = new MerchantsDTO();
+		m.setMerchant_name(info.getMerchant_name());
+		m.setMerchant_phone_call(info.getMerchant_phone_call());
+		m.setAddress(info.getAddress());
+		m.setProvince(info.getProvince());
+		m.setDistrict(info.getDistrict());
+		m.setWard(info.getWard());
+		m.setMaster_id(info.getMaster_id());
+		m.setAgent_id(info.getAgent_id());
+		m.setSub_agent_id(info.getSub_agent_id());
+		
+		return m;
+	}
+	
+	public UserDTO ConvertMerchantInfoToUserDTO(MerchantsDTO info)
+	{
+		UserDTO u = new UserDTO();
+		
 	}
 }

@@ -9,6 +9,7 @@ import model.Agent;
 import model.Master;
 import model.AgentSubAgent;
 import model.MasterDTO;
+import model.MerchantInfo;
 import model.MerchantsDTO;
 import model.Parent;
 
@@ -16,6 +17,7 @@ import model.Parent;
 
 
 import model.SubAgent;
+import model.UserDTO;
 
 import org.hibernate.annotations.Parameter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +25,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -152,11 +155,13 @@ public class MerchantController {
 		
 	}
 	
-	@RequestMapping(value = "/merchant/generate-code", method = RequestMethod.POST)
-	public @ResponseBody String generateCode() {
-
-		int nextId = merchantService.getNextIdentity();
+	@RequestMapping(value = "/merchant/add", method = RequestMethod.POST)
+	public @ResponseBody String generateCode(@RequestBody String data) {
 		
+		
+		MerchantInfo info = new Gson().fromJson(data, MerchantInfo.class);
+		int nextId = merchantService.getNextIdentity();
+		nextId = 1;
 		return "";
 		
 	}

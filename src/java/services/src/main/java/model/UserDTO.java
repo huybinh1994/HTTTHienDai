@@ -20,7 +20,15 @@ public class UserDTO {
 	@Column(name = "fullname")
 	private String fullname;
 	@Column(name = "flag")
-	private String flag;
+	private Integer flag;
+	@Column(name = "active")
+	private Integer active;
+	public Integer getActive() {
+		return active;
+	}
+	public void setActive(Integer active) {
+		this.active = active;
+	}
 	public Integer getId() {
 		return auther_id;
 	}
@@ -51,10 +59,10 @@ public class UserDTO {
 	public void setFullname(String fullname) {
 		this.fullname = fullname;
 	}
-	public String getFlag() {
+	public Integer getFlag() {
 		return flag;
 	}
-	public void setFlag(String flag) {
+	public void setFlag(Integer flag) {
 		this.flag = flag;
 	}
 	
