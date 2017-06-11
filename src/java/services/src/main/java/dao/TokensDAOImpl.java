@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 
 import model.MasterDTO;
 import model.TokensDTO;
+import service.Sha256;
 
 @Repository
 public class TokensDAOImpl implements TokensDAO {
@@ -75,9 +76,9 @@ public class TokensDAOImpl implements TokensDAO {
 		Transaction tx = session.beginTransaction();
 		try {
 			
-
+			String hash = Sha256.convertSha256( tk.getToken());
 			Query q = session.createQuery("delete e from tokens e where e.token = ?");
-			q.setString(0, tk.getToken());
+			q.setString(0, hash);
 			q.executeUpdate();
 			session.getTransaction().commit();
 			

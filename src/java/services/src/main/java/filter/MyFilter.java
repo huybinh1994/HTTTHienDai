@@ -21,6 +21,8 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import service.Sha256;
+
 public class MyFilter implements Filter {
 	private Long setTime = (long) (60000*15);
 	@Override
@@ -44,11 +46,11 @@ public class MyFilter implements Filter {
 			}
 		}
 		try {
-			if (checkToken(header.get(4))) {
+			if (checkToken(header.get(5))) {
 				chain.doFilter(req, resp);
 			}
 			else{
-				res.sendRedirect("http://localhost:8080/DoAnCuoiKy/checkAutherFail");
+				res.sendRedirect("/DoAnCuoiKy/checkAutherFail");
 			}
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
@@ -70,10 +72,10 @@ public class MyFilter implements Filter {
 	private Boolean checkToken(String token) throws SQLException, ClassNotFoundException, ParseException{
 		Connection connection = ConnecUtil.getMyConnection();
 		try {
-
-			String sql = "Select * from tokens where token = ?";
+			String hash = Sha256.convertSha256(token);
+			String sql = "Select token, expire,auther_id from tokens where token = ?";
 			PreparedStatement pstm = connection.prepareStatement(sql);
-			pstm.setString(1, token);
+			pstm.setString(1, hash);
 		    ResultSet rs = pstm.executeQuery();		     
 		    if(rs.next())
 		     {
@@ -86,7 +88,7 @@ public class MyFilter implements Filter {
 					String deletesql = "delete from tokens where token = ?";
 					PreparedStatement deletepstm = connection.prepareStatement(deletesql);
 					deletepstm.setString(1, token);
-				    deletepstm.executeQuery(deletesql);
+					ResultSet rs2 = deletepstm.executeQuery();
 		    	}
 	    	 
 		     }
