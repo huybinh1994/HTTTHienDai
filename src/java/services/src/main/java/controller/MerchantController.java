@@ -28,6 +28,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.gson.Gson;
@@ -188,6 +189,26 @@ public class MerchantController {
 		
 	}
 	
-	
+	@RequestMapping(value = "/find/agent", method = RequestMethod.GET,produces={"application/json; charset=UTF-8"})
+	public @ResponseBody String get_agent(@RequestParam("master") int master) throws Exception {
 
+		String json = new Gson().toJson(merchantService.Find_Agent(master));
+
+		return json;
+	}	
+	@RequestMapping(value = "/find/subagent", method = RequestMethod.GET,produces={"application/json; charset=UTF-8"})
+	public @ResponseBody String get_subAgent(@RequestParam("master") int master,@RequestParam("agent") int agent) throws Exception {
+
+		String json = new Gson().toJson(merchantService.Find_subAgent(master, agent));
+
+		return json;
+	}	
+
+	@RequestMapping(value = "/find/merchant", method = RequestMethod.GET,produces={"application/json; charset=UTF-8"})
+	public @ResponseBody String get_merchant(@RequestParam("master") int master,@RequestParam("agent") int agent,@RequestParam("subagent") int subagent) throws Exception {
+
+		String json = new Gson().toJson(merchantService.Find_Merchant(master, agent, subagent));
+
+		return json;
+	}	
 }
