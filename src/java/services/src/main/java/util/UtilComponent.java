@@ -76,6 +76,6 @@ public class UtilComponent {
 	public UserDTO ConvertMerchantInfoToUserDTO(MerchantsDTO info)
 	{
 		UserDTO u = new UserDTO();
-		
+		return u;
 	}
 }
