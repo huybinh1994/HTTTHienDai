@@ -81,6 +81,11 @@ public class UserServiceImpl implements UserService {
 		// TODO Auto-generated method stub
 		return usDao.insertGetId(user);
 	}
+	@Override
+	public Boolean isExistsEmail(String email) {
+		// TODO Auto-generated method stub
+		return usDao.isExistsEmail(email);
+	}
 	
 	
 

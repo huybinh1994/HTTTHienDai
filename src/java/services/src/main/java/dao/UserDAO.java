@@ -8,4 +8,6 @@ public interface UserDAO {
 	public Boolean insert(UserDTO user);
 	
 	public Integer insertGetId(UserDTO user);
+	
+	public Boolean isExistsEmail(String email);
 }

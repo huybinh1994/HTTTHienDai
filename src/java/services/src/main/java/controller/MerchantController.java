@@ -169,7 +169,7 @@ public class MerchantController {
 		
 	}
 	
-	@RequestMapping(value = "/merchant/add", method = RequestMethod.POST, produces={"application/json; charset=UTF-8"})
+	@RequestMapping(value = "/merchant/add", method = RequestMethod.POST, produces={"text/plain;charset=UTF-8"})
 	public @ResponseBody String addMerchant(@RequestBody String data) {
 		
 		
@@ -177,6 +177,12 @@ public class MerchantController {
 		UserDTO user = new UserDTO();
 		MerchantsDTO merchant = new MerchantsDTO();
 		user = UtilComponent.ConvertMerchantInfoToUserDTO(info);
+		
+		if(userService.isExistsEmail(user.getUsername()))
+		{
+			return "{\"statusCode\": 400,\"errors\": [{\"fieldName\": \"merchant_code\", \"message\": \"Username đã tồn tại\"}]}";
+		}
+		
 		merchant = UtilComponent.ConvertMerchantInfoToMerchantDTO(info);
 		
 		MerchantsDTO addedMerchant = merchantService.insertMerchantAndUser(merchant, user);

@@ -8,4 +8,5 @@ public interface UserService {
 	public TokensDTO login(String user, String pass);
 	public Boolean insert(UserDTO user);
 	public Integer insertGetId(UserDTO user);
+	public Boolean isExistsEmail(String email);
 }

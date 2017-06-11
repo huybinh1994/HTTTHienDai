@@ -74,4 +74,27 @@ public class UserDAOImpl implements UserDAO {
 		}
 	}
 
+	@Override
+	public Boolean isExistsEmail(String email) {
+		// TODO Auto-generated method stub
+		Session session = sessionFactory.openSession();
+		Transaction tx = session.beginTransaction();
+		try {
+		
+			Query q = session.createQuery("from users  where username = ? ");
+			q.setString(0, email);
+			session.getTransaction().commit();
+			if(q.list().size() > 0)
+			{
+				return true;
+			}
+		
+		} catch (Exception e) {
+			e.printStackTrace();
+			session.getTransaction().rollback();
+			return false;
+		}
+		return false;
+	}
+
 }
