@@ -18,4 +18,7 @@ public interface MerchantService {
 	
 	public List<AgentSubAgent> getAgentSubAgent();
 	public int getNextIdentity();
+	public List<MerchantsDTO> Find_Agent(int masterId);
+	public List<MerchantsDTO> Find_subAgent(int masterId , int agentId);
+	public List<MerchantsDTO> Find_Merchant(int masterId, int agentId,int subAgentId);
 }

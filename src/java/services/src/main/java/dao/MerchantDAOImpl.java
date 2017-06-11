@@ -30,12 +30,12 @@ public class MerchantDAOImpl implements MerchantDAO {
 	public void setSessionFactory(SessionFactory sessionFactory) {
 		this.sessionFactory = sessionFactory;
 	}
+
 	@Override
 	public List<MerchantsDTO> getAll() {
 		Session session = sessionFactory.openSession();
 		Transaction tx = session.beginTransaction();
 		try {
-			
 
 			Query q = session.createQuery("select m from merchants m");
 			List<MerchantsDTO> li = q.list();
@@ -86,8 +86,7 @@ public class MerchantDAOImpl implements MerchantDAO {
 			return null;
 		}
 	}
-	
-	
+
 	@Override
 	public List<AgentSubAgent> getAngentSubAgent() {
 		// TODO Auto-generated method stub
@@ -112,10 +111,10 @@ public class MerchantDAOImpl implements MerchantDAO {
 		Transaction tx = session.beginTransaction();
 		try {
 			Query q = session.createSQLQuery("SELECT IDENT_CURRENT('merchants')+1 as id");
-			BigDecimal result =  (BigDecimal) q.list().get(0);
-			
+			BigDecimal result = (BigDecimal) q.list().get(0);
+
 			session.getTransaction().commit();
-			
+
 			return Integer.parseInt(result.toString());
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -123,6 +122,101 @@ public class MerchantDAOImpl implements MerchantDAO {
 			return 0;
 		}
 	}
-	
-	
+
+	@Override
+	public List<MerchantsDTO> Find_Agent(int masterId) {
+		Session session = sessionFactory.openSession();
+		Transaction tx = session.beginTransaction();
+		try {
+
+			Query q = session.createQuery("select m from merchants m where m.master_id=? and m.level_id=2");
+			q.setInteger(0, masterId);
+			List<MerchantsDTO> li = q.list();
+
+			session.getTransaction().commit();
+			return li;
+		} catch (Exception e) {
+			e.printStackTrace();
+			session.getTransaction().rollback();
+			return null;
+		}
+	}
+
+	@Override
+	public List<MerchantsDTO> Find_subAgent(int masterId, int agentId) {
+
+		Session session = sessionFactory.openSession();
+		Transaction tx = session.beginTransaction();
+		try {
+
+			if (agentId == 0) {
+				Query q = session.createQuery("select m from merchants m where m.master_id=? and m.level_id=3");
+				q.setInteger(0, masterId);
+				List<MerchantsDTO> li = q.list();
+
+				session.getTransaction().commit();
+				return li;
+			} else {
+				Query q = session
+						.createQuery("select m from merchants m where m.master_id=? and m.level_id=3 and m.agent_id=?");
+				q.setInteger(0, masterId);
+				q.setInteger(1, agentId);
+				List<MerchantsDTO> li = q.list();
+
+				session.getTransaction().commit();
+				return li;
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			session.getTransaction().rollback();
+			return null;
+		}
+	}
+
+	@Override
+	public List<MerchantsDTO> Find_Merchant(int masterId, int agentId, int subAgentId) {
+		// TODO Auto-generated method stub
+		Session session = sessionFactory.openSession();
+		Transaction tx = session.beginTransaction();
+		try {
+
+			if (agentId == 0) {
+				Query q = session.createQuery(
+						"select m from merchants m where m.master_id=? and m.level_id=4 and m.sub_agent_id=?");
+				q.setInteger(0, masterId);
+				q.setInteger(1, subAgentId);
+				List<MerchantsDTO> li = q.list();
+
+				session.getTransaction().commit();
+				return li;
+			}
+			else if (subAgentId == 0) {
+				Query q = session.createQuery(
+						"select m from merchants m where m.master_id=? and m.level_id=4 and m.agent_id=?");
+				q.setInteger(0, masterId);
+				q.setInteger(1, agentId);
+				List<MerchantsDTO> li = q.list();
+
+				session.getTransaction().commit();
+				return li;
+			} else {
+				Query q = session
+						.createQuery("select m from merchants m where m.master_id=? and m.level_id=4");
+				q.setInteger(0, masterId);
+				
+
+				List<MerchantsDTO> li = q.list();
+
+				session.getTransaction().commit();
+				return li;
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			session.getTransaction().rollback();
+			return null;
+		}
+	}
+
 }

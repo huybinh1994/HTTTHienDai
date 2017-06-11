@@ -51,5 +51,20 @@ public class MerchantServiceImpl implements MerchantService{
 		// TODO Auto-generated method stub
 		return md.getNextIdentity();
 	}
+	@Override
+	public List<MerchantsDTO> Find_Agent(int masterId) {
+		// TODO Auto-generated method stub
+		return md.Find_Agent(masterId);
+	}
+	@Override
+	public List<MerchantsDTO> Find_subAgent(int masterId, int agentId) {
+		// TODO Auto-generated method stub
+		return md.Find_subAgent(masterId, agentId);
+	}
+	@Override
+	public List<MerchantsDTO> Find_Merchant(int masterId, int agentId, int subAgentId) {
+		// TODO Auto-generated method stub
+		return md.Find_Merchant(masterId, agentId, subAgentId);
+	}
 
 }
