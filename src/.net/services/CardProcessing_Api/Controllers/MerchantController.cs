@@ -58,9 +58,7 @@ namespace CardProcessing_Api.Controllers
             object obj = null;
             try
             {
-                  
                     obj = new { StatusCode = 200, data = g_BusinessLayer.getSearchMerchant(Name,Type,Provice,District,Ward) };
-                
             }
             catch (Exception ex)
             {
@@ -74,6 +72,7 @@ namespace CardProcessing_Api.Controllers
         public HttpResponseMessage AddMerchant([FromBody] merchant entities,[FromUri] int type )
         {
             object obj = null;
+
             try
             {
                 if (ModelState.IsValid)

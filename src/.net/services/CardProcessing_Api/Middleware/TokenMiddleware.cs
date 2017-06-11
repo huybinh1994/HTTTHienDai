@@ -20,14 +20,9 @@ namespace CardProcessing_Api.Middleware
 
         public async override Task Invoke(IOwinContext context)
         {
-            //await Next.Invoke(context);
-
-
             string v_strPath = context.Request.Path.ToString();
             string v_strMethod = context.Request.Method;
             var token = context.Request.Headers.ContainsKey("Authorization");
-        
-           
             if (!v_strPath.Contains("api"))// lan dau tien
             {
                 await Next.Invoke(context);
@@ -46,12 +41,8 @@ namespace CardProcessing_Api.Middleware
                 }
              
             }
-          
-
 
         }
-
-
         public Dictionary<string,int> getLisPhanQuyen()
         {
             Dictionary<string, int> v_dicPhanQuyen = new Dictionary<string,int>();
