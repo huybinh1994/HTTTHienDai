@@ -19,4 +19,6 @@ public interface MerchantDAO {
 	public List<MerchantsDTO> Find_Agent(int masterId);
 	public List<MerchantsDTO> Find_subAgent(int masterId , int agentId);
 	public List<MerchantsDTO> Find_Merchant(int masterId, int agentId,int subAgentId);
+	public List<MerchantsDTO> getbyid(int id);
+
 }

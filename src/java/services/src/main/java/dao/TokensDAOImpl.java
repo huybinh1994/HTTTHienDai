@@ -76,9 +76,9 @@ public class TokensDAOImpl implements TokensDAO {
 		Transaction tx = session.beginTransaction();
 		try {
 			
-			String hash = Sha256.convertSha256( tk.getToken());
-			Query q = session.createQuery("delete e from tokens e where e.token = ?");
-			q.setString(0, hash);
+
+			Query q = session.createQuery("delete  from tokens  where token = ?");
+			q.setString(0, tk.getToken());
 			q.executeUpdate();
 			session.getTransaction().commit();
 			

@@ -38,15 +38,16 @@ public class MyFilter implements Filter {
 		HttpServletRequest httpRequest = (HttpServletRequest) req;
 		HttpServletResponse res = (HttpServletResponse) resp;
 
-		Enumeration<String> headerNames = httpRequest.getHeaderNames();
-		List<String> header = new ArrayList<>();
-		if (headerNames != null) {
-			while (headerNames.hasMoreElements()) {
-				header.add(httpRequest.getHeader(headerNames.nextElement()));
-			}
-		}
+		String headerNames = httpRequest.getHeaders("Authorization").nextElement();
+//		headerNames.nextElement()
+//		List<String> header = new ArrayList<>();
+//		if (headerNames != null) {
+//			while (headerNames.hasMoreElements()) {
+//				header.add(httpRequest.getHeader(headerNames.nextElement()));
+//			}
+//		}
 		try {
-			if (checkToken(header.get(5))) {
+			if (checkToken(headerNames)) {
 				chain.doFilter(req, resp);
 			}
 			else{
@@ -87,7 +88,7 @@ public class MyFilter implements Filter {
 		    	else{
 					String deletesql = "delete from tokens where token = ?";
 					PreparedStatement deletepstm = connection.prepareStatement(deletesql);
-					deletepstm.setString(1, token);
+					deletepstm.setString(1, hash);
 					ResultSet rs2 = deletepstm.executeQuery();
 		    	}
 	    	 

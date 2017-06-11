@@ -51,4 +51,41 @@
 	<filter-name>f1</filter-name>  
 	<url-pattern>/service/*</url-pattern>  
 	</filter-mapping>
+	
+	<!-- master  -->
+	<filter>  
+	<filter-name>master</filter-name>  
+	<filter-class>filter.Master</filter-class>  
+	</filter> 
+	<filter-mapping>  
+	<filter-name>master</filter-name>  
+	<url-pattern>/service/master/*</url-pattern>  
+	</filter-mapping>
+	<!-- agent -->
+	<filter>  
+	<filter-name>agent</filter-name>  
+	<filter-class>filter.Agent</filter-class>  
+	</filter> 
+	<filter-mapping>  
+	<filter-name>agent</filter-name>  
+	<url-pattern>/service/agent/*</url-pattern>  
+	</filter-mapping>
+	<!-- sub agen -->
+	<filter>  
+	<filter-name>sub_agent</filter-name>  
+	<filter-class>filter.SubAgent</filter-class>  
+	</filter> 
+	<filter-mapping>  
+	<filter-name>sub_agent</filter-name>  
+	<url-pattern>/service/subagent/*</url-pattern>  
+	</filter-mapping>
+	<!-- merchant -->
+		<filter>  
+	<filter-name>merchant</filter-name>  
+	<filter-class>filter.Merchant</filter-class>  
+	</filter> 
+	<filter-mapping>  
+	<filter-name>merchant</filter-name>  
+	<url-pattern>/service/merchant/*</url-pattern>  
+	</filter-mapping>
 </web-app>
