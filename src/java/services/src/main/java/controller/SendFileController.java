@@ -38,55 +38,56 @@ import service.WriteCsvService;
 @Transactional
 @EnableTransactionManagement
 public class SendFileController {
-
-	WriteCsvService write;
-
-	public WriteCsvService getWrite() {
-		return write;
-	}
-	@Autowired
-	public void setWrite(WriteCsvService write) {
-		this.write = write;
-	}
-	TransactionService tranSer;
-	
-	public TransactionService getTranSer() {
-		return tranSer;
-	}
-	@Autowired
-	public void setTranSer(TransactionService tranSer) {
-		this.tranSer = tranSer;
-	}
-	@RequestMapping(value = "/downloadTranBymerchan", produces = MediaType.APPLICATION_OCTET_STREAM)
-	public @ResponseBody HttpEntity<byte[]> getFile() throws IOException, ParseException, NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
-		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
-		Date d = df.parse("2017-01-07 07:47:45.220");
-		Date t =df.parse("2017-04-07 07:47:45.220");
-		List<MasterReportDTO>masterrp = tranSer.callMasterReport(d,t );
-		MasterReportDTO p = new MasterReportDTO();
-		write.wirteCsv(masterrp);
-		java.nio.file.Path path = Paths.get("data.xls");
-		byte[] file = Files.readAllBytes(path);
-		org.springframework.http.HttpHeaders header = new org.springframework.http.HttpHeaders();
-		header.set("Content-Disposition", "attachment; filename=data.xls");
-		header.setContentLength(file.length);
-		//
-		return new HttpEntity<byte[]>(file, header);
-	}
-	@RequestMapping(value = "/downloadTranBymerchan_cardtype", produces = MediaType.APPLICATION_OCTET_STREAM)
-	public @ResponseBody HttpEntity<byte[]> getFile2() throws IOException, ParseException, NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
-		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
-		Date d = df.parse("2017-01-07 07:47:45.220");
-		Date t =df.parse("2017-04-07 07:47:45.220");
-		List<MasterReportDTO>masterrp = tranSer.callMasterReport(d,t );
-		MasterReportDTO p = new MasterReportDTO();
-		write.wirteCsv(masterrp);
-		java.nio.file.Path path = Paths.get("data.xls");
-		byte[] file = Files.readAllBytes(path);
-		org.springframework.http.HttpHeaders header = new org.springframework.http.HttpHeaders();
-		header.set("Content-Disposition", "attachment; filename=data.xls");
-		header.setContentLength(file.length);
-		//
-		return new HttpEntity<byte[]>(file, header);
-	}
+//
+//	WriteCsvService write;
+//
+//	public WriteCsvService getWrite() {
+//		return write;
+//	}
+//	@Autowired
+//	public void setWrite(WriteCsvService write) {
+//		this.write = write;
+//	}
+//	TransactionService tranSer;
+//	
+//	public TransactionService getTranSer() {
+//		return tranSer;
+//	}
+//	@Autowired
+//	public void setTranSer(TransactionService tranSer) {
+//		this.tranSer = tranSer;
+////	}
+//	@RequestMapping(value = "/downloadTranBymerchan", produces = MediaType.APPLICATION_OCTET_STREAM)
+//	public @ResponseBody HttpEntity<byte[]> getFile() throws IOException, ParseException, NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
+//		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
+//		Date d = df.parse("2017-01-07 07:47:45.220");
+//		Date t =df.parse("2017-04-07 07:47:45.220");
+//		List<MasterReportDTO>masterrp = tranSer.callMasterReport(d,t );
+//		MasterReportDTO p = new MasterReportDTO();
+//		write.wirteCsv(masterrp);
+//		java.nio.file.Path path = Paths.get("data.xls");
+//		byte[] file = Files.readAllBytes(path);
+//		org.springframework.http.HttpHeaders header = new org.springframework.http.HttpHeaders();
+//		header.set("Content-Disposition", "attachment; filename=data.xls");
+//		header.setContentLength(file.length);
+//		//
+//		return new HttpEntity<byte[]>(file, header);
+//	}
+//	@RequestMapping(value = "/downloadTranBymerchan_cardtype", produces = MediaType.APPLICATION_OCTET_STREAM)
+//	public @ResponseBody HttpEntity<byte[]> getFile2() throws IOException, ParseException, NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
+//		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
+//		Date d = df.parse("2017-01-07 07:47:45.220");
+//		Date t =df.parse("2017-04-07 07:47:45.220");
+//		List<MasterReportDTO>masterrp = tranSer.callMasterReport(d,t );
+//		MasterReportDTO p = new MasterReportDTO();
+//		write.wirteCsv(masterrp);
+//		java.nio.file.Path path = Paths.get("data.xls");
+//		byte[] file = Files.readAllBytes(path);
+//		org.springframework.http.HttpHeaders header = new org.springframework.http.HttpHeaders();
+//		header.set("Content-Disposition", "attachment; filename=data.xls");
+//		header.setContentLength(file.length);
+//		//
+//		return new HttpEntity<byte[]>(file, header);
+//	}
 }
+

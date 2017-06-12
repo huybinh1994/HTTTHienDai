@@ -3,8 +3,8 @@ package model;
 import java.util.Date;
 
 public class Statistic_Follow_MerchantInfo_DTO {
-	public int id ;
-	public String merchant;
+	
+	public String merchant_name;
 	public String merchant_code;
 	public double total_quantity_sale ;
 	public double	total_quantity_return;
@@ -12,12 +12,7 @@ public class Statistic_Follow_MerchantInfo_DTO {
 	
 	public double total_amout_return;
 	
-	public int getId() {
-		return id;
-	}
-	public void setId(int id) {
-		this.id = id;
-	}
+
 	public double getTotal_amout_return() {
 		return total_amout_return;
 	}
@@ -25,10 +20,10 @@ public class Statistic_Follow_MerchantInfo_DTO {
 		this.total_amout_return = total_amout_return;
 	}
 	public String getMearchant() {
-		return merchant;
+		return merchant_name;
 	}
 	public void setMearchant_name(String mearchant_name) {
-		this.merchant = mearchant_name;
+		this.merchant_name = mearchant_name;
 	}
 	public String getMerchant_code() {
 		return merchant_code;

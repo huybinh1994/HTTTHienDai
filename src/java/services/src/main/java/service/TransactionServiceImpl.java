@@ -71,5 +71,29 @@ public class TransactionServiceImpl implements TransactionService {
 		// TODO Auto-generated method stub
 		return tranDAO.Statistic(merchant, mertype, region, code, reportType, startDate, endDate);
 	}
+	@Override
+	public List Statistic_Normal_DateTo(String merchant, int mertype, String region, String code, String startDate,
+			String endDate) {
+		// TODO Auto-generated method stub
+		return tranDAO.Statistic_Normal_DateTo(merchant, mertype, region, code, startDate, endDate);
+	}
+	@Override
+	public List Statistic_Normal_MQY(int loaithongke, String mercode, int mertype, String region, String code,
+			int thamso, int nam) {
+		// TODO Auto-generated method stub
+		return tranDAO.Statistic_Normal_MQY(loaithongke, mercode, mertype, region, code, thamso, nam);
+	}
+	@Override
+	public List Statistic_CardTpe_DateTo(String merchant, int mertype, String region, String code, String startDate,
+			String endDate) {
+		// TODO Auto-generated method stub
+		return tranDAO.Statistic_CardTpe_DateTo(merchant, mertype, region, code, startDate, endDate);
+	}
+	@Override
+	public List Statistic_CardType_MQY(int loaithongke, String mercode, int mertype, String region, String code,
+			int thamso, int nam) {
+		// TODO Auto-generated method stub
+		return tranDAO.Statistic_CardType_MQY(loaithongke, mercode, mertype, region, code, thamso, nam);
+	}
 
 }

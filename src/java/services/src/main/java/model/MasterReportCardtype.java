@@ -1,25 +1,20 @@
 package model;
 
 public class MasterReportCardtype {
-	private int id;
-	private String mearchant_name;
+	
+	private String merchant_name;
 	private String merchant_code;	
 	private int card_type;
 	private double total_quantity_sale;
 	private double total_amout_sale;
 	private double total_quantity_return;
 	private double total_amout_return;
-	public int getId() {
-		return id;
-	}
-	public void setId(int id) {
-		this.id = id;
-	}
+
 	public String getMearchant_name() {
-		return mearchant_name;
+		return merchant_name;
 	}
 	public void setMearchant_name(String mearchant_name) {
-		this.mearchant_name = mearchant_name;
+		this.merchant_name = mearchant_name;
 	}
 	public String getMerchant_code() {
 		return merchant_code;

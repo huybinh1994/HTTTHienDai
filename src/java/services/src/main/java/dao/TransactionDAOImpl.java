@@ -268,7 +268,8 @@ public class TransactionDAOImpl implements TransactionDAO {
 			String qu="EXEC sp_sel_rpt_master_info ?,?,?,?,?,?,?";	
 			Query query = session.createSQLQuery(qu).setResultTransformer(
                     Transformers.aliasToBean(Statistic_Follow_MerchantInfo_DTO.class));
-			query.setString(0, merchant);
+			
+			query.setString(0, merchant	);
 			query.setInteger(1, mertype);
 			query.setString(2, region);
 			query.setString(3, code);
@@ -316,6 +317,133 @@ public class TransactionDAOImpl implements TransactionDAO {
 		return null;
 	}
 		
+	}
+
+	@Override
+	public List Statistic_Normal_DateTo(String merchant, int mertype, String region, String code, String startDate,
+			String endDate) {
+		Session session = sessionFactory.openSession();
+		Transaction tx = session.beginTransaction();
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
+		try {
+			String qu="EXEC sp_sel_repot_dateTo_merchant ?,?,?,?,?,?";	
+			Query query = session.createSQLQuery(qu).setResultTransformer(
+                    Transformers.aliasToBean(Statistic_Follow_MerchantInfo_DTO.class));
+			query.setString(0, merchant	);
+			query.setInteger(1, mertype);
+			query.setString(2, region);
+			query.setString(3, code);
+			query.setString(4, startDate);
+			query.setString(5, endDate);
+			List<Statistic_Follow_MerchantInfo_DTO> li = query.list();
+//			for(int i =0 ; i<= li.size() ; i++ ){
+//				System.out.println(li.get(i).toString());
+//			}
+			session.getTransaction().commit();
+
+			return li;
+		} catch (Exception e) {
+			e.printStackTrace();
+			session.getTransaction().rollback();
+			return null;		}
+	
+	}
+
+	@Override
+	public List Statistic_Normal_MQY(int loaithongke, String mercode, int mertype, String region, String code,
+			int thamso, int nam) {
+		Session session = sessionFactory.openSession();
+		Transaction tx = session.beginTransaction();
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
+		try {
+			String qu="EXEC sp_sel_repot_mont_quater_year_merchant ?,?,?,?,?,?,?";	
+			Query query = session.createSQLQuery(qu).setResultTransformer(
+                    Transformers.aliasToBean(Statistic_Follow_MerchantInfo_DTO.class));
+			query.setInteger(0, loaithongke	);
+			query.setString(1, mercode);
+			query.setInteger(2, mertype);
+			query.setString(3, region);
+			query.setString(4, code);
+			query.setInteger(5, thamso);
+			query.setInteger(6, nam);
+			List<Statistic_Follow_MerchantInfo_DTO> li = query.list();
+//			for(int i =0 ; i<= li.size() ; i++ ){
+//				System.out.println(li.get(i).toString());
+//			}
+			session.getTransaction().commit();
+
+			return li;
+		} catch (Exception e) {
+			e.printStackTrace();
+			session.getTransaction().rollback();
+			return null;		}
+	}
+
+	@Override
+	public List Statistic_CardTpe_DateTo(String merchant, int mertype, String region, String code, String startDate,
+			String endDate) {
+		Session session = sessionFactory.openSession();
+		Transaction tx = session.beginTransaction();
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
+		try{
+		String qu="EXEC sp_sel_repot_dateTo_merchant_card_type ?,?,?,?,?,?";	
+		Query query = session.createSQLQuery(qu).setResultTransformer(
+                Transformers.aliasToBean(MasterReportCardtype.class));
+		query.setString(0, merchant);
+		query.setInteger(1, mertype);
+		query.setString(2, region);
+		query.setString(3, code);
+		query.setString(4, startDate);
+		query.setString(5, endDate);
+
+		List<MasterReportCardtype> li = query.list();
+//		for(int i =0 ; i<= li.size() ; i++ ){
+//			System.out.println(li.get(i).toString());
+//		}
+		session.getTransaction().commit();
+
+		return li;
+		
+		
+	} catch (Exception e) {
+		e.printStackTrace();
+		session.getTransaction().rollback();
+		return null;
+	}
+	}
+
+	@Override
+	public List Statistic_CardType_MQY(int loaithongke, String mercode, int mertype, String region, String code,
+			int thamso, int nam) {
+		Session session = sessionFactory.openSession();
+		Transaction tx = session.beginTransaction();
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
+		try{
+		String qu="EXEC sp_sel_repot_mont_quater_year_merchant_card_type ?,?,?,?,?,?,?";	
+		Query query = session.createSQLQuery(qu).setResultTransformer(
+                Transformers.aliasToBean(MasterReportCardtype.class));
+		query.setInteger(0, loaithongke);
+		query.setString(1, mercode);
+		query.setInteger(2, mertype);
+		query.setString(3, region);
+		query.setString(4, code);
+		query.setInteger(5, thamso);
+		query.setInteger(6, nam);
+
+		List<MasterReportCardtype> li = query.list();
+//		for(int i =0 ; i<= li.size() ; i++ ){
+//			System.out.println(li.get(i).toString());
+//		}
+		session.getTransaction().commit();
+
+		return li;
+		
+		
+	} catch (Exception e) {
+		e.printStackTrace();
+		session.getTransaction().rollback();
+		return null;
+	}
 	}
 
 }

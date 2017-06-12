@@ -20,4 +20,11 @@ public interface TransactionService {
 			String endDate );
 	public List Statistic_Follow_CardType( String merchant,int mertype, String region, int level,int code,String fromDate, String toDate );
 
+	
+	public List Statistic_Normal_DateTo( String merchant, int mertype, String region, String code, String startDate,
+			String endDate);
+	public List Statistic_Normal_MQY(int loaithongke, String mercode ,int mertype ,String region ,String code ,int thamso,int nam);
+	public List Statistic_CardTpe_DateTo( String merchant, int mertype, String region, String code, String startDate,
+			String endDate);
+	public List Statistic_CardType_MQY(int loaithongke, String mercode ,int mertype ,String region ,String code ,int thamso,int nam);
 }

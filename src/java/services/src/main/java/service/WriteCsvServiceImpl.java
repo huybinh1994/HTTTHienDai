@@ -35,8 +35,8 @@ public class WriteCsvServiceImpl implements WriteCsvService {
 				{
 					String[] tran =  new String[17];
 					tran[0] = dto.get(i).getMerchant_code(); 
-					tran[1] = String.valueOf(dto.get(i).getTong_thanh_tien()) ;
-					tran[2] = String.valueOf(dto.get(i).getSo_luong()) ;
+//					tran[1] = String.valueOf/*(dto.get(i).getTong_thanh_tien()) ;
+//					tran[2] = String.valueOf(dto.get(i).*/getSo_luong()) ;
 
 					
 							
