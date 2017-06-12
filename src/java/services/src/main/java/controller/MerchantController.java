@@ -214,7 +214,7 @@ public class MerchantController {
 	}
 	
 	@RequestMapping(value = "/get-merchant-by-id-and-level/{id}/{level}", method = RequestMethod.GET, produces={"application/json; charset=UTF-8"})
-	public @ResponseBody String getMerchantByIdAndLevel(@PathVariable("id") int id, @PathVariable("id") int level) throws ParseException {
+	public @ResponseBody String getMerchantByIdAndLevel(@PathVariable("id") int id, @PathVariable("level") int level) throws ParseException {
 		MerchantsDTO m = merchantService.getMerchantByIdAndLevel(id, level);
 		if(m != null)
 		{
