@@ -10,9 +10,9 @@ import javax.persistence.Id;
 
 public class UserDTO {
 	@Id
-	@Column(name = "auther_id")
+	@Column(name = "id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer auther_id;
+	private Integer id;
 	@Column(name = "username")
 	private String username;
 	@Column(name = "password")
@@ -30,19 +30,19 @@ public class UserDTO {
 		this.active = active;
 	}
 	public Integer getId() {
-		return auther_id;
+		return id;
 	}
 	public void setId(Integer id) {
-		this.auther_id = id;
+		this.id = id;
 	}
 	public String getUsername() {
 		return username;
 	}
 	public Integer getAuther_id() {
-		return auther_id;
+		return id;
 	}
 	public void setAuther_id(Integer auther_id) {
-		this.auther_id = auther_id;
+		this.id = auther_id;
 	}
 	public String getPassword() {
 		return password;

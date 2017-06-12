@@ -26,5 +26,9 @@ public class MasterServiceImpl implements MasterService{
 		// TODO Auto-generated method stub
 		return master.getAll();
 	}
-
+	@Override
+	public List<MasterDTO> getbyid(int id){
+		// TODO Auto-generated method stub
+		return master.getbyid(id);
+	}
 }

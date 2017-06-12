@@ -27,7 +27,7 @@ public class MasterController {
 		this.masterService = masterService;
 	}
 
-	@RequestMapping(value = "/service/listmaster", method = RequestMethod.GET)
+	@RequestMapping(value = "/service/master/listmaster", method = RequestMethod.GET)
 	public @ResponseBody String getlistMaster() {
 		String json = new Gson().toJson(masterService.getAll());
 		return json;

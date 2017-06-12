@@ -2,6 +2,8 @@ package service;
 
 import java.util.List;
 
+import model.MasterReportCardtype;
+import model.MasterReportDTO;
 import model.TransactionDTO;
 
 public interface TransactionService {
@@ -20,6 +22,7 @@ public interface TransactionService {
 			String endDate );
 	public List Statistic_Follow_CardType( String merchant,int mertype, String region, int level,int code,String fromDate, String toDate );
 
+
 	
 	public List Statistic_Normal_DateTo( String merchant, int mertype, String region, String code, String startDate,
 			String endDate);
@@ -27,4 +30,8 @@ public interface TransactionService {
 	public List Statistic_CardTpe_DateTo( String merchant, int mertype, String region, String code, String startDate,
 			String endDate);
 	public List Statistic_CardType_MQY(int loaithongke, String mercode ,int mertype ,String region ,String code ,int thamso,int nam);
+
+	public List<MasterReportDTO> callMasterReport(String search,String merchan_type, String region ,String level,String code,String fromTime, String toTime);
+	public List<MasterReportCardtype> callMasterReportCardtype(String search,String merchan_type, String region ,String level,String code,String fromTime, String toTime);
+
 }

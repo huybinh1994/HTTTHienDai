@@ -2,6 +2,8 @@ package dao;
 
 import java.util.List;
 
+import model.MasterReportCardtype;
+import model.MasterReportDTO;
 import model.TransactionDTO;
 
 public interface TransactionDAO {
@@ -18,6 +20,8 @@ public interface TransactionDAO {
 	public List Statistic( String merchant, int mertype, String region, String code,int reportType, String startDate,
 			String endDate);
 	public List Statistic_Follow_CardType( String merchant,int mertype, String region, int level,int code,String fromDate, String toDate );
+	public List<MasterReportDTO> callMasterReport(String search,String merchan_type, String region ,String level,String code,String fromTime, String toTime);
+	public List<MasterReportCardtype> callMastetReportCardtype(String search,String merchan_type, String region ,String level,String code,String fromTime, String toTime);
 
 	
 	

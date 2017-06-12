@@ -36,6 +36,7 @@ import com.google.gson.Gson;
 import service.MasterService;
 import service.MerchantService;
 import service.MasterService;
+import service.UserService;
 import util.UtilComponent;
 
 @Controller
@@ -50,6 +51,18 @@ public class MerchantController {
 	public void setMasterService(MasterService masterService) {
 		this.masterService = masterService;
 	}
+	
+	
+	UserService userService;
+	public UserService getUserService() {
+		return userService;
+	}
+	@Autowired
+	public void setUserService(UserService userService) {
+		this.userService = userService;
+	}
+
+	
 
 	MerchantService merchantService;
 
@@ -156,14 +169,65 @@ public class MerchantController {
 		
 	}
 	
-	@RequestMapping(value = "/merchant/add", method = RequestMethod.POST)
-	public @ResponseBody String generateCode(@RequestBody String data) {
+	@RequestMapping(value = "/master/add-merchant", method = RequestMethod.POST, produces={"text/plain;charset=UTF-8"})
+	public @ResponseBody String addMerchant(@RequestBody String data) {
 		
 		
 		MerchantInfo info = new Gson().fromJson(data, MerchantInfo.class);
-		int nextId = merchantService.getNextIdentity();
-		nextId = 1;
-		return "";
+		UserDTO user = new UserDTO();
+		MerchantsDTO merchant = new MerchantsDTO();
+		user = UtilComponent.ConvertMerchantInfoToUserDTO(info);
+		
+		if(userService.isExistsEmail(user.getUsername()))
+		{
+			return "{\"statusCode\": 400,\"errors\": [{\"fieldName\": \"merchant_code\", \"message\": \"Username đã tồn tại\"}]}";
+		}
+		
+		merchant = UtilComponent.ConvertMerchantInfoToMerchantDTO(info);
+		
+		MerchantsDTO addedMerchant = merchantService.insertMerchantAndUser(merchant, user);
+		
+		Gson gson = new Gson();
+		String js =gson.toJson(addedMerchant);
+		String str = "{\"statusCode\": 200, \"data\":" +js+"}";
+		
+		return str;
+		
+	}
+	
+	
+	@RequestMapping(value = "/master/update-merchant", method = RequestMethod.POST, produces={"text/plain;charset=UTF-8"})
+	public @ResponseBody String updateMerchant(@RequestBody String data) {
+		MerchantsDTO merchant = new Gson().fromJson(data, MerchantsDTO.class);
+		if(merchantService.update(merchant))
+		{
+			Gson gson = new Gson();
+			String js =gson.toJson(merchant);
+			String str = "{\"statusCode\": 200, \"data\":" +js+"}";	
+		
+			return str;
+		}
+		else
+		{
+			return "{\"statusCode\": 400,\"errors\": [{\"message\": \"Cập nhật thất bại\"}]}";
+		}
+	}
+	
+	@RequestMapping(value = "/get-merchant-by-id-and-level/{id}/{level}", method = RequestMethod.GET, produces={"application/json; charset=UTF-8"})
+	public @ResponseBody String getMerchantByIdAndLevel(@PathVariable("id") int id, @PathVariable("level") int level) throws ParseException {
+		MerchantsDTO m = merchantService.getMerchantByIdAndLevel(id, level);
+		if(m != null)
+		{
+			Gson gson = new Gson();
+			String js =gson.toJson(m);
+			String str = "{statusCode: 200, data:" +js+"}";
+			
+			return str;
+		}
+		else
+		{
+			return "{\"statusCode\": 400,\"message\": \"Không tồn tại merchant\"}";
+		}
 		
 	}
 	

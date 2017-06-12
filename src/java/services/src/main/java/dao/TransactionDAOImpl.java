@@ -16,6 +16,7 @@ import org.springframework.stereotype.Repository;
 
 import model.MasterDTO;
 import model.MasterReportCardtype;
+import model.MasterReportDTO;
 import model.Statistic_Follow_MerchantInfo_DTO;
 import model.TransactionDTO;
 import model.UserDTO;
@@ -317,6 +318,55 @@ public class TransactionDAOImpl implements TransactionDAO {
 		return null;
 	}
 		
+	}
+	@Override
+	public List<MasterReportDTO> callMasterReport(String search,String merchan_type, String region ,String level,String code,String fromTime, String toTime) {
+		Session session = sessionFactory.openSession();
+		Transaction tx = session.beginTransaction();
+		try {
+			String qu="EXEC sp_sel_list_Transaction_By_MerchantInfo ?,?,?,?,?,?,?";	
+			Query query = session.createSQLQuery(qu)
+					.setString(0, search)
+					.setString(1, merchan_type)
+					.setString(2, region)
+					.setString(3, level)
+					.setString(4, code)
+					.setString(5, fromTime)
+					.setString(6, toTime)
+					.setResultTransformer(
+                    Transformers.aliasToBean(MasterReportDTO.class));
+			return query.list();
+		
+		} catch (Exception e) {
+			e.printStackTrace();
+			session.getTransaction().rollback();
+			return null;
+		}	
+	}
+
+	@Override
+	public List<MasterReportCardtype> callMastetReportCardtype(String search,String merchan_type, String region ,String level,String code,String fromTime, String toTime) {
+		Session session = sessionFactory.openSession();
+		Transaction tx = session.beginTransaction();
+		try {
+			String qu="EXEC sp_sel_list_Transaction_By_Merchantinfo_Cardtype ?,?,?,?,?,?,?";	
+			Query query = session.createSQLQuery(qu)
+					.setString(0, search)
+					.setString(1, merchan_type)
+					.setString(2, region)
+					.setString(3, level)
+					.setString(4, code)
+					.setString(5, fromTime)
+					.setString(6, toTime)
+					.setResultTransformer(
+                    Transformers.aliasToBean(MasterReportCardtype.class));
+			return query.list();
+		
+		} catch (Exception e) {
+			e.printStackTrace();
+			session.getTransaction().rollback();
+			return null;
+		}	
 	}
 
 	@Override

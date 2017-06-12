@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import dao.MerchantDAO;
 import model.AgentSubAgent;
 import model.MerchantsDTO;
+import model.UserDTO;
 @Service
 public class MerchantServiceImpl implements MerchantService{
 
@@ -52,6 +53,10 @@ public class MerchantServiceImpl implements MerchantService{
 		return md.getNextIdentity();
 	}
 	@Override
+	public MerchantsDTO insertMerchantAndUser(MerchantsDTO m, UserDTO u) {
+		// TODO Auto-generated method stub
+		return md.insertMerchantAndUser(m, u);
+	}
 	public List<MerchantsDTO> Find_Agent(int masterId) {
 		// TODO Auto-generated method stub
 		return md.Find_Agent(masterId);
@@ -66,5 +71,19 @@ public class MerchantServiceImpl implements MerchantService{
 		// TODO Auto-generated method stub
 		return md.Find_Merchant(masterId, agentId, subAgentId);
 	}
-
+	@Override
+	public Boolean update(MerchantsDTO m) {
+		// TODO Auto-generated method stub
+		return md.update(m);
+	}
+	@Override
+	public List<MerchantsDTO> getbyid(int i) {
+		// TODO Auto-generated method stub
+		return md.getbyid(i);
+	}
+	@Override
+	public MerchantsDTO getMerchantByIdAndLevel(int id, int level) {
+		// TODO Auto-generated method stub
+		return md.getMerchantByIdAndLevel(id, level);
+	}
 }
