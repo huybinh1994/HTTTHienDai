@@ -109,3 +109,6 @@ E:\HCDH\PTUD\DoAn\HTTTHienDai\src\.net\services\CardProcessing_Api\bin\Microsoft
 E:\HCDH\PTUD\DoAn\HTTTHienDai\src\.net\services\CardProcessing_Api\bin\Microsoft.AI.Web.xml
 E:\HCDH\PTUD\DoAn\HTTTHienDai\src\.net\services\CardProcessing_Api\obj\Debug\CardProcessing_Api.dll
 E:\HCDH\PTUD\DoAn\HTTTHienDai\src\.net\services\CardProcessing_Api\obj\Debug\CardProcessing_Api.pdb
+E:\HCDH\PTUD\DoAn\HTTTHienDai\src\.net\services\CardProcessing_Api\bin\Microsoft.Owin.Cors.dll
+E:\HCDH\PTUD\DoAn\HTTTHienDai\src\.net\services\CardProcessing_Api\bin\System.Web.Cors.dll
+E:\HCDH\PTUD\DoAn\HTTTHienDai\src\.net\services\CardProcessing_Api\bin\Microsoft.Owin.Cors.xml

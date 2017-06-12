@@ -25,27 +25,57 @@ namespace CardProcessing_Api.Controllers
             try
             {
 
-                obj = new { StatusCode = 200, data = g_BusinessLayer.GetAllmerchant() };
+                obj = new { statusCode = 200, data = g_BusinessLayer.GetAllmerchant() };
 
             }
             catch (Exception ex)
             {
-                obj = new { StatusCode = 500, data = g_BusinessLayer.GetAllmerchant() };
+                obj = new { statusCode = 500, data = ex.Message };
             }
             return Request.CreateResponse(obj);
         }
-        [Route("api/merchant/search/{Name}/{Type}/{Provice}/{District}/{Ward}")]
+        [Route("api/merchant/matersearch/{UserId}/{LoaiXem}/{Merchant_code}/{Region}/{Merchant_type}")]
         [HttpGet]
-        public HttpResponseMessage searchMerchant(string Name,int Type,int Provice,int District,int Ward)
+        public HttpResponseMessage matersearchMerchant(int UserId, int LoaiXem, string Merchant_code, string Region, int Merchant_type)
         {
             object obj = null;
             try
             {
-                    obj = new { StatusCode = 200, data = g_BusinessLayer.getSearchMerchant(Name,Type,Provice,District,Ward) };
+                    obj = new { statusCode = 200, data = g_BusinessLayer.mastersearchMerchant(UserId, LoaiXem, Merchant_code, Region, Merchant_type) };
             }
             catch (Exception ex)
             {
-                obj = new { StatusCode = 500, data = g_BusinessLayer.GetAllmerchant() };
+                obj = new { statusCode = 500, data = ex.Message };
+            }
+            return Request.CreateResponse(obj);
+        }
+        [Route("api/merchant/agentsearch/{UserId}/{LoaiXem}/{Merchant_code}/{Region}/{Merchant_type}")]
+        [HttpGet]
+        public HttpResponseMessage agentsearchMerchant(int UserId, int LoaiXem, string Merchant_code, string Region, int Merchant_type )
+        {
+            object obj = null;
+            try
+            {
+                obj = new { statusCode = 200, data = g_BusinessLayer.agentsearchMerchant(UserId, LoaiXem, Merchant_code, Region, Merchant_type) };
+            }
+            catch (Exception ex)
+            {
+                obj = new { statusCode = 500, data = ex.Message };
+            }
+            return Request.CreateResponse(obj);
+        }
+        [Route("api/merchant/subagentsearch/{UserId}/{LoaiXem}/{Merchant_code}/{Region}/{Merchant_type}")]
+        [HttpGet]
+        public HttpResponseMessage subagentsearchMerchant(int UserId, int LoaiXem, string Merchant_code, string Region, int Merchant_type)
+        {
+            object obj = null;
+            try
+            {
+                obj = new { statusCode = 200, data = g_BusinessLayer.subagentsearchMerchant(UserId, LoaiXem, Merchant_code, Region, Merchant_type) };
+            }
+            catch (Exception ex)
+            {
+                obj = new { statusCode = 500, data = ex.Message };
             }
             return Request.CreateResponse(obj);
         }

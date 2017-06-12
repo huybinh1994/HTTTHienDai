@@ -61,6 +61,20 @@
           <Property Name="invite_id" Type="int" />
           <Property Name="status" Type="int" />
           <Property Name="type_id" Type="int" />
+          <Property Name="level_id" Type="int" />
+        </EntityType>
+        <EntityType Name="notes">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="tieude" Type="nvarchar" MaxLength="250" />
+          <Property Name="noidung" Type="nvarchar(max)" />
+          <Property Name="nguoi_goi" Type="int" />
+          <Property Name="nguoi_nhan" Type="int" />
+          <Property Name="level_nguoi_goi" Type="int" />
+          <Property Name="level_nguoi_nhan" Type="int" />
+          <Property Name="ngaytao" Type="datetime" />
         </EntityType>
         <EntityType Name="parameters">
           <Key>
@@ -71,17 +85,6 @@
           <Property Name="param_value" Type="text" />
           <Property Name="param_type" Type="varchar" MaxLength="255" />
           <Property Name="param_status" Type="int" />
-        </EntityType>
-        <EntityType Name="thongbao">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="tieude" Type="nvarchar" MaxLength="250" />
-          <Property Name="noidung" Type="nvarchar(max)" />
-          <Property Name="ngaytao" Type="datetime" />
-          <Property Name="nguoitao" Type="int" />
-          <Property Name="nguoinhan" Type="int" />
         </EntityType>
         <EntityType Name="tokens">
           <Key>
@@ -107,13 +110,14 @@
           <Property Name="csv" Type="varchar" MaxLength="5" />
           <Property Name="card_exp_month" Type="nvarchar" MaxLength="2" />
           <Property Name="card_exp_year" Type="nvarchar" MaxLength="5" />
-          <Property Name="merchant_code" Type="varchar" MaxLength="30" />
+          <Property Name="merchant_code" Type="char" MaxLength="30" />
           <Property Name="product_id" Type="int" />
           <Property Name="product_quantity" Type="int" />
           <Property Name="product_price" Type="decimal" Precision="18" Scale="0" />
           <Property Name="file_source" Type="varchar" MaxLength="255" />
           <Property Name="batch_number" Type="varchar" MaxLength="255" />
           <Property Name="status" Type="int" />
+          <Property Name="transaction_type" Type="int" />
         </EntityType>
         <EntityType Name="users">
           <Key>
@@ -131,8 +135,8 @@
           <EntitySet Name="masters" EntityType="Self.masters" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="merchant_type" EntityType="Self.merchant_type" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="merchants" EntityType="Self.merchants" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="notes" EntityType="Self.notes" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="parameters" EntityType="Self.parameters" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="thongbao" EntityType="Self.thongbao" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tokens" EntityType="Self.tokens" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="transactions" EntityType="Self.transactions" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="users" EntityType="Self.users" Schema="dbo" store:Type="Tables" />
@@ -190,6 +194,7 @@
           <Property Name="auther_id" Type="Int32" />
           <Property Name="invite_id" Type="Int32" />
           <Property Name="type_id" Type="Int32" />
+          <Property Name="level_id" Type="Int32" />
           </EntityType>
         <EntityType Name="parameter">
           <Key>
@@ -225,13 +230,14 @@
           <Property Name="csv" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
           <Property Name="card_exp_month" Type="String" MaxLength="2" FixedLength="false" Unicode="true" />
           <Property Name="card_exp_year" Type="String" MaxLength="5" FixedLength="false" Unicode="true" />
-          <Property Name="merchant_code" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="merchant_code" Type="String" MaxLength="30" FixedLength="true" Unicode="false" />
           <Property Name="product_id" Type="Int32" />
           <Property Name="product_quantity" Type="Int32" />
           <Property Name="product_price" Type="Decimal" Precision="18" Scale="0" />
           <Property Name="file_source" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="batch_number" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="status" Type="Int32" />
+          <Property Name="transaction_type" Type="Int32" />
         </EntityType>
         <EntityType Name="user">
           <Key>
@@ -253,7 +259,7 @@
           <EntitySet Name="transactions" EntityType="Self.transaction" />
           <EntitySet Name="users" EntityType="Self.user" />
           <EntitySet Name="merchant_type" EntityType="card_processingModel.merchant_type" />
-          <EntitySet Name="thongbaos" EntityType="card_processingModel.thongbao" />
+          <EntitySet Name="notes" EntityType="card_processingModel.note" />
         </EntityContainer>
         <EntityType Name="merchant_type">
           <Key>
@@ -262,16 +268,18 @@
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="TenLoai" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
         </EntityType>
-        <EntityType Name="thongbao">
+        <EntityType Name="note">
           <Key>
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="tieude" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
           <Property Name="noidung" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="nguoi_goi" Type="Int32" />
+          <Property Name="nguoi_nhan" Type="Int32" />
+          <Property Name="level_nguoi_goi" Type="Int32" />
+          <Property Name="level_nguoi_nhan" Type="Int32" />
           <Property Name="ngaytao" Type="DateTime" Precision="3" />
-          <Property Name="nguoitao" Type="Int32" />
-          <Property Name="nguoinhan" Type="Int32" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -311,6 +319,7 @@
           <EntitySetMapping Name="merchants">
             <EntityTypeMapping TypeName="card_processingModel.merchant">
               <MappingFragment StoreEntitySet="merchants">
+                <ScalarProperty Name="level_id" ColumnName="level_id" />
                 <ScalarProperty Name="type_id" ColumnName="type_id" />
                 <ScalarProperty Name="invite_id" ColumnName="invite_id" />
                 <ScalarProperty Name="auther_id" ColumnName="auther_id" />
@@ -357,6 +366,7 @@
           <EntitySetMapping Name="transactions">
             <EntityTypeMapping TypeName="card_processingModel.transaction">
               <MappingFragment StoreEntitySet="transactions">
+                <ScalarProperty Name="transaction_type" ColumnName="transaction_type" />
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="transaction_id" ColumnName="transaction_id" />
                 <ScalarProperty Name="transaction_date" ColumnName="transaction_date" />
@@ -397,12 +407,14 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="thongbaos">
-            <EntityTypeMapping TypeName="card_processingModel.thongbao">
-              <MappingFragment StoreEntitySet="thongbao">
-                <ScalarProperty Name="nguoinhan" ColumnName="nguoinhan" />
-                <ScalarProperty Name="nguoitao" ColumnName="nguoitao" />
+          <EntitySetMapping Name="notes">
+            <EntityTypeMapping TypeName="card_processingModel.note">
+              <MappingFragment StoreEntitySet="notes">
                 <ScalarProperty Name="ngaytao" ColumnName="ngaytao" />
+                <ScalarProperty Name="level_nguoi_nhan" ColumnName="level_nguoi_nhan" />
+                <ScalarProperty Name="level_nguoi_goi" ColumnName="level_nguoi_goi" />
+                <ScalarProperty Name="nguoi_nhan" ColumnName="nguoi_nhan" />
+                <ScalarProperty Name="nguoi_goi" ColumnName="nguoi_goi" />
                 <ScalarProperty Name="noidung" ColumnName="noidung" />
                 <ScalarProperty Name="tieude" ColumnName="tieude" />
                 <ScalarProperty Name="id" ColumnName="id" />

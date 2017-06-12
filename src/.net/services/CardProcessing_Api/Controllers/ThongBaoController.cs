@@ -15,8 +15,8 @@ namespace CardProcessing_Api.Controllers
         {
             g_BusinessLayer = new BusinessLayer.BusinessLayer();
         }
-        [Route("api/thongbao/getall")]
-        [HttpGet]
+        //[Route("api/thongbao/getall")]
+        //[HttpGet]
         public HttpResponseMessage GetAllThongBao()
         {
             object obj;
@@ -32,15 +32,15 @@ namespace CardProcessing_Api.Controllers
             }
             return Request.CreateResponse(obj);
         }
-        [Route("api/thongbao/search/{fDate}/{tDate}")]
-        [HttpGet]
+        //[Route("api/thongbao/search/{fDate}/{tDate}")]
+        //[HttpGet]
         public HttpResponseMessage searchThongBao(string Name, int Type, int Provice, int District, int Ward)
         {
             object obj = null;
             try
             {
 
-                obj = new { StatusCode = 200, data = g_BusinessLayer.getSearchMerchant(Name, Type, Provice, District, Ward) };
+                //obj = new { StatusCode = 200, data = g_BusinessLayer.getSearchMerchant(Name, Type, Provice, District, Ward) };
 
             }
             catch (Exception ex)
@@ -50,18 +50,38 @@ namespace CardProcessing_Api.Controllers
             return Request.CreateResponse(obj);
         }
         // loai quy dinh merchant hay agent
-        [Route("api/merchant/addmerchant/type")]
-        [HttpPost]
-        public HttpResponseMessage AddMerchant([FromBody] merchant entities, [FromUri] int type)
+        //[Route("api/merchant/addthongbao")]
+        //[HttpPost]
+        public HttpResponseMessage AddThongBao([FromBody] thongbaos entities )
         {
+
+            string[] v_arrlistnhan = entities.list_nhan.Split(',');
             object obj = null;
             try
             {
-                if (ModelState.IsValid)
+                if (v_arrlistnhan.Count() > 0)
                 {
-                    g_BusinessLayer.Addmerchant(entities);
-                    obj = new { StatusCode = 200, data = entities };
+                    foreach (var item in v_arrlistnhan)
+                    {
+
+
+                        thongbaos v_obj = new thongbaos();
+                        v_obj.tieude = entities.tieude;
+                        v_obj.noidung = entities.noidung;
+                        v_obj.nguoi_goi = entities.nguoi_goi;
+                        v_obj.ngaytao = DateTime.Now;
+                        v_obj.nguoi_nhan = Convert.ToInt32(item);
+                        v_obj.level_nguoi_goi = entities.level_nguoi_goi;
+
+                        v_obj.level_nguoi_nhan = entities.level_nguoi_nhan;
+
+                    if (ModelState.IsValid)
+                        {
+                            g_BusinessLayer.Addthongbao(v_obj);
+                        }
+                    }
                 }
+                obj = new { StatusCode = 200, data = entities };
 
             }
             catch (Exception ex)
@@ -70,8 +90,8 @@ namespace CardProcessing_Api.Controllers
             }
             return Request.CreateResponse(obj);
         }
-        [Route("api/merchant/updatemerchant")]
-        [HttpPut]
+        //[Route("api/merchant/updatemerchant")]
+        //[HttpPut]
         public HttpResponseMessage UpdateMerchant([FromBody] merchant entites)
 
         {
@@ -93,8 +113,8 @@ namespace CardProcessing_Api.Controllers
             return Request.CreateResponse(obj);
         }
 
-        [Route("api/merchant/deletemerchant")]
-        [HttpDelete]
+        //[Route("api/merchant/deletemerchant")]
+        //[HttpDelete]
         public HttpResponseMessage DeleteMerchant([FromBody] merchant entities)
         {
             object obj = null;
@@ -112,8 +132,8 @@ namespace CardProcessing_Api.Controllers
             }
             return Request.CreateResponse(obj);
         }
-        [Route("api/merchant/deletemerchant/ids")]
-        [HttpDelete]
+        //[Route("api/merchant/deletemerchant/ids")]
+        //[HttpDelete]
         public HttpResponseMessage DeleteMerchantByID([FromUri] string id)
         {
             object obj = null;

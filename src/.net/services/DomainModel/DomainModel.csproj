@@ -46,9 +46,10 @@
     <Compile Include="master.cs" />
     <Compile Include="merchants.cs" />
     <Compile Include="merchant_type.cs" />
+    <Compile Include="note.cs" />
     <Compile Include="parameter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="thongbao.cs" />
+    <Compile Include="thongbaos.cs" />
     <Compile Include="token.cs" />
     <Compile Include="transaction.cs" />
     <Compile Include="user.cs" />

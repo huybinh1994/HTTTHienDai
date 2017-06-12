@@ -14,7 +14,9 @@ namespace DataAccessLayer
     public interface IMerchantRepository : IGenericDataRepository<merchant>
     {
         merchant getMerchantByID(int id);
-        List<merchant> searchMerchant(string Nanme, int Type, int Provice, int District, int Ward);
+        List<merchant> mastersearchMerchant(int UserID, int LoaiXem, string Merchant_code, string Region, int Merchant_type);
+        List<merchant> agentsearchMerchant(int UserID, int LoaiXem, string Merchant_code, string Region, int Merchant_type);
+        List<merchant> subagentsearchMerchant(int UserID, int LoaiXem, string Merchant_code, string Region, int Merchant_type);
     }
     public interface IParameterRepository : IGenericDataRepository<parameter> { }
     public interface ITransactionRepository : IGenericDataRepository<transaction> { }
@@ -28,7 +30,11 @@ namespace DataAccessLayer
 
     }    
     public interface IMerchant_TypeRepository: IGenericDataRepository<merchant_type> { }
-    public interface IThongBaoRepository : IGenericDataRepository<thongbao> { }
+    public interface IThongBaoRepository : IGenericDataRepository<thongbaos> { }
+    public interface INotesRepository : IGenericDataRepository<note> {
+        List<note> notesearch(DateTime fDate, DateTime tDate,int id, int level , int type);
+    }
+
     public class DeviceRepositoryy : GenericDataRepository<device>, IDeviceRepository { }
     public class Device_StatusRepository : GenericDataRepository<device_status>, IDevice_StatusRepository { }
     public class MasterRepository : GenericDataRepository<master>, IMasterRepository { }
@@ -43,20 +49,46 @@ namespace DataAccessLayer
             }
             return v_obj;
         }
-       
-       public List<merchant> searchMerchant(string Name, int Type, int Provice, int District, int Ward)
+        public List<merchant> mastersearchMerchant(int UserID, int LoaiXem, string Merchant_code, string Region, int Merchant_type)
         {
-
             List<merchant> v_listMerchant = null;
             using (var context = new card_processingEntities())
             {
-                v_listMerchant = context.Database.SqlQuery<merchant>("sp_sel_list_searMerchant @Name, @Type, @Provice, @District, @Ward",
-                   new SqlParameter("@Name", Name), new SqlParameter("@Type", Type), new SqlParameter("@Provice", Provice),
-                   new SqlParameter("@District", District), new SqlParameter("@Ward",Ward)).ToList();
+                v_listMerchant = context.Database.SqlQuery<merchant>("sp_sel_master_search_merchant @UserID, @LoaiXem, @Merchan_code, @Region, @Merchant_type",
+                   new SqlParameter("@UserID", UserID), new SqlParameter("@LoaiXem", LoaiXem), new SqlParameter("@Merchan_code", Merchant_code),
+                   new SqlParameter("@Region", Region), new SqlParameter("@Merchant_type", Merchant_type)).ToList();
             }
 
             return v_listMerchant;
         }
+       public List<merchant> agentsearchMerchant(int UserID, int LoaiXem, string Merchant_code, string Region, int Merchant_type)
+        {
+            List<merchant> v_listMerchant = null;
+            using (var context = new card_processingEntities())
+            {
+                v_listMerchant = context.Database.SqlQuery<merchant>("sp_sel_agent_search_merchant @UserID, @LoaiXem, @Merchan_code, @Region, @Merchant_type",
+                   new SqlParameter("@UserID", UserID), new SqlParameter("@LoaiXem", LoaiXem), new SqlParameter("@Merchan_code", Merchant_code),
+                   new SqlParameter("@Region", Region), new SqlParameter("@Merchant_type", Merchant_type)).ToList();
+            }
+
+            return v_listMerchant;
+
+        }
+        public List<merchant> subagentsearchMerchant(int UserID, int LoaiXem, string Merchant_code, string Region, int Merchant_type)
+        {
+            List<merchant> v_listMerchant = null;
+            using (var context = new card_processingEntities())
+            {
+                v_listMerchant = context.Database.SqlQuery<merchant>("sp_sel_sub_agent_search_merchant @UserID, @LoaiXem, @Merchan_code, @Region, @Merchant_type",
+                   new SqlParameter("@UserID", UserID), new SqlParameter("@LoaiXem", LoaiXem), new SqlParameter("@Merchan_code", Merchant_code),
+                   new SqlParameter("@Region", Region), new SqlParameter("@Merchant_type", Merchant_type)).ToList();
+            }
+
+            return v_listMerchant;
+
+        }
+
+     
 
     }
     public class ParameterRepository : GenericDataRepository<parameter>, IParameterRepository { }
@@ -76,8 +108,27 @@ namespace DataAccessLayer
 
 
     }
-    public class ThongBaoRepository : GenericDataRepository<thongbao>, IThongBaoRepository
+    public class ThongBaoRepository : GenericDataRepository<thongbaos>, IThongBaoRepository
     {
+
+
+    }
+    public class NotesRepository : GenericDataRepository<note>, INotesRepository
+    {
+        public List<note> notesearch(DateTime fDate, DateTime tDate, int id, int level, int type)
+
+        {
+            List<note> v_listMerchant = null;
+            using (var context = new card_processingEntities())
+            {
+                v_listMerchant = context.Database.SqlQuery<note>("sp_sel_list_notes @fDate, @tDate, @id, @level, @type",
+                   new SqlParameter("@fDate", fDate), new SqlParameter("@tDate", tDate), new SqlParameter("@id", id),
+                   new SqlParameter("@level", level), new SqlParameter("@type", type)).ToList();
+            }
+
+            return v_listMerchant;
+
+        }
 
 
     }

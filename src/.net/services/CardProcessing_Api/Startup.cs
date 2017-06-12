@@ -16,7 +16,8 @@ namespace CardProcessing_Api
         {
            
             ConfigureAuth(app);
-            //app.Use<TokenMiddleware>();
+            app.UseCors(Microsoft.Owin.Cors.CorsOptions.AllowAll);
+            //ehoadonbhapp.Use<TokenMiddleware>();
 
         }
     }

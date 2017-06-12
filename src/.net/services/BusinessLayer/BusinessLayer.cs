@@ -20,6 +20,7 @@ namespace BusinessLayer
         private readonly IUserRepository _userRepository;
         private readonly IMerchant_TypeRepository _merchant_typeRepository;
         private readonly IThongBaoRepository _thongbaoRepository;
+        private readonly INotesRepository _notesRepository;
 
 
         public BusinessLayer()
@@ -34,6 +35,7 @@ namespace BusinessLayer
             _userRepository = new UserRepository();
             _merchant_typeRepository = new Merchant_TypeRepository();
             _thongbaoRepository = new ThongBaoRepository();
+            _notesRepository = new NotesRepository();
         }
         #region Device
         public IList<DomainModel.device> GetAllDevice()
@@ -126,9 +128,19 @@ namespace BusinessLayer
         {
             return _mesRespository.getMerchantByID(id);
         }
-        public List<merchant> getSearchMerchant(string Name, int Type, int Provice, int District, int Ward)
+        public List<merchant> mastersearchMerchant(int UserID, int LoaiXem, string Merchant_code, string Region, int Merchant_type)
         {
-            return _mesRespository.searchMerchant(Name, Type, Provice, District, Ward);
+            return _mesRespository.mastersearchMerchant(UserID, LoaiXem, Merchant_code, Region, Merchant_type);
+        }
+        public List<merchant> agentsearchMerchant(int UserID, int LoaiXem, string Merchant_code, string Region, int Merchant_type)
+        {
+            return _mesRespository.agentsearchMerchant(UserID, LoaiXem, Merchant_code, Region, Merchant_type);
+
+        }
+        public List<merchant> subagentsearchMerchant(int UserID, int LoaiXem, string Merchant_code, string Region, int Merchant_type)
+        {
+            return _mesRespository.subagentsearchMerchant(UserID, LoaiXem, Merchant_code, Region, Merchant_type);
+
         }
         #endregion
         #region Parameter
@@ -250,25 +262,51 @@ namespace BusinessLayer
         }
         #endregion
         #region Thong Bao
-        public IList<DomainModel.thongbao> GetAllThongBao()
+        public IList<DomainModel.thongbaos> GetAllThongBao()
         {
             return _thongbaoRepository.GetAll();
         }
 
-        public void Addthongbao(params thongbao[] thongbao)
+        public void Addthongbao(params thongbaos [] thongbao)
         {
             _thongbaoRepository.add(thongbao);
         }
 
-        public void Updatethongbao(params thongbao[] thongbao)
+        public void Updatethongbao(params thongbaos [] thongbao)
         {
             _thongbaoRepository.update(thongbao);
         }
 
-        public void Removethongbao(params thongbao[] thongbao)
+        public void Removethongbao(params thongbaos [] thongbao)
         {
             _thongbaoRepository.remove(thongbao);
         }
+        #endregion
+        #region notes
+        public IList<DomainModel.note> GetAllNotes()
+        {
+            return _notesRepository.GetAll();
+        }
+
+        public void AddNotes(params note[] thongbao)
+        {
+            _notesRepository.add(thongbao);
+        }
+
+        public void UpdateNotes(params note[] thongbao)
+        {
+            _notesRepository.update(thongbao);
+        }
+
+        public void RemoveNotes(params note [] thongbao)
+        {
+            _notesRepository.remove(thongbao);
+        }
+        public List<note> noteserach(DateTime fDate, DateTime tDate, int id,int level,int type)
+        {
+            return _notesRepository.notesearch(fDate, tDate, id, level, type);
+        }
+
         #endregion
 
     }

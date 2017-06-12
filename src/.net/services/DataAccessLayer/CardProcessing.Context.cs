@@ -35,6 +35,6 @@ namespace DataAccessLayer
         public DbSet<transaction> transactions { get; set; }
         public DbSet<user> users { get; set; }
         public DbSet<merchant_type> merchant_type { get; set; }
-        public DbSet<thongbao> thongbaos { get; set; }
+        public DbSet<note> notes { get; set; }
     }
 }
