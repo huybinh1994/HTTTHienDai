@@ -35,6 +35,8 @@ public class MerchantsDTO {
 	private int master_id;
 	@Column(name = "agent_id")
 	private Integer agent_id;
+	@Column(name = "type_id")
+	private Integer type_id;
 	@Column(name = "sub_agent_id")
 	private Integer sub_agent_id;
 	@Column(name = "address")
@@ -178,5 +180,11 @@ public class MerchantsDTO {
 	}
 	public void setMaster_id(int master_id) {
 		this.master_id = master_id;
+	}
+	public Integer getType_id() {
+		return type_id;
+	}
+	public void setType_id(Integer type_id) {
+		this.type_id = type_id;
 	}
 }

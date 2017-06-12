@@ -2,6 +2,9 @@ package dao;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import org.hibernate.Query;
@@ -13,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import service.Sha256;
 import util.UtilComponent;
 import model.AgentSubAgent;
 import model.MerchantsDTO;
@@ -251,14 +255,51 @@ public class MerchantDAOImpl implements MerchantDAO {
 	}
 
 	@Override
-	public Boolean update(MerchantsDTO m) {
+	public Boolean update(MerchantsDTO merchant) {
 		// TODO Auto-generated method stub
 		Session session = sessionFactory.openSession();
 		Transaction tx = session.beginTransaction();
 		try {
-			session.update(m);
+			String old_merchant_code = merchant.getMerchant_code();
+			if(merchant.getStatus() != null && merchant.getStatus() == 1)
+			{
+				String first_active_date = merchant.getFirst_active_date();
+				if(first_active_date != null)
+				{
+					DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
+					Date date = new Date();
+					merchant.setLast_active_Date(dateFormat.format(date));
+				}
+			}
+			//update active in table user
+			Query queryUpdateActive = session.createQuery("update users  set active = ? ");
+			queryUpdateActive.setInteger(0, merchant.getStatus());
+			
+			queryUpdateActive.executeUpdate();
+			
+			String first_active_date = merchant.getFirst_active_date();
+			
+			int id = merchant.getId();
+			int master_id = merchant.getMaster_id();
+			int agent_id = merchant.getAgent_id();
+			int sub_agent_id = merchant.getSub_agent_id();
+			int level = merchant.getLevel_id();
+			String merchant_code = UtilComponent.generateFullCode(master_id, agent_id, sub_agent_id, id, level);
+			
+			merchant.setMerchant_code(merchant_code);
+			session.update(merchant);
+			
+			Query queryUpdate = session.createQuery("update transactions  set merchant_code = ? where merchant_code = ? ");
+			queryUpdate.setString(0, merchant_code);
+			queryUpdate.setString(1, old_merchant_code);
+			
+			queryUpdate.executeUpdate();
+			
 			session.getTransaction().commit();
+			
+			
 			return true;
+			
 		
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -279,6 +320,26 @@ public class MerchantDAOImpl implements MerchantDAO {
 
 			session.getTransaction().commit();
 			return li;
+		} catch (Exception e) {
+			e.printStackTrace();
+			session.getTransaction().rollback();
+			return null;
+		}
+	}
+
+	@Override
+	public MerchantsDTO getMerchantByIdAndLevel(int id, int level) {
+		// TODO Auto-generated method stub
+		Session session = sessionFactory.openSession();
+		Transaction tx = session.beginTransaction();
+		try {
+			Query q = session.createQuery("select m from merchants m where m.id = ? and m.level_id = ?");
+			q.setInteger(0, id);
+			q.setInteger(1, level);
+			MerchantsDTO m = (MerchantsDTO) q.list().get(0);
+
+			session.getTransaction().commit();
+			return m;
 		} catch (Exception e) {
 			e.printStackTrace();
 			session.getTransaction().rollback();

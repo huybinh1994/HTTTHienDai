@@ -169,7 +169,7 @@ public class MerchantController {
 		
 	}
 	
-	@RequestMapping(value = "service/merchant/add", method = RequestMethod.POST, produces={"text/plain;charset=UTF-8"})
+	@RequestMapping(value = "/master/add-merchant", method = RequestMethod.POST, produces={"text/plain;charset=UTF-8"})
 	public @ResponseBody String addMerchant(@RequestBody String data) {
 		
 		
@@ -196,7 +196,7 @@ public class MerchantController {
 	}
 	
 	
-	@RequestMapping(value = "service/merchant/update", method = RequestMethod.POST, produces={"text/plain;charset=UTF-8"})
+	@RequestMapping(value = "/master/update-merchant", method = RequestMethod.POST, produces={"text/plain;charset=UTF-8"})
 	public @ResponseBody String updateMerchant(@RequestBody String data) {
 		MerchantsDTO merchant = new Gson().fromJson(data, MerchantsDTO.class);
 		if(merchantService.update(merchant))
@@ -213,7 +213,23 @@ public class MerchantController {
 		}
 	}
 	
-	
+	@RequestMapping(value = "/get-merchant-by-id-and-level/{id}/{level}", method = RequestMethod.GET, produces={"application/json; charset=UTF-8"})
+	public @ResponseBody String getMerchantByIdAndLevel(@PathVariable("id") int id, @PathVariable("id") int level) throws ParseException {
+		MerchantsDTO m = merchantService.getMerchantByIdAndLevel(id, level);
+		if(m != null)
+		{
+			Gson gson = new Gson();
+			String js =gson.toJson(m);
+			String str = "{statusCode: 200, data:" +js+"}";
+			
+			return str;
+		}
+		else
+		{
+			return "{\"statusCode\": 400,\"message\": \"Không tồn tại merchant\"}";
+		}
+		
+	}
 	
 	@RequestMapping(value = "/find/agent", method = RequestMethod.GET,produces={"application/json; charset=UTF-8"})
 	public @ResponseBody String get_agent(@RequestParam("master") int master) throws Exception {

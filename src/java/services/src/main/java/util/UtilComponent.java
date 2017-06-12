@@ -1,5 +1,9 @@
 package util;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import service.Sha256;
 import model.MerchantInfo;
 import model.MerchantsDTO;
@@ -71,6 +75,13 @@ public class UtilComponent {
 		m.setAgent_id(info.getAgent_id());
 		m.setSub_agent_id(info.getSub_agent_id());
 		m.setLevel_id(info.getLevel_id());
+		m.setType_id(info.getType_id());
+		if(info.getActive() == 1)
+		{
+			DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
+			Date date = new Date();
+			m.setFirst_active_date(dateFormat.format(date));
+		}
 		return m;
 	}
 	
