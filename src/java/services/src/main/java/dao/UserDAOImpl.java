@@ -26,7 +26,7 @@ public class UserDAOImpl implements UserDAO {
 		Transaction tx = session.beginTransaction();
 		try {
 		
-			Query q = session.createQuery("from users  where username = ? and password = ? ");
+			Query q = session.createQuery("from users  where username = ? and password = ? and active = 1 ");
 			q.setString(0, user);
 			q.setString(1, pass);
 			UserDTO a = (UserDTO) q.list().get(0);

@@ -76,7 +76,7 @@ public class UserController {
 		String gson;
 		if (service.login(us.getUsername(), hash) != null) {
 			rs.setStatus(200);		
-			TokensDTO tkDto = service.login(us.getUsername(), us.getPassword());
+			TokensDTO tkDto = service.login(us.getUsername(), hash);
 			loginDTO loginDTO = new loginDTO();
 			loginDTO.setToken(tkDto);
 			rs.setData(loginDTO);;
@@ -120,6 +120,6 @@ public class UserController {
 	@RequestMapping(value = "/*", produces = { "application/json; charset=UTF-8" })
 	public @ResponseBody String error() {
 
-		return "{\"Status\":\"404\"}";
+		return "{\"statusCode\":\"404\"}";
 	}
 }
