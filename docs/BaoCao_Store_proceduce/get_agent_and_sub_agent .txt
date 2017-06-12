@@ -1,0 +1,9 @@
+//lay tat ca master, agent, sub_agent sap xep theo level
+create proc get_agent_and_sub_agent as
+begin
+select m.id, m.merchant_name as name, m.master_id, m.agent_id, m.level_id 
+from merchants m
+where m.level_id <> 4
+and m.status = 1
+order by m.level_id asc
+end
