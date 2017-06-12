@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.gson.Gson;
 
+import model.MerchantInfo;
 import model.Result;
 import model.TokensDTO;
 import model.UserDTO;
@@ -122,4 +123,70 @@ public class UserController {
 
 		return "{\"statusCode\":\"404\"}";
 	}
+	
+	@RequestMapping(value = "service/change-pass", method = RequestMethod.POST, produces={"text/plain;charset=UTF-8"})
+	public @ResponseBody String changePassword(@RequestBody String data) {
+		PasswordDTO pass = new Gson().fromJson(data, PasswordDTO.class);
+		String message = "";
+		int statusCode = 400;
+		int id = pass.getId();
+		String new_password = pass.getNew_password();
+		String old_password = pass.getOld_password();
+		if(new_password.equals(""))
+		{
+			message = "Mật khẩu mới không được để trống";
+			statusCode = 400;
+		}
+		if(old_password.equals(""))
+		{
+			message = "Mật khẩu cũ không được để trống";
+			statusCode = 400;
+		}
+		
+		int result = service.changePassword(id, old_password, new_password);
+		
+		
+		if(result == 1)
+		{
+			message = "Đổi mật khẩu thành công";
+			statusCode = 200;
+		}
+		else if (result == 0)
+		{
+			message = "Đổi mật khẩu thất bại";
+			statusCode = 400;
+		}
+		else
+		{
+			message = "Mật khẩu cũ không đúng";
+			statusCode = 400;
+		}
+		return "{\"statusCode\": " + statusCode +", \"message\": " + message +"}";
+	}
+	
+}
+
+class PasswordDTO {
+	private int id;
+	private String old_password;
+	private String new_password;
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
+	}
+	public String getOld_password() {
+		return old_password;
+	}
+	public void setOld_password(String old_password) {
+		this.old_password = old_password;
+	}
+	public String getNew_password() {
+		return new_password;
+	}
+	public void setNew_password(String new_pasString) {
+		this.new_password = new_pasString;
+	}
+	
 }

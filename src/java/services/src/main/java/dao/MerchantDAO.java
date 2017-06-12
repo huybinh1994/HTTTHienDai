@@ -21,4 +21,5 @@ public interface MerchantDAO {
 	public List<MerchantsDTO> Find_Merchant(int masterId, int agentId,int subAgentId);
 	public Boolean update(MerchantsDTO m);
 	public List<MerchantsDTO> getbyid(int id);
+	
 }
