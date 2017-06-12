@@ -93,6 +93,7 @@ public class UserController {
 			gson = new Gson().toJson(rs);
 		}
 		return gson;
+		
 	}
 
 	@RequestMapping(value = "/checkAutherFail", method = RequestMethod.GET)
@@ -134,12 +135,12 @@ public class UserController {
 		String old_password = pass.getOld_password();
 		if(new_password.equals(""))
 		{
-			message = "Mật khẩu mới không được để trống";
+			message = "Máº­t kháº©u má»›i khÃ´ng Ä‘Æ°á»£c Ä‘á»ƒ trá»‘ng";
 			statusCode = 400;
 		}
 		if(old_password.equals(""))
 		{
-			message = "Mật khẩu cũ không được để trống";
+			message = "Máº­t kháº©u cÅ© khÃ´ng Ä‘Æ°á»£c Ä‘á»ƒ trá»‘ng";
 			statusCode = 400;
 		}
 		
@@ -148,17 +149,17 @@ public class UserController {
 		
 		if(result == 1)
 		{
-			message = "Đổi mật khẩu thành công";
+			message = "Ä�á»•i máº­t kháº©u thÃ nh cÃ´ng";
 			statusCode = 200;
 		}
 		else if (result == 0)
 		{
-			message = "Đổi mật khẩu thất bại";
+			message = "Ä�á»•i máº­t kháº©u tháº¥t báº¡i";
 			statusCode = 400;
 		}
 		else
 		{
-			message = "Mật khẩu cũ không đúng";
+			message = "Máº­t kháº©u cÅ© khÃ´ng Ä‘Ãºng";
 			statusCode = 400;
 		}
 		return "{\"statusCode\": " + statusCode +", \"message\": " + message +"}";
