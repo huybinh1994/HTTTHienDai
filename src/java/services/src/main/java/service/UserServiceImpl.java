@@ -86,6 +86,11 @@ public class UserServiceImpl implements UserService {
 		// TODO Auto-generated method stub
 		return usDao.isExistsEmail(email);
 	}
+	@Override
+	public int changePassword(int id, String oldPass, String newPass) {
+		// TODO Auto-generated method stub
+		return usDao.changePassword(id, oldPass, newPass);
+	}
 	
 	
 

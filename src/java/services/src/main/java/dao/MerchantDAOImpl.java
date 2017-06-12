@@ -143,6 +143,7 @@ public class MerchantDAOImpl implements MerchantDAO {
 			int level = merchant.getLevel_id();
 			String merchant_code = UtilComponent.generateFullCode(master_id, agent_id, sub_agent_id, nextId, level);
 			merchant.setMerchant_code(merchant_code);
+			merchant.setStatus(user.getActive());
 			session.save(merchant);
 			session.getTransaction().commit();
 			return merchant;

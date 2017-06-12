@@ -169,7 +169,7 @@ public class MerchantController {
 		
 	}
 	
-	@RequestMapping(value = "/merchant/add", method = RequestMethod.POST, produces={"text/plain;charset=UTF-8"})
+	@RequestMapping(value = "service/merchant/add", method = RequestMethod.POST, produces={"text/plain;charset=UTF-8"})
 	public @ResponseBody String addMerchant(@RequestBody String data) {
 		
 		
@@ -196,7 +196,7 @@ public class MerchantController {
 	}
 	
 	
-	@RequestMapping(value = "/merchant/update", method = RequestMethod.POST, produces={"text/plain;charset=UTF-8"})
+	@RequestMapping(value = "service/merchant/update", method = RequestMethod.POST, produces={"text/plain;charset=UTF-8"})
 	public @ResponseBody String updateMerchant(@RequestBody String data) {
 		MerchantsDTO merchant = new Gson().fromJson(data, MerchantsDTO.class);
 		if(merchantService.update(merchant))
