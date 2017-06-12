@@ -6,7 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import dao.MerchantDAO;
+import model.AgentSubAgent;
 import model.MerchantsDTO;
+import model.UserDTO;
 @Service
 public class MerchantServiceImpl implements MerchantService{
 
@@ -40,5 +42,48 @@ public class MerchantServiceImpl implements MerchantService{
 		// TODO Auto-generated method stub
 		return md.getMerchantByMasterId(master_id);
 	}
-
+	@Override
+	public List<AgentSubAgent> getAgentSubAgent() {
+		// TODO Auto-generated method stub
+		return md.getAngentSubAgent();
+	}
+	@Override
+	public int getNextIdentity() {
+		// TODO Auto-generated method stub
+		return md.getNextIdentity();
+	}
+	@Override
+	public MerchantsDTO insertMerchantAndUser(MerchantsDTO m, UserDTO u) {
+		// TODO Auto-generated method stub
+		return md.insertMerchantAndUser(m, u);
+	}
+	public List<MerchantsDTO> Find_Agent(int masterId) {
+		// TODO Auto-generated method stub
+		return md.Find_Agent(masterId);
+	}
+	@Override
+	public List<MerchantsDTO> Find_subAgent(int masterId, int agentId) {
+		// TODO Auto-generated method stub
+		return md.Find_subAgent(masterId, agentId);
+	}
+	@Override
+	public List<MerchantsDTO> Find_Merchant(int masterId, int agentId, int subAgentId) {
+		// TODO Auto-generated method stub
+		return md.Find_Merchant(masterId, agentId, subAgentId);
+	}
+	@Override
+	public Boolean update(MerchantsDTO m) {
+		// TODO Auto-generated method stub
+		return md.update(m);
+	}
+	@Override
+	public List<MerchantsDTO> getbyid(int i) {
+		// TODO Auto-generated method stub
+		return md.getbyid(i);
+	}
+	@Override
+	public MerchantsDTO getMerchantByIdAndLevel(int id, int level) {
+		// TODO Auto-generated method stub
+		return md.getMerchantByIdAndLevel(id, level);
+	}
 }

@@ -45,5 +45,23 @@ public class MasterDAOImpl implements MasterDAO {
 		}
 
 	}
+	@Override
+	public List<MasterDTO> getbyid(int id) {
+		Session session = sessionFactory.openSession();
+		Transaction tx = session.beginTransaction();
+		try {
+			
+
+			Query q = session.createQuery("select e from masters e where e.auther_id = ?").setInteger(0, id);
+			List<MasterDTO> li = q.list();
+
+			session.getTransaction().commit();
+			return li;
+		} catch (Exception e) {
+			e.printStackTrace();
+			session.getTransaction().rollback();
+			return null;
+		}
+	}
 
 }

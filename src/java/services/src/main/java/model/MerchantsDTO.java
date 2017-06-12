@@ -18,15 +18,16 @@ public class MerchantsDTO {
 
 	@Id
 	@Column(name = "id")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	@Column(name = "merchant_code")
 	private String merchant_code;
 	@Column(name = "merchant_name")
-	private Integer merchant_name;
+	private String merchant_name;
 	@Column(name = "merchant_phone_call")
-	private Integer merchant_phone_call;
+	private String merchant_phone_call;
 	@Column(name = "tax_code")
-	private Integer tax_code;
+	private String tax_code;
 //	@ManyToOne(fetch = FetchType.LAZY)
 //	@JoinColumn(name = "master_id", nullable = false)
 //	@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
@@ -34,6 +35,8 @@ public class MerchantsDTO {
 	private int master_id;
 	@Column(name = "agent_id")
 	private Integer agent_id;
+	@Column(name = "type_id")
+	private Integer type_id;
 	@Column(name = "sub_agent_id")
 	private Integer sub_agent_id;
 	@Column(name = "address")
@@ -45,39 +48,47 @@ public class MerchantsDTO {
 	@Column(name = "ward")
 	private Integer ward;
 	@Column(name = "zip_code")
-	private Integer zip_code;
+	private String zip_code;
 	@Column(name = "auther_id",nullable = true)
 	private Integer auther_id;
 	@Column(name = "invite_id")
 	private Integer invite_id;
 	@Column(name = "status")
 	private Integer status;
+	@Column(name = "level_id")
+	private Integer level_id;
+	public Integer getLevel_id() {
+		return level_id;
+	}
+	public void setLevel_id(Integer level_id) {
+		this.level_id = level_id;
+	}
 	@Column(name = "first_active_date")
-	private Date first_active_date;
+	private String first_active_date;
 	@Column(name = "last_active_date")
-	private Date last_active_date;
+	private String last_active_date;
 	public Integer getId() {
 		return id;
 	}
 	public void setId(Integer id) {
 		this.id = id;
 	}
-	public Integer getMerchant_name() {
+	public String getMerchant_name() {
 		return merchant_name;
 	}
-	public void setMerchant_name(Integer merchant_name) {
+	public void setMerchant_name(String merchant_name) {
 		this.merchant_name = merchant_name;
 	}
-	public Integer getMerchant_phone_call() {
+	public String getMerchant_phone_call() {
 		return merchant_phone_call;
 	}
-	public void setMerchant_phone_call(Integer merchant_phone_call) {
+	public void setMerchant_phone_call(String merchant_phone_call) {
 		this.merchant_phone_call = merchant_phone_call;
 	}
-	public Integer getTax_code() {
+	public String getTax_code() {
 		return tax_code;
 	}
-	public void setTax_code(Integer tax_code) {
+	public void setTax_code(String tax_code) {
 		this.tax_code = tax_code;
 	}
 	public Integer getAgent_id() {
@@ -116,22 +127,22 @@ public class MerchantsDTO {
 	public void setWard(Integer ward) {
 		this.ward = ward;
 	}
-	public Integer getZip_code() {
+	public String getZip_code() {
 		return zip_code;
 	}
-	public void setZip_code(Integer zip_code) {
+	public void setZip_code(String zip_code) {
 		this.zip_code = zip_code;
 	}
-	public Date getFirst_active_date() {
+	public String getFirst_active_date() {
 		return first_active_date;
 	}
-	public void setFirst_active_date(Date first_active_date) {
+	public void setFirst_active_date(String first_active_date) {
 		this.first_active_date = first_active_date;
 	}
-	public Date getLast_active_Date() {
+	public String getLast_active_Date() {
 		return last_active_date;
 	}
-	public void setLast_active_Date(Date last_active_Date) {
+	public void setLast_active_Date(String last_active_Date) {
 		this.last_active_date = last_active_Date;
 	}
 	public String getMerchant_code() {
@@ -161,13 +172,19 @@ public class MerchantsDTO {
 	public void setStatus(Integer status) {
 		this.status = status;
 	}
-	public Date getLast_active_date() {
+	public String getLast_active_date() {
 		return last_active_date;
 	}
-	public void setLast_active_date(Date last_active_date) {
+	public void setLast_active_date(String last_active_date) {
 		this.last_active_date = last_active_date;
 	}
 	public void setMaster_id(int master_id) {
 		this.master_id = master_id;
+	}
+	public Integer getType_id() {
+		return type_id;
+	}
+	public void setType_id(Integer type_id) {
+		this.type_id = type_id;
 	}
 }

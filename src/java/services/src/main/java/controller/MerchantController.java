@@ -1,11 +1,23 @@
 package controller;
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import model.Agent;
+import model.Master;
+import model.AgentSubAgent;
+import model.MasterDTO;
+import model.MerchantInfo;
 import model.MerchantsDTO;
+import model.Parent;
+
+
+
+
+import model.SubAgent;
+import model.UserDTO;
 
 import org.hibernate.annotations.Parameter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,19 +25,45 @@ import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.gson.Gson;
 
 import service.MasterService;
 import service.MerchantService;
+import service.MasterService;
+import service.UserService;
+import util.UtilComponent;
 
 @Controller
 @Transactional
 @EnableTransactionManagement
 public class MerchantController {
+	MasterService masterService;
+	public MasterService getMasterService() {
+		return masterService;
+	}
+	@Autowired
+	public void setMasterService(MasterService masterService) {
+		this.masterService = masterService;
+	}
+	
+	
+	UserService userService;
+	public UserService getUserService() {
+		return userService;
+	}
+	@Autowired
+	public void setUserService(UserService userService) {
+		this.userService = userService;
+	}
+
+	
+
 	MerchantService merchantService;
 
 	public MerchantService getMerchantService() {
@@ -50,16 +88,6 @@ public class MerchantController {
 		List<MerchantsDTO> list = merchantService.getMerchantByMasterId(master_id);
 		if(!list.isEmpty())
 		{
-			SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
-			for(MerchantsDTO m : list)
-			{
-				Date firstActiveDate = df.parse(m.getLast_active_date().toString());
-				
-				m.setFirst_active_date((java.sql.Date) firstActiveDate);
-				Date lastActiveDate = df.parse(m.getFirst_active_date().toString());
-				m.setFirst_active_date((java.sql.Date) firstActiveDate);
-			}
-			
 			Gson gson = new Gson();
 			String js =gson.toJson(list);
 			String str = "{statusCode: 200, data:" +js+"}";
@@ -72,5 +100,157 @@ public class MerchantController {
 		}
 		
 	}
+	
+	@RequestMapping(value = "/merchant/manager", method = RequestMethod.GET)
+	public @ResponseBody String getManager() {
+		List<MasterDTO> lstMaster = masterService.getAll();
+		List<AgentSubAgent> list = merchantService.getAgentSubAgent();
+	
+		Map<String, Master> map = new HashMap();
+			
+		Parent p = new Parent();
+		
+		if(lstMaster.size() > 0)
+		{
+			
+			for(int i=0; i < lstMaster.size(); i++)
+			{
+				Master m =  new Master();
+				m.setMaster_id(lstMaster.get(i).getId());
+				m.setMaster_name(lstMaster.get(i).getMaster_name());
+				map.put(String.valueOf(lstMaster.get(i).getId()), m);
+			}
+		}
+		if(list.size() > 0)
+		{
+			Map<String, Agent> mapAgent = new HashMap();
+			Map<String, SubAgent> mapSubAgent = new HashMap();
+			for(int i=0; i < list.size(); i++)
+			{
+				//is agent
+				if(list.get(i).getLevel_id() == 2)
+				{
+					Agent a = new Agent();
+					a.setAgent_id(list.get(i).getId());
+					a.setAgent_name(list.get(i).getName());
+				
+					if(map.get(String.valueOf(list.get(i).getMaster_id())).getList_agent() == null)
+					{
+						Map<String, Agent> tmpMapAgent = new HashMap();
+						map.get(String.valueOf(list.get(i).getMaster_id())).setList_agent(tmpMapAgent);
+					}
+					map.get(String.valueOf(list.get(i).getMaster_id())).getList_agent().put(String.valueOf(list.get(i).getId()), a);
+				}
+				
+				//is sub agent
+				else
+				{	
+					SubAgent s = new SubAgent();
+					s.setSub_agent_id(list.get(i).getId());
+					s.setSub_agent_name(list.get(i).getName());
+					
+					Agent agv = map.get(String.valueOf(list.get(i).getMaster_id())).getList_agent().get(String.valueOf(list.get(i).getAgent_id()));
+					if((map.get(String.valueOf(list.get(i).getMaster_id())).getList_agent().get(String.valueOf(list.get(i).getAgent_id()))).getList_sub_agent() == null)
+					{
+						Map<String, SubAgent> tmpMapSubAgent = new HashMap();
+						(map.get(String.valueOf(list.get(i).getMaster_id())).getList_agent().get(String.valueOf(list.get(i).getAgent_id()))).setList_sub_agent(tmpMapSubAgent);
+					}
+					(map.get(String.valueOf(list.get(i).getMaster_id())).getList_agent().get(String.valueOf(list.get(i).getAgent_id()))).getList_sub_agent().put(String.valueOf(list.get(i).getId()), s);
+				}
+				
+			}
+			
+		}
+		Gson gson = new Gson();
+		String js =gson.toJson(map);
+		String str = "{\"statusCode\": 200, \"data\":" +js+"}";
+		
+		return str;
+		
+	}
+	
+	@RequestMapping(value = "/master/add-merchant", method = RequestMethod.POST, produces={"text/plain;charset=UTF-8"})
+	public @ResponseBody String addMerchant(@RequestBody String data) {
+		
+		
+		MerchantInfo info = new Gson().fromJson(data, MerchantInfo.class);
+		UserDTO user = new UserDTO();
+		MerchantsDTO merchant = new MerchantsDTO();
+		user = UtilComponent.ConvertMerchantInfoToUserDTO(info);
+		
+		if(userService.isExistsEmail(user.getUsername()))
+		{
+			return "{\"statusCode\": 400,\"errors\": [{\"fieldName\": \"merchant_code\", \"message\": \"Username đã tồn tại\"}]}";
+		}
+		
+		merchant = UtilComponent.ConvertMerchantInfoToMerchantDTO(info);
+		
+		MerchantsDTO addedMerchant = merchantService.insertMerchantAndUser(merchant, user);
+		
+		Gson gson = new Gson();
+		String js =gson.toJson(addedMerchant);
+		String str = "{\"statusCode\": 200, \"data\":" +js+"}";
+		
+		return str;
+		
+	}
+	
+	
+	@RequestMapping(value = "/master/update-merchant", method = RequestMethod.POST, produces={"text/plain;charset=UTF-8"})
+	public @ResponseBody String updateMerchant(@RequestBody String data) {
+		MerchantsDTO merchant = new Gson().fromJson(data, MerchantsDTO.class);
+		if(merchantService.update(merchant))
+		{
+			Gson gson = new Gson();
+			String js =gson.toJson(merchant);
+			String str = "{\"statusCode\": 200, \"data\":" +js+"}";	
+		
+			return str;
+		}
+		else
+		{
+			return "{\"statusCode\": 400,\"errors\": [{\"message\": \"Cập nhật thất bại\"}]}";
+		}
+	}
+	
+	@RequestMapping(value = "/get-merchant-by-id-and-level/{id}/{level}", method = RequestMethod.GET, produces={"application/json; charset=UTF-8"})
+	public @ResponseBody String getMerchantByIdAndLevel(@PathVariable("id") int id, @PathVariable("level") int level) throws ParseException {
+		MerchantsDTO m = merchantService.getMerchantByIdAndLevel(id, level);
+		if(m != null)
+		{
+			Gson gson = new Gson();
+			String js =gson.toJson(m);
+			String str = "{statusCode: 200, data:" +js+"}";
+			
+			return str;
+		}
+		else
+		{
+			return "{\"statusCode\": 400,\"message\": \"Không tồn tại merchant\"}";
+		}
+		
+	}
+	
+	@RequestMapping(value = "/find/agent", method = RequestMethod.GET,produces={"application/json; charset=UTF-8"})
+	public @ResponseBody String get_agent(@RequestParam("master") int master) throws Exception {
 
+		String json = new Gson().toJson(merchantService.Find_Agent(master));
+
+		return json;
+	}	
+	@RequestMapping(value = "/find/subagent", method = RequestMethod.GET,produces={"application/json; charset=UTF-8"})
+	public @ResponseBody String get_subAgent(@RequestParam("master") int master,@RequestParam("agent") int agent) throws Exception {
+
+		String json = new Gson().toJson(merchantService.Find_subAgent(master, agent));
+
+		return json;
+	}	
+
+	@RequestMapping(value = "/find/merchant", method = RequestMethod.GET,produces={"application/json; charset=UTF-8"})
+	public @ResponseBody String get_merchant(@RequestParam("master") int master,@RequestParam("agent") int agent,@RequestParam("subagent") int subagent) throws Exception {
+
+		String json = new Gson().toJson(merchantService.Find_Merchant(master, agent, subagent));
+
+		return json;
+	}	
 }

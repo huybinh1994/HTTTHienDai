@@ -71,6 +71,26 @@ public class UserServiceImpl implements UserService {
 		//check ok
 		return null;
 	}
+	@Override
+	public Boolean insert(UserDTO user) {
+		// TODO Auto-generated method stub
+		return usDao.insert(user);
+	}
+	@Override
+	public Integer insertGetId(UserDTO user) {
+		// TODO Auto-generated method stub
+		return usDao.insertGetId(user);
+	}
+	@Override
+	public Boolean isExistsEmail(String email) {
+		// TODO Auto-generated method stub
+		return usDao.isExistsEmail(email);
+	}
+	@Override
+	public int changePassword(int id, String oldPass, String newPass) {
+		// TODO Auto-generated method stub
+		return usDao.changePassword(id, oldPass, newPass);
+	}
 	
 	
 
