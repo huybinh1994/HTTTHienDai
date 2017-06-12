@@ -24,4 +24,5 @@ public interface MerchantService {
 	public List<MerchantsDTO> Find_subAgent(int masterId , int agentId);
 	public List<MerchantsDTO> Find_Merchant(int masterId, int agentId,int subAgentId);
 	public Boolean update(MerchantsDTO m);
+	public List<MerchantsDTO> getbyid(int i);
 }

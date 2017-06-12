@@ -76,5 +76,9 @@ public class MerchantServiceImpl implements MerchantService{
 		// TODO Auto-generated method stub
 		return md.update(m);
 	}
-
+	@Override
+	public List<MerchantsDTO> getbyid(int i) {
+		// TODO Auto-generated method stub
+		return md.getbyid(i);
+	}
 }

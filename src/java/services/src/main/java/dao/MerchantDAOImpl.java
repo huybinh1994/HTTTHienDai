@@ -265,4 +265,23 @@ public class MerchantDAOImpl implements MerchantDAO {
 			return false;
 		}
 	}
+
+	@Override
+	public List<MerchantsDTO> getbyid(int id) {
+		// TODO Auto-generated method stub
+		Session session = sessionFactory.openSession();
+		Transaction tx = session.beginTransaction();
+		try {
+			Query q = session.createQuery("select m from merchants m where m.auther_id = ?");
+			q.setInteger(0, id);
+			List<MerchantsDTO> li = q.list();
+
+			session.getTransaction().commit();
+			return li;
+		} catch (Exception e) {
+			e.printStackTrace();
+			session.getTransaction().rollback();
+			return null;
+		}
+	}
 }

@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import dao.TransactionDAO;
+import model.MasterReportCardtype;
+import model.MasterReportDTO;
 import model.TransactionDTO;
 @Service
 public class TransactionServiceImpl implements TransactionService {
@@ -71,5 +73,16 @@ public class TransactionServiceImpl implements TransactionService {
 		// TODO Auto-generated method stub
 		return tranDAO.Statistic(merchant, mertype, region, code, reportType, startDate, endDate);
 	}
+	@Override
+	public List<MasterReportCardtype> callMasterReportCardtype(String search,String merchan_type, String region ,String level,String code,String fromTime, String toTime) {
+		// TODO Auto-generated method stub
+		return tranDAO.callMastetReportCardtype(search,merchan_type,region,level,code,fromTime,toTime);
+	}
 
+	@Override
+	public List<MasterReportDTO> callMasterReport(String search, String merchan_type, String region, String level,
+			String code, String fromTime, String toTime) {
+		return tranDAO.callMasterReport(search,merchan_type,region,level,code,fromTime,toTime);
+
+	}
 }

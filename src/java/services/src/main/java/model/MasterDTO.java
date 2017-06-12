@@ -15,8 +15,16 @@ public class MasterDTO {
 	private Integer id;
 	@Column(name = "master_name")
 	private String master_name;
+	@Column(name = "auther_id")
+	private int auther_id;
 	public Integer getId() {
 		return id;
+	}
+	public int getAuther_id() {
+		return auther_id;
+	}
+	public void setAuther_id(int auther_id) {
+		this.auther_id = auther_id;
 	}
 	public void setId(Integer id) {
 		this.id = id;
