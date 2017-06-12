@@ -195,6 +195,26 @@ public class MerchantController {
 		
 	}
 	
+	
+	@RequestMapping(value = "/merchant/update", method = RequestMethod.POST, produces={"text/plain;charset=UTF-8"})
+	public @ResponseBody String updateMerchant(@RequestBody String data) {
+		MerchantsDTO merchant = new Gson().fromJson(data, MerchantsDTO.class);
+		if(merchantService.update(merchant))
+		{
+			Gson gson = new Gson();
+			String js =gson.toJson(merchant);
+			String str = "{\"statusCode\": 200, \"data\":" +js+"}";	
+		
+			return str;
+		}
+		else
+		{
+			return "{\"statusCode\": 400,\"errors\": [{\"message\": \"Cập nhật thất bại\"}]}";
+		}
+	}
+	
+	
+	
 	@RequestMapping(value = "/find/agent", method = RequestMethod.GET,produces={"application/json; charset=UTF-8"})
 	public @ResponseBody String get_agent(@RequestParam("master") int master) throws Exception {
 

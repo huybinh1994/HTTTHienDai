@@ -248,4 +248,21 @@ public class MerchantDAOImpl implements MerchantDAO {
 			return null;
 		}
 	}
+
+	@Override
+	public Boolean update(MerchantsDTO m) {
+		// TODO Auto-generated method stub
+		Session session = sessionFactory.openSession();
+		Transaction tx = session.beginTransaction();
+		try {
+			session.update(m);
+			session.getTransaction().commit();
+			return true;
+		
+		} catch (Exception e) {
+			e.printStackTrace();
+			session.getTransaction().rollback();
+			return false;
+		}
+	}
 }
