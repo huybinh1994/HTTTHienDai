@@ -1,13 +1,13 @@
 package model;
 
 public class Result {
-	private int Status;
+	private int statusCode;
 	private loginDTO data;
 	public int getStatus() {
-		return Status;
+		return statusCode;
 	}
 	public void setStatus(int status) {
-		Status = status;
+		statusCode = status;
 	}
 	
 	public loginDTO getData() {

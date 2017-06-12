@@ -73,8 +73,9 @@ public class UserController {
 	public @ResponseBody String login(@RequestBody String user) {
 		UserDTO us = new Gson().fromJson(user, UserDTO.class);
 		Result rs = new Result();
+		String hash = Sha256.convertSha256(us.getPassword());
 		String gson;
-		if (service.login(us.getUsername(), us.getPassword()) != null) {
+		if (service.login(us.getUsername(), hash) != null) {
 			rs.setStatus(200);		
 			TokensDTO tkDto = service.login(us.getUsername(), us.getPassword());
 			loginDTO loginDTO = new loginDTO();
