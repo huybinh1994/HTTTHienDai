@@ -1,6 +1,6 @@
-<<<<<<< HEAD
 /* vietnamese */
 
+@import 'login';
 @font-face {
     font-family: 'Roboto-Regular';
     src: url('../fonts/Roboto-Regular.ttf');
@@ -32,62 +32,26 @@ body {
     top: 0;
     width: 100%;
     z-index: 1;
-    background: #001C20;
     nav {
-        display: inline-block;
+        background: #001C20;
         color: white;
         height: 70px;
-        
         &:hover {
             color: red;
         }
-
         #page-header-icon {
             @extend .transparent-button;
-
             height: 70px;
             width: 140px;
             color: rgba(255, 255, 255, 1);
             font-size: 36px;
-
             &:hover {
                 color: #10ACC2;
-=======
-#page-body {
-    padding-top: 50px;
-    h1 {
-        margin-bottom: 20px;
-        padding-bottom: 9px;
-        border-bottom: 1px solid #eee;
-    }
-    .sidebar {
-        position: fixed;
-        top: 51px;
-        bottom: 0;
-        left: 0;
-        z-index: 1000;
-        padding: 20px;
-        overflow-x: hidden;
-        overflow-y: auto;
-        /* Scrollable contents if viewport is shorter than content. */
-        border-right: 1px solid #eee;
-        padding-left: 0;
-        padding-right: 0;
-        .nav {
-            margin-bottom: 20px;
-        }
-        .nav-item {
-            width: 100%;
-            +.nav-item {
-                margin-left: 0;
->>>>>>> 9593087fb12bba4e6e2ec9afa573943ea56f96a9
+                #page-header-menu {
+                    left: 0;
+                }
             }
-            &:hover #page-header-menu {
-                left: 0;
-            }
-
         }
-<<<<<<< HEAD
         #page-header-menu {
             position: fixed;
             top: 70px;
@@ -101,24 +65,19 @@ body {
             font-family: "Roboto-Regular";
             font-size: 14px;
             text-align: left;
-            li{
-                position: relative;
-                .fa {
-                    position: absolute;
-                    right: 30px;
-                    top: 5px;
-                    font-size: 18px;
-                }
+            li {
                 a {
                     color: #4b4b4b;
                     display: block;
-                    padding: 5px 30px; 
-                    &:hover, &:focus {
+                    padding: 5px 30px;
+                    &:hover,
+                    &:focus {
                         text-decoration: none;
                     }
                     &.item {
                         line-height: 20px;
-                        &:hover, &.active {
+                        &:hover,
+                        &.active {
                             background-color: #10ACC2;
                             color: #FFF
                         }
@@ -135,20 +94,10 @@ body {
             }
         }
     }
-
-    .avatar-wrap {
-        
-    }
 }
 
 #page-body {
     margin: 85px 0 0 0;
-=======
-        .nav-link {
-            border-radius: 0;
-        }
-    }
->>>>>>> 9593087fb12bba4e6e2ec9afa573943ea56f96a9
     .placeholders {
         padding-bottom: 3rem;
         img {
@@ -162,14 +111,14 @@ body {
     position: relative;
 }
 
-.loading{
+.loading {
     position: absolute;
     top: 0;
     right: 0;
     bottom: 0;
     left: 0;
-    background: rgba(255,255,255, 0.8);
-
+    background: rgba(255, 255, 255, 0.8);
+    display: none;
     &:before {
         content: "";
         background-image: url("../images/loading.svg");
@@ -180,4 +129,82 @@ body {
         left: 50%;
         margin: -60px 0 0 -60px;
     }
+}
+
+.required-simple,
+label.form-control-error {
+    color: red;
+}
+
+label.form-control-error {
+    font-size: 13px;
+    font-family: "Roboto-LightItalic";
+    margin: 0;
+}
+
+input.form-control-success {
+    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'%3E%3Cpath fill='%235cb85c' d='M2.3 6.73L.6 4.53c-.4-1.04.46-1.4 1.1-.8l1.1 1.4 3.4-3.8c.6-.63 1.6-.27 1.2.7l-4 4.6c-.43.5-.8.4-1.1.1z'/%3E%3C/svg%3E")
+}
+
+.horizontal-separator {
+    display: block;
+    height: 1px;
+    background-color: #c9c9c9;
+    margin: 5px 30px;
+}
+
+.input-daterange {
+    .from-date,
+    .to-date {
+        width: 45%;
+        display: inline-block;
+    }
+    .input,
+    .group-addon {
+        width: 10%;
+        display: inline-block;
+        text-align: center;
+    }
+}
+
+.transparent-button {
+    background: transparent;
+    outline: none;
+    border: none;
+    padding: 0;
+    margin: 0;
+    &:focus {
+        border: none;
+        outline: none;
+    }
+}
+
+.icon-button {
+    @extend .transparent-button;
+    &:hover {
+        cursor: pointer;
+    }
+}
+
+.summary-list {
+    .item {
+        width: 50%;
+        display: inline-block;
+        text-align: center;
+    }
+}
+
+.card-header,
+.card-title {
+    font-family: "Roboto-Bold"
+}
+
+#merchant-statistic {
+    .card-title {
+        text-align: center;
+    }
+}
+
+.hide {
+    display: none;
 }

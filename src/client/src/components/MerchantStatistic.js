@@ -1,14 +1,28 @@
 import React, { Component } from 'react';
+import { BootstrapGroup } from './CustomFields.js';
 
-class MerchantList extends Component {
-<<<<<<< HEAD
+//Test data.
+import { locations, Messages, merchantTypes, reportTypes, months, quarters, years, card_typs } from '../../test/DataSource.js';
+
+import { getAgentListFromMaster, getUser, getStatisticNormalDate, getStatisticCardNormalDate, displayLoading, hideLoading } from '../actions.js';
+
+class MerchantStatistic extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
             regions: null,
             merchant_types: null,
-            report_types: null
+            report_types: null,
+            report_type: null,
+            agent_list: null,
+
+            months: null,
+            quarters: null,
+            years: null,
+
+            statistic: null,
+            statistic_card: null 
         }
     }
 
@@ -42,6 +56,8 @@ class MerchantList extends Component {
     }
 
     componentDidMount() {
+
+        var _this = this;
         $(".datepicker").datepicker({
             "format": "yyyy-mm-dd",
             calendarWeeks: true,
@@ -49,7 +65,7 @@ class MerchantList extends Component {
             todayHighlight: true
         });
 
-        Highcharts.chart('card-type-statistic', {
+        let chart1 = Highcharts.chart('card-type-statistic', {
             chart: {
                 plotBackgroundColor: null,
                 plotBorderWidth: null,
@@ -94,7 +110,7 @@ class MerchantList extends Component {
             }]
         });
 
-        Highcharts.chart('region-statistic', {
+        let chart2 = Highcharts.chart('region-statistic', {
             chart: {
                 plotBackgroundColor: null,
                 plotBorderWidth: null,
@@ -122,38 +138,74 @@ class MerchantList extends Component {
                 colorByPoint: true,
                 data: [{
                     name: 'Credit Card',
-                    y: 10.38
+                    y: 5.38
                 }, {
                     name: 'Debit Card',
-                    y: 3.77
+                    y: 2.77
                 }, {
                     name: 'American Express',
-                    y: 0.91
+                    y: 5.91
                 }, {
                     name: 'MasterCard',
-                    y: 0.2
+                    y: 1.2
                 }, {
                     name: 'Discover',
                     y: 1.0
                 }]
             }]
         });
+        let user = getUser();
 
-        $('[data-toggle="tooltip"]').tooltip();
+        getAgentListFromMaster(user.master.id)
+            .then((res) => {
+                if (res.statusCode == 200) {
+                    let agent_list = [{ value: null, text: "==Agent==" }];
+                    res.data.forEach((element) => {
+                        agent_list.push({
+                            value: element.merchant_code,
+                            text: element.merchant_name
+                        });
+                    });
+                    _this.setState({
+                        agent_list: agent_list
+                    })
+                } else {/*DO Nothing.*/ }
+            })
+            .catch((err) => {
+            })
+
+        displayLoading();
+        getStatisticNormalDate("1970-01-01T00:00:00Z", "2017-12-01T00:00:00Z")
+            .then((res) => {
+                _this.setState({
+                    statistic: res
+                });
+                hideLoading();
+                getStatisticCardNormalDate("1970-01-01T00:00:00Z", "2017-12-01T00:00:00Z")
+                    .then((res) => {
+                        _this.setState({
+                            statistic_card: res
+                        });
+                    }).catch((err) => {
+
+                    });
+            })
+            .catch((err) => {
+                hideLoading();
+            });
     }
 
-=======
->>>>>>> 9593087fb12bba4e6e2ec9afa573943ea56f96a9
     render() {
-        return(
-            <div id="merchant-list">
-<<<<<<< HEAD
+        var _this = this;
+        return (
+            <div id="merchant-statistic">
                 <div className="card">
-                    <h3 className="card-header">Danh Sách Merchant</h3>
+                    <h3 className="card-header">Thống Kê Theo Merchant</h3>
 
                     <div className="card-block">
                         <h4 className="card-title">Thông Tin Tìm Kiếm</h4>
                         <form id="merchant_filter" name="merchant_filter">
+
                             <div className="form-group row">
                                 <div className="col-sm-6 input-daterange">
                                     <input type="text" className="form-control datepicker from-date" name="form_date" id="form_date" placeholder="Từ Ngày" />
@@ -161,14 +213,15 @@ class MerchantList extends Component {
                                     <input type="text" className="form-control datepicker to-date" name="to_date" id="to_date" placeholder="Đến Ngày" />
                                 </div>
                             </div>
+
                             <div className="form-group row">
                                 <div className="col-sm-3">
-                                    <BootstrapGroup type="text" name="search_string"
+                                    <BootstrapGroup type="text" name="merchant_code"
                                         options={{
                                             element_only: true
                                         }}
                                         attributes={{
-                                            placeholder: "Thông Tin Merchant"
+                                            placeholder: "Merchant Code"
                                         }}
                                     />
                                 </div>
@@ -188,6 +241,16 @@ class MerchantList extends Component {
                                     />
                                 </div>
                                 <div className="col-sm-3">
+                                    <BootstrapGroup type="select" name="agent_code"
+                                        options={{
+                                            element_only: true,
+                                            options: this.state.agent_list
+                                        }} />
+                                </div>
+                            </div>
+
+                            <div className="form-group row">
+                                <div className="col-sm-3">
                                     <BootstrapGroup type="select" name="report_type"
                                         options={{
                                             element_only: true,
@@ -195,16 +258,43 @@ class MerchantList extends Component {
                                         }}
                                         attributes={{
                                             onChange: (event) => {
-                                                console.log(event.target.value);
-                                                if (event.target.value) {
-                                                    $("#merchant_filter").find(".form-control").attr("disabled", true);
+                                                if (!isNaN(event.target.value)) {
+                                                    _this.setState({
+                                                        report_type: event.target.value
+                                                    })
                                                 } else {
-                                                    $("#merchant_filter").find(".form-control").attr("disabled", false);
+                                                    _this.setState({
+                                                        report_type: null
+                                                    })
                                                 }
                                             }
                                         }}
                                     />
                                 </div>
+                                {this.state.report_type == 1 && <div className="col-sm-3">
+                                    <BootstrapGroup type="select" name="monthly"
+                                        options={{
+                                            element_only: true,
+                                            options: months
+                                        }}
+                                    />
+                                </div>}
+                                {this.state.report_type == 2 && <div className="col-sm-3">
+                                    <BootstrapGroup type="select" name="quarterly"
+                                        options={{
+                                            element_only: true,
+                                            options: quarters
+                                        }}
+                                    />
+                                </div>}
+                                {this.state.report_type && <div className="col-sm-3">
+                                    <BootstrapGroup type="select" name="Yearly"
+                                        options={{
+                                            element_only: true,
+                                            options: years
+                                        }}
+                                    />
+                                </div>}
                             </div>
 
                             <button type="submit" className="btn btn-primary">Đồng ý</button>
@@ -247,163 +337,89 @@ class MerchantList extends Component {
                                     <tr>
                                         <th>#</th>
                                         <th>Tên Merchant</th>
-                                        <th>Tổng Doanh Thu</th>
-                                        <th>Số Lượng Hàng</th>
+                                        <th>Tổng Tiền Bán Hàng</th>
+                                        <th>Số Lượng Bán Hàng</th>
+                                        <th>Tổng Tiền Trả Hàng</th>
+                                        <th>Số Lượng Trả Hàng</th>
                                         <th>&nbsp;</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td>1,001</td>
-                                        <td>Lorem</td>
-                                        <td>250.000.000 VND</td>
-                                        <td>120.015</td>
-                                        <td>
-                                            <button type="button" data-toggle="tooltip" data-placement="bottom" title="Tìm kiếm" className="fa fa-search icon-button" aria-hidden="true"></button>
-                                            &nbsp;
+                                    {
+                                        this.state.statistic
+                                        &&
+                                        this.state.statistic.map((element, key) => (
+                                            <tr key={key}>
+                                                <td>{element.merchant_code}</td>
+                                                <td>{element.merchant_name}</td>
+                                                <td>{element.total_amout_sale}</td>
+                                                <td>{element.total_quantity_sale}</td>
+                                                <td>{element.total_amout_return}</td>
+                                                <td>{element.total_quantity_return}</td>
+                                                <td>
+                                                    <button type="button" data-toggle="tooltip" data-placement="bottom" title="Tìm kiếm" className="fa fa-search icon-button" aria-hidden="true"></button>
+                                                    &nbsp;
                                             <button type="button" data-toggle="tooltip" data-placement="bottom" title="Chỉnh sửa thông tin" className="fa fa-pencil-square-o icon-button" aria-hidden="true"></button>
-                                            &nbsp;
+                                                    &nbsp;
                                             <button type="button" data-toggle="tooltip" data-placement="bottom" title="Xóa" className="fa fa-trash-o icon-button" aria-hidden="true"></button>
-                                        </td>
-                                    </tr>
+                                                </td>
+                                            </tr>
+                                        ))
+                                    }
                                 </tbody>
                             </table>
                         </div>
                     </div>
 
-=======
-                <h2>Danh Sách Merchant</h2>
-                <div className="table-responsive">
-                    <table className="table table-striped">
-                        <thead>
-                            <tr>
-                                <th>#</th>
-                                <th>Header</th>
-                                <th>Header</th>
-                                <th>Header</th>
-                                <th>Header</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>1,001</td>
-                                <td>Lorem</td>
-                                <td>ipsum</td>
-                                <td>dolor</td>
-                                <td>sit</td>
-                            </tr>
-                            <tr>
-                                <td>1,002</td>
-                                <td>amet</td>
-                                <td>consectetur</td>
-                                <td>adipiscing</td>
-                                <td>elit</td>
-                            </tr>
-                            <tr>
-                                <td>1,003</td>
-                                <td>Integer</td>
-                                <td>nec</td>
-                                <td>odio</td>
-                                <td>Praesent</td>
-                            </tr>
-                            <tr>
-                                <td>1,003</td>
-                                <td>libero</td>
-                                <td>Sed</td>
-                                <td>cursus</td>
-                                <td>ante</td>
-                            </tr>
-                            <tr>
-                                <td>1,004</td>
-                                <td>dapibus</td>
-                                <td>diam</td>
-                                <td>Sed</td>
-                                <td>nisi</td>
-                            </tr>
-                            <tr>
-                                <td>1,005</td>
-                                <td>Nulla</td>
-                                <td>quis</td>
-                                <td>sem</td>
-                                <td>at</td>
-                            </tr>
-                            <tr>
-                                <td>1,006</td>
-                                <td>nibh</td>
-                                <td>elementum</td>
-                                <td>imperdiet</td>
-                                <td>Duis</td>
-                            </tr>
-                            <tr>
-                                <td>1,007</td>
-                                <td>sagittis</td>
-                                <td>ipsum</td>
-                                <td>Praesent</td>
-                                <td>mauris</td>
-                            </tr>
-                            <tr>
-                                <td>1,008</td>
-                                <td>Fusce</td>
-                                <td>nec</td>
-                                <td>tellus</td>
-                                <td>sed</td>
-                            </tr>
-                            <tr>
-                                <td>1,009</td>
-                                <td>augue</td>
-                                <td>semper</td>
-                                <td>porta</td>
-                                <td>Mauris</td>
-                            </tr>
-                            <tr>
-                                <td>1,010</td>
-                                <td>massa</td>
-                                <td>Vestibulum</td>
-                                <td>lacinia</td>
-                                <td>arcu</td>
-                            </tr>
-                            <tr>
-                                <td>1,011</td>
-                                <td>eget</td>
-                                <td>nulla</td>
-                                <td>Class</td>
-                                <td>aptent</td>
-                            </tr>
-                            <tr>
-                                <td>1,012</td>
-                                <td>taciti</td>
-                                <td>sociosqu</td>
-                                <td>ad</td>
-                                <td>litora</td>
-                            </tr>
-                            <tr>
-                                <td>1,013</td>
-                                <td>torquent</td>
-                                <td>per</td>
-                                <td>conubia</td>
-                                <td>nostra</td>
-                            </tr>
-                            <tr>
-                                <td>1,014</td>
-                                <td>per</td>
-                                <td>inceptos</td>
-                                <td>himenaeos</td>
-                                <td>Curabitur</td>
-                            </tr>
-                            <tr>
-                                <td>1,015</td>
-                                <td>sodales</td>
-                                <td>ligula</td>
-                                <td>in</td>
-                                <td>libero</td>
-                            </tr>
-                        </tbody>
-                    </table>
->>>>>>> 9593087fb12bba4e6e2ec9afa573943ea56f96a9
+                    <div className="horizontal-separator" />
+
+                    <div className="card-block">
+                        <h4 className="card-title">Thông Tin Chi Tiết Theo Card</h4>
+                        <div className="table-responsive">
+                            <table className="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Tên Merchant</th>
+                                        <th>Loại Thẻ</th>
+                                        <th>Tổng Tiền Bán Hàng</th>
+                                        <th>Số Lượng Bán Hàng</th>
+                                        <th>Tổng Tiền Trả Hàng</th>
+                                        <th>Số Lượng Trả Hàng</th>
+                                        <th>&nbsp;</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {
+                                        this.state.statistic_card
+                                        &&
+                                        this.state.statistic_card.map((element, key) => (
+                                            <tr key={key}>
+                                                <td>{element.merchant_code}</td>
+                                                <td>{card_typs[element.card_type]}</td>
+                                                <td>{element.total_amout_sale}</td>
+                                                <td>{element.total_quantity_sale}</td>
+                                                <td>{element.total_amout_return}</td>
+                                                <td>{element.total_quantity_return}</td>
+                                                <td>
+                                                    <button type="button" data-toggle="tooltip" data-placement="bottom" title="Tìm kiếm" className="fa fa-search icon-button" aria-hidden="true"></button>
+                                                    &nbsp;
+                                            <button type="button" data-toggle="tooltip" data-placement="bottom" title="Chỉnh sửa thông tin" className="fa fa-pencil-square-o icon-button" aria-hidden="true"></button>
+                                                    &nbsp;
+                                            <button type="button" data-toggle="tooltip" data-placement="bottom" title="Xóa" className="fa fa-trash-o icon-button" aria-hidden="true"></button>
+                                                </td>
+                                            </tr>
+                                        ))
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
                 </div>
             </div>
         );
     }
 }
 
-export default MerchantList;
+export default MerchantStatistic;
