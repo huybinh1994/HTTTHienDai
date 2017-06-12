@@ -1,0 +1,59 @@
+----thủ tục tìm kiếm merchant, agent , sub agent theo master
+CREATE PROC [dbo].[sp_sel_list_searMerchant]
+@UserID int =0,
+@LoaiXem int =0,
+@Merchant_code nvarchar(250)='',
+@Region nvarchar(250) = '',
+@Merchant_type int =0
+AS
+BEGIN
+-----loai xem = 2 agent --3 sub Agent -- 4 Merchant
+ SELECT * FROM merchants  AS A
+ WHERE (A.merchant_code LIKE '%'+ @Merchant_code +'%' OR @Merchant_code='')
+ AND (a.province in (select * from dbo.fc_getTinhThanh(@Region)) or @Region ='')
+ AND A.level_id =@LoaiXem
+ AND (A.type_id =@Merchant_type or @Merchant_type=0)
+END
+GO
+/****** Object:  StoredProcedure [dbo].[sp_sel_master_search_merchant]    Script Date: 6/12/2017 10:34:41 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROC [dbo].[sp_sel_master_search_merchant]
+@UserID int =0,
+@LoaiXem int =0,
+@Merchant_code nvarchar(250)='0',
+@Region nvarchar(250) = '0',
+@Merchant_type int =0
+AS
+BEGIN
+-----loai xem = 2 agent --3 sub Agent -- 4 Merchant
+IF(@LoaiXem=2)---AGENT
+BEGIN
+ SELECT * FROM merchants  AS A
+ WHERE (A.merchant_code LIKE '%'+ @Merchant_code +'%' OR @Merchant_code='0')
+ AND (a.province in (select * from dbo.fc_getTinhThanh(@Region)) or @Region ='0')
+ AND A.level_id =@LoaiXem
+ AND (A.type_id =@Merchant_type or @Merchant_type=0)
+ AND A.master_id = @UserID
+END
+IF(@LoaiXem=3)
+BEGIN
+ SELECT * FROM merchants  AS A
+ WHERE (A.merchant_code LIKE '%'+ @Merchant_code +'%' OR @Merchant_code='0')
+ AND (a.province in (select * from dbo.fc_getTinhThanh(@Region)) or @Region ='0')
+ AND A.level_id =@LoaiXem
+ AND (A.type_id =@Merchant_type or @Merchant_type=0)
+ AND A.master_id = @UserID
+END
+IF(@LoaiXem=4)
+BEGIN
+SELECT * FROM merchants  AS A
+ WHERE (A.merchant_code LIKE '%'+ @Merchant_code +'%' OR @Merchant_code='0')
+ AND (a.province in (select * from dbo.fc_getTinhThanh(@Region)) or @Region ='0')
+ AND A.level_id =@LoaiXem
+ AND (A.type_id =@Merchant_type or @Merchant_type=0)
+ AND A.master_id = @UserID
+END
+END

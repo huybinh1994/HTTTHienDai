@@ -1,0 +1,31 @@
+- thủ tục lấy danh sách báo cáo theo tiêu chí
+-từ ngày
+-đến ngày
+-loại thông báo : thông báo gởi, thông báo nhận
+
+CREATE PROC [dbo].[sp_sel_list_notes]
+@fDate datetime,
+@tDate datetime,
+@id int,
+@level int,
+@type int
+AS
+BEGIN
+if(@type =1)---xem thong bao goi
+begin
+SELECT * 
+FROM Notes
+WHERE ngaytao between @fDate and @tDate
+AND NGUOI_GOI = @id
+AND LEVEL_NGUOI_GOI = @level
+end
+if(@type= 2)---XEM THONG BAO NHAN
+begin
+SELECT * 
+FROM Notes
+WHERE ngaytao between @fDate and @tDate
+AND NGUOI_NHAN =@id
+AND LEVEL_NGUOI_NHAN = @level
+end
+END
+GO

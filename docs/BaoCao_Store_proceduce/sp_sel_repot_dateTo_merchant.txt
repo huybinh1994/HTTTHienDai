@@ -1,0 +1,100 @@
+-----thủ tục báo cáo doanh thu , trả hàng của merchant theo tiêu chí
+-Từ ngày
+-Đến ngày
+-Master or Agent 
+- Điều kiên lọc merchant theo code , loại ,vùng miền
+CREATE proc  [dbo].[sp_sel_repot_dateTo_merchant_card_type] 
+@Merchant_code nvarchar(250) ='',
+@Merchant_type int =0,
+@Region nvarchar(250)='',
+@Code nvarchar(250)='',---tham so cua thang cha la master or agent
+@TuNgay Datetime,
+@DenNgay datetime
+AS
+BEGIN
+DECLARE @TblBanHang table( merchant_name nvarchar(max),merchant_code nvarchar(max),
+                           card_type int,  total_quantity_sale int, total_amout_sale float)
+DECLARE @TblTraHang table(merchant_name nvarchar(max),merchant_code nvarchar(max),
+                           card_type int,total_quantity_return int, total_amout_return float)
+---- LAY DUOC DANH SACH ID THEO MATER VA LOAI BAO CAO
+DECLARE @TblTransactionsTemp_BH table (merchant_code varchar(250), card_type int, product_quanlity float, product_price float)
+DECLARE @TblTransactionsTemp_TH table (merchant_code varchar(250), card_type int, product_quanlity float, product_price float)
+
+
+
+	INSERT INTO @TblTransactionsTemp_BH(merchant_code,card_type, product_quanlity,product_price)
+	SELECT merchant_code, card_type, product_quantity,product_price  FROM transactions
+	WHERE merchant_code LIKE @Code +'%' 
+	AND TRANSACTION_TYPE = 1 
+	AND convert( varchar(10), cast( @TuNgay AS DATE) ,111)<=convert( varchar(10), cast( transaction_date AS DATE) ,111)
+	AND convert( varchar(10), cast( @DenNgay AS DATE) ,111)> convert( varchar(10), cast( transaction_date AS DATE) ,111)
+
+
+	INSERT INTO @TblTransactionsTemp_TH(merchant_code,card_type,  product_quanlity,product_price)
+	SELECT merchant_code, card_type, product_quantity,product_price  FROM transactions
+	WHERE merchant_code LIKE @Code +'%' 
+	AND TRANSACTION_TYPE = 2
+	AND convert( varchar(10), cast( @TuNgay AS DATE) ,111)<=convert( varchar(10), cast( transaction_date AS DATE) ,111)
+	AND convert( varchar(10), cast( @DenNgay AS DATE) ,111)> convert( varchar(10), cast( transaction_date AS DATE) ,111)
+	
+
+	INSERT INTO  @TblBanHang(merchant_name,merchant_code,card_type, total_quantity_sale,total_amout_sale)
+	SELECT  B.merchant_name,A.merchant_code,A.card_type, SUM(ISNULL(A.product_quanlity,0)) AS total_quantity_sale , SUM(ISNULL(A.product_price*A.product_quanlity,0)) AS total_amout_sale
+	FROM @TblTransactionsTemp_BH AS A JOIN merchants AS B ON A.merchant_code = B.merchant_code 
+	WHERE (B.merchant_code = @Merchant_code OR @Merchant_code = '')
+	AND (B.type_id = @Merchant_type OR @Merchant_type = '')
+	AND (B.province IN (SELECT KeyID FROM dbo.fc_getTinhThanh(@Region)) OR @Region = '')
+	AND b.level_id = 4
+	GROUP BY  B.merchant_name,A.merchant_code,A.card_type
+
+	INSERT INTO  @TblTraHang(merchant_name,merchant_code,card_type, total_quantity_return,total_amout_return)
+	SELECT B.merchant_name,A.merchant_code,A.card_type,SUM(ISNULL(A.product_quanlity,0)) AS total_amout_return , SUM(ISNULL(A.product_price*A.product_quanlity,0)) AS total_amout_return
+	FROM @TblTransactionsTemp_TH AS A JOIN merchants AS B ON A.merchant_code = B.merchant_code 
+	WHERE (B.merchant_code = @Merchant_code OR @Merchant_code = '')
+	AND (B.type_id = @Merchant_type OR @Merchant_type = 0)
+	AND (B.province IN (SELECT KeyID FROM dbo.fc_getTinhThanh(@Region)) OR @Region = '')
+	AND b.level_id =4
+	GROUP BY  B.merchant_name,A.merchant_code,A.card_type
+	
+	------SELECT TONG HOP 
+	DECLARE @TblResult table (merchant_name nvarchar(250),merchant_code nvarchar(250), card_type int,
+	total_quantity_sale int ,total_quantity_return int ,total_amout_sale float,total_amout_return float)
+	SELECT  ISNULL(BH.merchant_name,'') AS bh_Merchant_name , ISNULL(BH.merchant_code,'')as bh_merchant_code,
+	ISNULL( TH.merchant_name,'') as th_merchant_name,ISNULL(TH.merchant_code,'') as th_merchant_code,
+	ISNULL(BH.card_type,0) AS bh_card_type , ISNULL(th.card_type,0) as th_card_type,
+	isnull(BH.total_quantity_sale,0) as total_quantity_sale,isnull(TH.total_quantity_return,0) as total_quantity_return ,
+	isnull(bh.total_amout_sale,0) as total_amout_sale ,isnull(TH.total_amout_return,0) as total_amout_return
+	INTO #TblResultTemp
+	FROM @TblBanHang AS BH full outer JOIN @TblTraHang AS TH ON BH.merchant_code = TH.merchant_code
+	---------
+	select isnull(a.merchant_code,'') as bh_merchant_code , isnull(a.merchant_name,'') as bh_merchant_name , isnull(a.card_type,0) as bh_card_type,
+	isnull(b.merchant_code,'') as th_merchant_code , isnull(b.merchant_name,'') as th_merchant_name , isnull(b.card_type,0) as th_card_type,
+	isnull(a.total_quantity_sale,0) as bh_total_quantity_sale , isnull(a.total_amout_sale,0) as bh_total_amout_sale ,
+	isnull(b.total_quantity_return,0) as th_total_quantity_return ,isnull(b.total_amout_return,0) as th_total_amout_return
+    into #TblResultTemp1
+	from @TblBanHang  as a full outer join @TblTraHang as b on  a.merchant_code = b.merchant_code
+
+	
+	
+   INSERT INTO @TblResult(merchant_name,merchant_code,card_type,total_quantity_sale,total_quantity_return,
+	total_amout_sale,total_amout_return)
+	SELECT 
+			CASE WHEN bh_Merchant_name = '' THEN th_merchant_name
+            ELSE bh_Merchant_name END AS merchant_name,
+			CASE WHEN bh_merchant_code = '' THEN  th_merchant_code
+            ELSE  bh_merchant_code END AS merchant_code,
+			CASE WHEN bh_card_type = 0 THEN th_card_type
+            ELSE  bh_card_type END AS card_type,
+		
+			bh_total_quantity_sale,
+			th_total_quantity_return,
+			bh_total_amout_sale,
+			th_total_amout_return
+			
+	FROM #TblResultTemp1
+
+	SELECT * FROM @TblResult
+
+END
+
+GO

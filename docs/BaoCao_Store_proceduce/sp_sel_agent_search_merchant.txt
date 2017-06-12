@@ -1,0 +1,31 @@
+
+-----tìm kiếm merchant theo agent
+
+CREATE PROC [dbo].[sp_sel_agent_search_merchant]
+@UserID int =0,
+@LoaiXem int =0,
+@Merchant_code nvarchar(250)='0',
+@Region nvarchar(250) = '0',
+@Merchant_type int =0
+AS
+BEGIN
+-----loai xem = 2 agent --3 sub Agent -- 4 Merchant
+IF(@LoaiXem=3)---AGENT
+BEGIN
+ SELECT * FROM merchants  AS A
+ WHERE (A.merchant_code LIKE '%'+ @Merchant_code +'%' OR @Merchant_code='0')
+ AND (a.province in (select * from dbo.fc_getTinhThanh(@Region)) or @Region ='0')
+ AND A.level_id =@LoaiXem
+ AND (A.type_id =@Merchant_type or @Merchant_type=0)
+ AND A.agent_id = @UserID
+END
+IF(@LoaiXem=4)
+BEGIN
+SELECT * FROM merchants  AS A
+ WHERE (A.merchant_code LIKE '%'+ @Merchant_code +'%' OR @Merchant_code='0')
+ AND (a.province in (select * from dbo.fc_getTinhThanh(@Region)) or @Region ='0')
+ AND A.level_id =@LoaiXem
+ AND (A.type_id =@Merchant_type or @Merchant_type=0)
+ AND A.agent_id = @UserID
+END
+END
