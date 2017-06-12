@@ -47,6 +47,9 @@ public class MyFilter implements Filter {
 //			}
 //		}
 		try {
+			if(headerNames != null){
+				res.sendRedirect("/DoAnCuoiKy/checkAutherFail");
+			}
 			if (checkToken(headerNames)) {
 				chain.doFilter(req, resp);
 			}
